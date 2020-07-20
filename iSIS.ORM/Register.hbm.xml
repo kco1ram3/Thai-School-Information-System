@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Register,iSISModel" table="Register">
+
+    <!-- Primary key-->
+    <id name="ID" column="RegisterID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Semesters" column="SemesterID" class="iSISModel.Semester,iSISModel" />
+    <many-to-one name="Schools" column="SchoolID" class="iSISModel.School,iSISModel"/>
+    <many-to-one name="Users" column="UserID" class="iSISModel.User,iSISModel" />
+
+    <property name="Subject_Amount" />
+    <property name="Create_Date" />
+    <property name="Update_Date" />
+
+  </class>
+
+</hibernate-mapping>

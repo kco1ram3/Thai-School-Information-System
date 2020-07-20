@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.ReceiptTemplateItem,iSISModel" table="ReceiptTemplateItem">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <property name="SeqNo"/>
+    <property name="DefaultAmount"/>
+    <property name="DefaultAmountPerUnit"/>
+    <property name="DefaultUnits"/>
+   
+
+    <many-to-one name="ReceiptTemplate" column="ReceiptTemplateID" class="iSISModel.ReceiptTemplate,iSISModel" />
+    <many-to-one name="ReceivableItem" column="ReceivableItemID" class="iSISModel.ReceivableItem,iSISModel" />
+   
+
+    <!--<property name="Date"/>
+
+    <bag name="ReceiptItems" table="ReceiptItem" lazy="true">
+      <key column="ReceiptID"/>
+      <one-to-many class="iSISModel.ReceiptItem, iSISModel"/>
+    </bag>-->
+  </class>
+</hibernate-mapping>

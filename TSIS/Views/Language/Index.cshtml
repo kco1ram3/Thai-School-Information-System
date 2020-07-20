@@ -1,0 +1,9 @@
+﻿@using TSIS.Models
+@model IEnumerable<iSISModel.Language>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("LanguageSetup");
+}
+
+<h2>@ModelsRepository.GetLabel("LanguageSetup")</h2>
+
+@Html.Partial("_GridViewLanguageSetup", Model)

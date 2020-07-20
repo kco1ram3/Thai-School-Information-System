@@ -1,0 +1,19 @@
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.ORM\bin\Debug\iSISORM.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.ORM\bin\Debug\iSISORM.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.ORM\obj\Debug\iSISORM.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.ORM\obj\Debug\iSISORM.pdb
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.ORM\bin\Debug\iSISORM.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.ORM\bin\Debug\iSISORM.pdb
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.ORM\obj\Debug\iSIS.ORM.csprojResolveAssemblyReference.cache
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.ORM\obj\Debug\iSISORM.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.ORM\obj\Debug\iSISORM.pdb
+D:\Projects\iSIS\iSIS.ORM\bin\Debug\iSISORM.dll
+D:\Projects\iSIS\iSIS.ORM\bin\Debug\iSISORM.pdb
+D:\Projects\iSIS\iSIS.ORM\obj\Debug\iSIS.ORM.csprojResolveAssemblyReference.cache
+D:\Projects\iSIS\iSIS.ORM\obj\Debug\iSISORM.dll
+D:\Projects\iSIS\iSIS.ORM\obj\Debug\iSISORM.pdb
+D:\Projects\Merge\iSIS.ORM\bin\Debug\iSISORM.dll
+D:\Projects\Merge\iSIS.ORM\bin\Debug\iSISORM.pdb
+D:\Projects\Merge\iSIS.ORM\obj\Debug\iSIS.ORM.csprojResolveAssemblyReference.cache
+D:\Projects\Merge\iSIS.ORM\obj\Debug\iSISORM.dll
+D:\Projects\Merge\iSIS.ORM\obj\Debug\iSISORM.pdb

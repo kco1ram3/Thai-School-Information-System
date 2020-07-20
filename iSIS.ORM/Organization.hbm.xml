@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.Organization,iSISModel" table="Organization" discriminator-value="1">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <discriminator column="Discriminator" type="byte" />
+
+    <!--Begin Organization-->
+
+    <!--<component name="CreateAction" class="iSISModel.UserAction,iSISModel">
+      <many-to-one name="User" class="iSISModel.User,iSISModel" column="CreatedBy" fetch="join"/>
+      <property name="ActionTS" column="CreatedTS" />
+    </component>
+    <component name="ApproveAction" class="iSISModel.UserAction,iSISModel">
+      <many-to-one name="User" class="iSISModel.User,iSISModel" column="ApprovedBy" fetch="join"/>
+      <property name="ActionTS" column="ApprovedTS" />
+    </component>-->
+    <property name="FiscalYearEndDate" />
+    <many-to-one name="ChartOfAccount" column="ChartOfAccountID" class="iSISModel.Accounting.AccountCategory,iSISModel" />
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange,iSISModel" >
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <property name="Reference" />
+    <property name="Remark" />
+
+    <bag name="Addresses" table="PartyAddress" lazy="true" cascade="delete" where="PartyDiscriminator=10">
+      <key column="PartyID"/>
+      <one-to-many class="iSISModel.PartyAddress, iSISModel"/>
+    </bag>
+    <many-to-one name="Category" column="CategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <property name="EmailAddress" />
+    <bag name="Identities" table="PartyIdentity" lazy="true" cascade="delete" where="PartyDiscriminator=10">
+      <key column="PartyID"/>
+      <one-to-many class="iSISModel.PartyIdentity,iSISModel"/>
+    </bag>
+    <property name="OfficialIDNo" />
+
+    <many-to-one name="CurrentName" column="CurrentNameID" class="iSISModel.OrgName,iSISModel" />
+    <!--<property name="Code" column="Code" type="String"  not-null="true" />-->
+    <!--<many-to-one name="HolidayCalendar" column="HolidayCalendarID" class="iSISModel.TimeSchedule,iSISModel" access="field.camelcase"/>-->
+    <bag name="Names" table="OrgName" lazy="true" cascade="delete" >
+      <key column="OrganizationID"/>
+      <one-to-many class="iSISModel.OrgName,iSISModel"/>
+    </bag>
+    <property name="URL" column="URL" type="String" />
+    <bag name="Users" table="User" lazy="true" cascade="delete" >
+      <key column="OrganizationID"/>
+      <one-to-many class="iSISModel.User,iSISModel"/>
+    </bag>
+    <!--End Organization-->
+
+    <subclass name="iSISModel.School,iSISModel" discriminator-value="2" >
+      <!--<many-to-one name="ClassLevel" column="ClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>-->
+      <many-to-one name="SupervisoryOrganization" column="SupervisoryOrganizationID" class="iSISModel.HierarchicalCategory,iSISModel"/>
+      <many-to-one name="MaxClassLevel" column="MaxClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>
+      <many-to-one name="MinClassLevel" column="MinClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>
+
+      <bag name="ClassLevelSections" table="ClassLevelSection" cascade="delete" >
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.ClassLevelSection,iSISModel"/>
+      </bag>
+
+      <bag name="ReceiptTemplates" table="ReceiptTemplate" lazy="true" cascade="delete">
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.ReceiptTemplate,iSISModel"/>
+      </bag>
+
+      <bag name="ReceivableItems" table="ReceivableItem" lazy="true" cascade="delete">
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.ReceivableItem,iSISModel"/>
+      </bag>
+
+      <bag name="Rooms" table="PhysicalRoom" lazy="true" cascade="delete">
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.PhysicalRoom,iSISModel"/>
+      </bag>
+
+      <bag name="Semesters" table="Semester" lazy="true" order-by="ID asc" cascade="delete">
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.Semester,iSISModel"/>
+      </bag>
+
+      <bag name="Admissions" table="Admission" lazy="true" order-by="ID asc" cascade="delete">
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.Admission,iSISModel"/>
+      </bag>
+
+      <bag name="Curriculums" table="Curriculum" lazy="true" order-by="ID asc" cascade="delete">
+        <key column="SchoolID"/>
+        <one-to-many class="iSISModel.Curriculum,iSISModel"/>
+      </bag>
+    </subclass>
+
+  </class>
+</hibernate-mapping>

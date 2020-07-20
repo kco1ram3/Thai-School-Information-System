@@ -1,0 +1,231 @@
+﻿@using TSIS.Models
+@model iSISModel.Teacher
+@{
+    ViewBag.Title = ModelsRepository.GetLabel((string)ViewData["FormType"]) + " " + ModelsRepository.GetLabel("TeacherData");
+}
+
+<h2>@ModelsRepository.GetLabel((string)ViewData["FormType"])&nbsp;@ModelsRepository.GetLabel("TeacherData")</h2>
+
+<style>
+    #row_data table tbody {
+        vertical-align: top;
+    }
+
+        #row_data table tbody td {
+            padding: 5px;
+        }
+</style>
+
+@using (Html.BeginForm())
+{
+    <div id="row_data">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("OfficialIDNo", "OfficialIDNo")).GetHtml()
+                        @Html.DevExpress().TextBoxFor(model => model.Person.OfficialIDNo).GetHtml()
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Prefix", "Prefix")).GetHtml()
+                        @if (Model.Person.CurrentName == null)
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Prefix" } })
+                        }
+                        else
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Person.CurrentName.Prefix, new ViewDataDictionary(this.ViewData) { { "Name", "Prefix" } })
+                        }
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("MiddleName", "MiddleName")).GetHtml()
+                        @if (Model.Person.CurrentName == null)
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "MiddleName" } })
+                        }
+                        else
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Person.CurrentName.MiddleName, new ViewDataDictionary(this.ViewData) { { "Name", "MiddleName" } })
+                        }
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("FirstName", "FirstName")).GetHtml()
+                        @if (Model.Person.CurrentName == null)
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "FirstName" } })
+                        }
+                        else
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Person.CurrentName.FirstName, new ViewDataDictionary(this.ViewData) { { "Name", "FirstName" } })
+                        }
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LastName", "LastName")).GetHtml()
+                        @if (Model.Person.CurrentName == null)
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "LastName" } })
+                        }
+                        else
+                        {
+                            @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Person.CurrentName.LastName, new ViewDataDictionary(this.ViewData) { { "Name", "LastName" } })
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("BloodGroup", "BloodGroup")).GetHtml()
+                        @Html.DevExpress().ComboBox(
+                            settings =>
+                            {
+                                settings.Name = "ComboBoxBloodGroup";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(int);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (Model.Person.BloodGroup != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = Model.Person.BloodGroup.ID;
+                                    }
+                                };
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.HierarchicalCategory>)ViewData["BloodGroup"])).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Nationality", "Nationality")).GetHtml()
+                        @Html.DevExpress().ComboBoxFor(model => model.Person.CitizenOf.Alpha3Code,
+                            settings =>
+                            {
+                                settings.Name = "ComboBoxNationality";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(string);
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.Country>)ViewData["Nationality"])).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Email", "Email")).GetHtml()
+                        @Html.DevExpress().TextBoxFor(model => model.Person.EmailAddress).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Gender", "Gender")).GetHtml()
+                        @Html.DevExpress().ComboBox(
+                            settings =>
+                            {
+                                settings.Name = "ComboBoxGender";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(int);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (Model.Person.Gender != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = Model.Person.Gender.ID;
+                                    }
+                                };
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.HierarchicalCategory>)ViewData["GenderCategory"])).GetHtml()
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("HomePhoneNo", "HomePhoneNo")).GetHtml()
+                        @Html.DevExpress().TextBoxFor(model => model.Person.HomePhoneNo).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("MobilePhoneNo", "MobilePhoneNo")).GetHtml()
+                        @Html.DevExpress().TextBoxFor(model => model.Person.MobilePhoneNo).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Race", "Race")).GetHtml()
+                        @Html.DevExpress().ComboBox(
+                            settings =>
+                            {
+                                settings.Name = "ComboBoxRace";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(int);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (Model.Person.Race != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = Model.Person.Race.ID;
+                                    }
+                                };
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.HierarchicalCategory>)ViewData["RaceCategory"])).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Religion", "Religion")).GetHtml()
+                        @Html.DevExpress().ComboBox(
+                            settings =>
+                            {
+                                settings.Name = "ComboBoxReligion";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(int);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (Model.Person.Religion != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = Model.Person.Religion.ID;
+                                    }
+                                };
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.HierarchicalCategory>)ViewData["ReligionCategory"])).GetHtml()
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Birthday", "Birthday")).GetHtml()
+                        @Html.DevExpress().DateEditFor(model => model.Person.BirthDate,
+                            settings =>
+                            {
+                                //settings.Properties.DisplayFormatString = "dd/MM/yyyy";
+                            }).GetHtml()
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        @Html.Partial("~/Views/Shared/_PartyAddress.cshtml", Model.Person.Addresses)
+    </div>
+    <p>
+        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Experiences", "Experiences")).GetHtml()
+        @Html.Partial("~/Areas/Teacher/Views/Experiences/_GridViewExperiences.cshtml", Model)
+    </p>
+    <p>
+        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Educations", "Educations")).GetHtml()
+        @Html.Partial("~/Areas/Teacher/Views/Educations/_GridViewEducations.cshtml", Model)
+    </p>
+    <p>
+        @Html.DevExpress().Label(LabelControl.GetSettingsTopic("RoyalDecorations", "RoyalDecorations")).GetHtml()
+        @Html.Partial("~/Areas/Teacher/Views/RoyalDecorations/_GridViewRoyalDecorations.cshtml", Model)
+    </p>
+    <p>
+        @Html.DevExpress().Button(
+            settings =>
+            {
+                settings.Name = "btnSave";
+                settings.Text = ModelsRepository.GetLabel((string)ViewData["FormType"]);
+                settings.UseSubmitBehavior = true;
+            }
+        ).GetHtml()
+    </p>
+}

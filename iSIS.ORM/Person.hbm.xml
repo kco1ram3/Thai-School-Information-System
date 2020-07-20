@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Person,iSISModel" table="Person">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int32" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange,iSISModel" >
+      <property name="From" column="BirthDate"/>
+      <property name="To" column="DeceasedDate"/>
+    </component>
+    <property name="Reference" />
+    <property name="Remark" />
+
+    <many-to-one name="CurrentName" column="CurrentNameID" cascade="save-update, delete" class="iSISModel.PersonName, iSISModel" access="field.camelcase" />
+    <bag name="Addresses" table="PartyAddress" lazy="true" cascade="save-update, delete" where="PartyDiscriminator=20" >
+      <key column="PartyID"/>
+      <one-to-many class="iSISModel.PartyAddress, iSISModel"/>
+    </bag>
+    <bag name="Identities" table="PartyIdentity" lazy="true" cascade="save-update, delete" where="PartyDiscriminator=20" >
+      <key column="PartyID"/>
+      <one-to-many class="iSISModel.PartyIdentity, iSISModel"/>
+    </bag>
+    <many-to-one name="BloodGroup" column="BloodGroupNodeID" class="iSISModel.HierarchicalCategory, iSISModel" />
+    <many-to-one name="CitizenOf" column="CitizenOfCountryID" class="iSISModel.Country, iSISModel" />
+    <property name="EmailAddress" />
+    <!--<property name="Faxes" />-->
+    <many-to-one name="Gender" column="GenderID" class="iSISModel.HierarchicalCategory, iSISModel" />
+    <property name="HomePhoneNo" />
+    <bag name="Names" table="PersonName" cascade="save-update, delete" lazy="true" access="field.camelcase">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.PersonName, iSISModel"/>
+    </bag>
+    <property name="MobilePhoneNo" />
+    <many-to-one name="Occupation" column="OccupationID" class="iSISModel.HierarchicalCategory, iSISModel" />
+    <property name="OfficialIDNo" />
+    <many-to-one name="Race" column="RaceID" class="iSISModel.HierarchicalCategory, iSISModel" />
+    <many-to-one name="Religion" column="ReligionID" class="iSISModel.HierarchicalCategory, iSISModel" />
+    <!--<property name="URL" />-->
+
+    <bag name="PersonRelationships" table="InterPersonRelation" lazy="true" cascade="save-update, delete">
+      <key column="PrimaryPersonID"/>
+      <one-to-many class="iSISModel.InterPersonRelation, iSISModel"/>
+    </bag>
+    <bag name="AcademicAchievements" table="AcademicAchievement" lazy="true" cascade="save-update, delete">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.AcademicAchievement, iSISModel"/>
+    </bag>
+
+    <bag name="AcademicEventParticipations" table="AcademicEventParticipation" lazy="true" cascade="save-update, delete">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.AcademicEventParticipation, iSISModel"/>
+    </bag>
+
+    <bag name="Educations" table="Education" lazy="true" cascade="save-update, delete">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.Education, iSISModel"/>
+    </bag>
+
+    <bag name="Experiences" table="Experience" lazy="true" cascade="save-update, delete">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.Experience, iSISModel"/>
+    </bag>
+
+    <bag name="RoyalDecorations" table="RoyalDecoration" lazy="true" cascade="save-update, delete">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.RoyalDecoration, iSISModel"/>
+    </bag>
+
+    <bag name="Photos" table="Photo" lazy="true" cascade="save-update, delete">
+      <key column="PersonID"/>
+      <one-to-many class="iSISModel.Photo, iSISModel"/>
+    </bag>
+  </class>
+</hibernate-mapping>

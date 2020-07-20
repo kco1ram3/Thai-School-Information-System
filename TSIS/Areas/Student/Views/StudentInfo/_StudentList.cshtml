@@ -1,0 +1,227 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+@using TSIS.Classes
+@model IList<iSISModel.Student>
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gridviewStudentList";
+        settings.KeyFieldName = "ID";
+        settings.CallbackRouteValues = new { Controller = "StudentInfo", Action = "StudentList" };
+        settings.Width = Unit.Percentage(100);
+        //settings.AccessKey = "G";   // Ctrl + Shift + G
+        //settings.KeyboardSupport = false;
+        //settings.SettingsBehavior.AllowSelectByRowClick = true;
+        //settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.ClientSideEvents.FocusedRowChanged = "OnGridFocusedRowChanged";
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+        settings.Columns.Add(column =>
+        {
+            //column.Caption = "#";
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("New"), "Create").ToHtmlString()
+                );
+            });
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("Edit"), "Update", new { id = DataBinder.Eval(c.DataItem, "ID") }) + "&nbsp;|&nbsp;" +
+                    Html.ActionLink(ModelsRepository.GetLabel("Delete"), "Delete", new { id = DataBinder.Eval(c.DataItem, "ID") }
+                        , new { onclick = "return confirm('" + ModelsRepository.GetLabel("ConfirmDelete") + "')" }
+                    )
+                );
+            });
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(DataBinder.Eval(c.DataItem, "IDNo"));
+            });
+            column.Caption = ModelsRepository.GetLabel("StudentID");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Width = 100;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                var PersonPrefix = string.Empty;
+                if ((DataBinder.Eval(c.DataItem, "Person") != null) && (DataBinder.Eval(c.DataItem, "Person.CurrentName") != null))
+                    PersonPrefix = ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Person.CurrentName.Prefix")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage));
+                ViewContext.Writer.Write(PersonPrefix);
+            });
+            column.Caption = ModelsRepository.GetLabel("Prefix");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Width = 70;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                var PersonFirstname = string.Empty;
+                if ((DataBinder.Eval(c.DataItem, "Person") != null) && (DataBinder.Eval(c.DataItem, "Person.CurrentName") != null))
+                    PersonFirstname = ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Person.CurrentName.FirstName")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage));
+
+                ViewContext.Writer.Write(PersonFirstname);
+            });
+            column.Caption = ModelsRepository.GetLabel("FirstName");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            column.Width = 150;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                var PersonLastname = string.Empty;
+                if ((DataBinder.Eval(c.DataItem, "Person") != null) && (DataBinder.Eval(c.DataItem, "Person.CurrentName") != null))
+                    PersonLastname = ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Person.CurrentName.LastName")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage));
+
+                ViewContext.Writer.Write(PersonLastname);
+            });
+            column.Caption = ModelsRepository.GetLabel("LastName");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            column.Width = 150;
+        });
+
+        //settings.Columns.AddBand(masterBand =>
+        //{
+        //    masterBand.Caption = ModelsRepository.GetLabel("AdmittedDetails");
+        //    masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //    masterBand.Columns.Add(column =>
+        //    {
+        //        column.FieldName = "AdmittedAcademicYear";
+        //        column.Caption = ModelsRepository.GetLabel("AdmittedAcademicYear");
+        //        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.Width = 70;
+        //    });
+        //    masterBand.Columns.Add(column =>
+        //    {
+        //        column.FieldName = "AdmittedSemesterNo";
+        //        column.Caption = ModelsRepository.GetLabel("AdmittedSemesterNo");
+        //        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.Width = 50;
+        //    });
+        //    masterBand.Columns.Add(column =>
+        //    {
+        //        column.SetDataItemTemplateContent(c =>
+        //        {
+        //            var AdmittedClassLevelTitle = string.Empty;
+        //            if (DataBinder.Eval(c.DataItem, "AdmittedClassLevel.Title") != null)
+        //                AdmittedClassLevelTitle = ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "AdmittedClassLevel.Title")).GetValue(Context.CurrentLanguageCode);
+
+        //            ViewContext.Writer.Write(AdmittedClassLevelTitle);
+        //        });
+        //        column.Caption = ModelsRepository.GetLabel("AdmittedClassLevel");
+        //        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.Width = 120;
+        //    });
+        //    masterBand.Columns.Add(column =>
+        //    {
+        //        column.SetDataItemTemplateContent(c =>
+        //        {
+        //            var MajorTitle = string.Empty;
+        //            if (DataBinder.Eval(c.DataItem, "Major") != null)
+        //                MajorTitle = ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Major.Title")).GetValue(Context.CurrentLanguageCode);
+
+        //            ViewContext.Writer.Write(MajorTitle);
+        //        });
+        //        column.Caption = ModelsRepository.GetLabel("Major");
+        //        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.Width = 70;
+        //    });
+        //    masterBand.Columns.Add(column =>
+        //    {
+        //        column.FieldName = "AdmittedGPA";
+        //        column.Caption = ModelsRepository.GetLabel("AdmittedGPA");
+        //        column.PropertiesEdit.DisplayFormatString = "F2";
+        //        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        //        column.Width = 50;
+        //    });
+        //});
+
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "CurrentGPA";
+        //    column.Caption = ModelsRepository.GetLabel("CurrentGPA");
+        //    column.PropertiesEdit.DisplayFormatString = "F2";
+        //    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        //    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        //    column.Width = 50;
+        //});
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Person.BirthDate";
+            column.Caption = ModelsRepository.GetLabel("Birthday");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+            column.Width = 100;
+
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+            dateEditProperties.DisplayFormatInEditMode = true;
+            dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Person.MobilePhoneNo";
+            column.Caption = ModelsRepository.GetLabel("MobilePhoneNo");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Width = 100;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Person.EmailAddress";
+            column.Caption = ModelsRepository.GetLabel("Email");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.ClientLayout = (s, e) =>
+        {
+            if (e.LayoutMode == ClientLayoutMode.Loading)
+            {
+                if (Session["GridStateStudentList"] != null)
+                    e.LayoutData = (string)Session["GridStateStudentList"];
+            }
+            else
+                Session["GridStateStudentList"] = e.LayoutData;
+        };
+    }
+).Bind(Model).GetHtml()
+
+

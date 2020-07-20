@@ -1,0 +1,9 @@
+﻿@using TSIS.Models
+@model IEnumerable<iSISModel.PhysicalRoom>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("RoomData");
+}
+
+<h2>@ModelsRepository.GetLabel("RoomData")</h2>
+
+@Html.Partial("_GridViewRoomData", Model)

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.AuthorizeScreen,iSISModel" table="AuthorizeScreen">
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Organization" column="OrganizationID" class="iSISModel.Organization,iSISModel" fetch="join" />
+    <many-to-one name="Role" column="RoleID" class="iSISModel.Role,iSISModel" />
+    <many-to-one name="Screen" column="ScreenID" class="iSISModel.Screen,iSISModel" />
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <property name="Reference" />
+    <property name="Remark" />
+  </class>
+</hibernate-mapping>
+
+

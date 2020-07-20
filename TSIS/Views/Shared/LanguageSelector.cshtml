@@ -1,0 +1,22 @@
+﻿@using TSIS.Models;
+@using TSIS.Classes
+
+@Html.DevExpress().ComboBox(
+    settings =>
+    {
+        settings.Name = "languageSelector";
+
+        settings.Width = 100;
+        settings.Properties.ValueType = typeof(string);
+
+        settings.Properties.TextField = "Title";
+        settings.Properties.ValueField = "Code";
+
+        settings.PreRender = (sender, e) =>
+        {
+            MVCxComboBox cmb = sender as MVCxComboBox;
+            cmb.Value = CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage);
+        };
+
+        settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(sender, event) { $('#frmLang').submit(); }";
+    }).BindList((IList<iSISModel.Language>)CacheManager.GetCache(CacheManager.CacheName.Language)).GetHtml()

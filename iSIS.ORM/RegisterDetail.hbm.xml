@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.RegisterDetail,iSISModel" table="RegisterDetail">
+
+    <!-- Primary key-->
+    <id name="ID" column="RegisterDetailID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <property name="Status" />
+    <property name="Remark" />
+
+    <many-to-one name="Registers" column="RegisterID" class="iSISModel.Register,iSISModel"/>
+    <many-to-one name="Curriculums" column="CurriculumID" class="iSISModel.Curriculum,iSISModel" />
+    <many-to-one name="Students" column="StudentID" class="iSISModel.Student,iSISModel"/>
+    <many-to-one name="Teachers" column="TeacherID" class="iSISModel.Teacher,iSISModel"/>
+
+  </class>
+
+</hibernate-mapping>

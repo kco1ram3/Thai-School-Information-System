@@ -1,0 +1,22 @@
+﻿CREATE TABLE [dbo].Student
+(
+	[ID] BIGINT NOT NULL PRIMARY KEY, 
+	IDNo nvarchar(20),
+    [CategoryID] INT NULL,
+    [PersonID] INT NULL, 
+    [SchoolID] INT NULL,
+    [EffectiveFrom] DATETIME2 NULL, 
+    [EffectiveTo] DATETIME2 NULL, 
+    [Reference] NVARCHAR(50) NULL, 
+    [Remark] NVARCHAR(500) NULL, 
+    [CurriculumID] INT NULL,
+    [StartSemesterID] INT NULL,
+    [StatusID] INT NULL,
+    [MajorID] INT NULL,
+    AdmittedClassLevelID INT NULL,
+    AdmittedAcademicYear INT NULL,
+    AdmittedSemesterID INT NULL,
+    AdmittedSemesterNo INT NULL,
+    AdmittedGPA real,
+    CurrentGPA real,
+)

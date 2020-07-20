@@ -1,0 +1,290 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.CourseSectionTeacher>
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvCourseSectionTeacherData";
+            settings.KeyFieldName = "ID";
+            settings.CallbackRouteValues = new { Controller = "CourseSectionTeacher", Action = "GridViewCourseSectionTeacherData" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CourseSectionTeacher", Action = "GridViewCourseSectionTeacherDataAddNewOrUpdate" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CourseSectionTeacher", Action = "GridViewCourseSectionTeacherDataAddNewOrUpdate" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "CourseSectionTeacher", Action = "GridViewCourseSectionTeacherDataDelete" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsPopup.EditForm.Width = 600;
+            settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+            settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+            settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+            settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+            settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("CourseSectionTeacherData");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+            settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+            //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+            /*
+            var columnNo = settings.Columns.Add("#");
+            columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+            columnNo.Settings.AllowSort = DefaultBoolean.False;
+            columnNo.Width = 50;
+            columnNo.EditFormSettings.Visible = DefaultBoolean.False;
+
+            settings.CustomColumnDisplayText = (sender, e) =>
+            {
+                if (e.Column.FieldName == "#")
+                {
+                    e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+                }
+            };
+            */
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "CourseSection.Semester.AcademicYear";
+                column.Caption = ModelsRepository.GetLabel("AcademicYear");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.GroupIndex = 0;
+                column.SetEditItemTemplateContent(c =>
+                {
+                    if ((iSISModel.Semester)DataBinder.Eval(c.DataItem, "CourseSection.Semester") == null)
+                    {
+                        ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_ComboBoxAcademicYear.cshtml", ViewData["AcademicYear"], new ViewDataDictionary(this.ViewData) { { "IsRequired", true }, { "ValidationGroup", settings.Name } }));
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_ComboBoxAcademicYear.cshtml", ViewData["AcademicYear"], new ViewDataDictionary(this.ViewData) { { "SelectedValue", ((iSISModel.Semester)DataBinder.Eval(c.DataItem, "CourseSection.Semester")).AcademicYear }, { "IsRequired", true }, { "ValidationGroup", settings.Name } }));
+                    }
+                });
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "CourseSection.Semester.SemesterNo";
+                column.Caption = ModelsRepository.GetLabel("SemesterNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.GroupIndex = 1;
+                column.SetEditItemTemplateContent(c =>
+                {
+                    if ((iSISModel.Semester)DataBinder.Eval(c.DataItem, "CourseSection.Semester") == null)
+                    {
+                        Html.RenderAction("SemesterPartial", "Default", new { Area = "", defaultYear = 0, defaultSemester = 0, isRequired = true, validationGroup = settings.Name });
+                    }
+                    else
+                    {
+                        Html.RenderAction("SemesterPartial", "Default", new { Area = "", defaultYear = ((iSISModel.Semester)DataBinder.Eval(c.DataItem, "CourseSection.Semester")).AcademicYear, defaultSemester = ((iSISModel.Semester)DataBinder.Eval(c.DataItem, "CourseSection.Semester")).SemesterNo, isRequired = true, validationGroup = settings.Name });
+                    }
+                });
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "CourseSection.Course.Level.LevelNo";
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "CourseSection.Course.Level.Title") != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "CourseSection.Course.Level.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("LevelNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+                column.GroupIndex = 2;
+                column.SetGroupRowTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(ModelsRepository.GetLabel("LevelNo") + ": ");
+                    ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "CourseSection.Course.Level.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                });
+                column.SetEditItemTemplateContent(c =>
+                {
+                    Html.DevExpress().ComboBox(
+                        s =>
+                        {
+                            s.Name = "ComboBoxClassLevel";
+                            s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                            s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                            s.Properties.TextField = "Text";
+                            s.Properties.ValueField = "Value";
+                            s.Properties.ValueType = typeof(Int64);
+                            s.PreRender = (sender, e) =>
+                            {
+                                if (DataBinder.Eval(c.DataItem, "CourseSection.Course.Level") != null)
+                                {
+                                    MVCxComboBox cmb = sender as MVCxComboBox;
+                                    cmb.Value = ((iSISModel.ClassLevel)DataBinder.Eval(c.DataItem, "CourseSection.Course.Level")).ID;
+                                }
+                            };
+                            s.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {"
+                                                                                                + "try {"
+                                                                                                    + "ComboBoxCourse.PerformCallback();"
+                                                                                                + "} catch(e) { }"
+                                                                                                + "try {"
+                                                                                                    + "ComboBoxRoom.PerformCallback();"
+                                                                                                + "} catch(e) { }"
+                                                                                            + "}";
+                            s.Properties.ValidationSettings.Display = Display.Dynamic;
+                            s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                            s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                            s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                            s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.ClassLevel>)CacheManager.GetCache(CacheManager.CacheName.ClassLevel))
+                    ).GetHtml();
+                });
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if (((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.CourseNo != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.CourseNo.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("CourseNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.SetEditItemTemplateContent(c =>
+                {
+                    if (((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")) == null)
+                    {
+                        Html.RenderAction("CoursePartial", "Default", new { Area = "", defaultClassLevel = 0, defaultCourse = 0, isRequired = true, validationGroup = settings.Name });
+                    }
+                    else
+                    {
+                        Html.RenderAction("CoursePartial", "Default", new { Area = "", defaultClassLevel = ((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.Level.ID, defaultCourse = ((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.ID, isRequired = true, validationGroup = settings.Name });
+                    }
+                });
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if (((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.Title != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("CourseTitle");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.EditFormSettings.Visible = DefaultBoolean.False;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "CourseSection.Room.RoomNo";
+                column.Caption = ModelsRepository.GetLabel("RoomNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+                column.SetEditItemTemplateContent(c =>
+                {
+                    if (((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")) == null)
+                    {
+                        Html.RenderAction("RoomPartial", "Default", new { Area = "", defaultClassLevel = 0, defaultRoom = 0, isRequired = true, validationGroup = settings.Name });
+                    }
+                    else
+                    {
+                        Html.RenderAction("RoomPartial", "Default", new { Area = "", defaultClassLevel = ((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Course.Level.ID, defaultRoom = ((iSISModel.CourseSection)DataBinder.Eval(c.DataItem, "CourseSection")).Room.ID, isRequired = true, validationGroup = settings.Name });
+                    }
+                });
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if (((iSISModel.Person)DataBinder.Eval(c.DataItem, "Teacher.Person")).CurrentName != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.Person)DataBinder.Eval(c.DataItem, "Teacher.Person")).CurrentName.ToString(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("TeacherName");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.SetEditItemTemplateContent(c =>
+                {
+                    Html.DevExpress().ComboBox(
+                        s =>
+                        {
+                            s.Name = "ComboBoxTeacher";
+                            s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                            s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                            s.Properties.TextField = "Text";
+                            s.Properties.ValueField = "Value";
+                            s.Properties.ValueType = typeof(int);
+                            s.PreRender = (sender, e) =>
+                            {
+                                if (DataBinder.Eval(c.DataItem, "Teacher") != null)
+                                {
+                                    MVCxComboBox cmb = sender as MVCxComboBox;
+                                    cmb.Value = ((iSISModel.Teacher)DataBinder.Eval(c.DataItem, "Teacher")).ID;
+                                }
+                            };
+                            s.Properties.ValidationSettings.Display = Display.Dynamic;
+                            s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                            s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                            s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                            s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.Teacher>)ViewData["Teacher"])
+                    ).GetHtml();
+                });
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.Dynamic;
+            };
+
+            settings.PreRender = (s, e) =>
+            {
+                MVCxGridView g = s as MVCxGridView;
+                if (g != null)
+                    g.ExpandAll();
+            };
+
+            settings.BeforeGetCallbackResult = (s, e) =>
+            {
+                MVCxGridView g = s as MVCxGridView;
+                if (g != null)
+                    g.ExpandAll();
+            };
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

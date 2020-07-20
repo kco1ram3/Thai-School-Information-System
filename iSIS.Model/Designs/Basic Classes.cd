@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.UserAction" Collapsed="true">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Basic Classes\Action.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.TimeInterval" Collapsed="true">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAAAAAEAAEAAAUAAAAIAEAAAAAAAAQAAAA=</HashCode>
+      <FileName>Basic Classes\TimeInterval.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.SessionContext" Collapsed="true">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>SessionContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="user" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.User" Collapsed="true">
+    <Position X="1.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAABAAAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

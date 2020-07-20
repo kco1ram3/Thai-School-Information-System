@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Punishment,iSISModel" table="Punishment" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Reference" />
+    <property name="Remark" />
+    <property name="Description" />
+    <property name="Date" />
+    <property name="DeductedPoint" />
+    <many-to-one name="WrongDoingCategory" column="WrongDoingCategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <many-to-one name="PunishmentCategory" column="PunishmentCategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <many-to-one name="Student" column="StudentID" class="iSISModel.Student,iSISModel" />
+
+  </class>
+</hibernate-mapping>
+
+

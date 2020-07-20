@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.GradingSystem,iSISModel" table="GradingSystem" abstract="1" discriminator-value="0">
+
+		<!-- Primary key-->
+		<id name="ID" type="int" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <discriminator column="Discriminator" type="byte" />
+    <property name="Code" />
+    <many-to-one name="Title" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="ShortTitle" column="ShortTitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <property name="Reference" />
+    <property name="Remark" />
+
+    <subclass name="iSISModel.ContinuousGradingSystem,iSISModel" discriminator-value="10" >
+      <property name="MaxPoint" />
+      <property name="MinPoint" />
+    </subclass>
+
+    <subclass name="iSISModel.DiscreteGradingSystem,iSISModel" discriminator-value="20" >
+      <bag name="Grades" table="DiscreteGrade" lazy="true" >
+        <key column="GradingSystemID"/>
+        <one-to-many class="iSISModel.DiscreteGrade,iSISModel"/>
+      </bag>
+    </subclass>
+
+  </class>
+</hibernate-mapping>
+
+

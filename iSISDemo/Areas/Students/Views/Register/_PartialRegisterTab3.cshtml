@@ -1,0 +1,100 @@
+﻿@model iSISDemo.Areas.Students.Models.Student
+@using iSISDemo.Areas.Students.Controllers;
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "FormLayoutResigterTab3";
+    var fatherGroupItem = settings.Items.AddGroupItem(itemSettings =>
+    {
+        itemSettings.Caption = "ข้อมูลบิดา";
+        itemSettings.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+        itemSettings.SettingsItems.VerticalAlign = FormLayoutVerticalAlign.Top;
+        itemSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        itemSettings.ColCount = 3;
+    });
+    fatherGroupItem.Items.Add(m => m.FName, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FSurname, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FAge, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FAddressNo, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FMoo, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FStreet, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FSubDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FProvince, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FZipCode, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FTel, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FMobileTel, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FEmail, itemSettings =>
+    {
+        dynamic editorSettings = itemSettings.NestedExtensionSettings;
+        editorSettings.Properties.ValidationSettings.ErrorDisplayMode = DevExpress.Web.ASPxEditors.ErrorDisplayMode.ImageWithTooltip;
+        editorSettings.ShowModelErrors = true;
+        itemSettings.ColSpan = 3;
+    });
+    fatherGroupItem.Items.Add(m => m.FOccupation, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FBusinessType, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FPosition, CommonHelper.FormLayoutItemSettingsMethod);
+    fatherGroupItem.Items.Add(m => m.FOfficeTel, CommonHelper.FormLayoutItemSettingsMethod);
+
+    var motherGroupItem = settings.Items.AddGroupItem(itemSettings =>
+    {
+        itemSettings.Caption = "ข้อมูลมารดา";
+        itemSettings.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+        itemSettings.SettingsItems.VerticalAlign = FormLayoutVerticalAlign.Top;
+        itemSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        itemSettings.ColCount = 3;
+    });
+    motherGroupItem.Items.Add(m => m.MName, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MSurname, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MAge, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MAddressNo, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MMoo, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MStreet, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MSubDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MProvince, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MZipCode, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MTel, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MMobileTel, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MEmail, itemSettings =>
+    {
+        dynamic editorSettings = itemSettings.NestedExtensionSettings;
+        editorSettings.Properties.ValidationSettings.ErrorDisplayMode = DevExpress.Web.ASPxEditors.ErrorDisplayMode.ImageWithTooltip;
+        editorSettings.ShowModelErrors = true;
+        itemSettings.ColSpan = 3;
+    });
+    motherGroupItem.Items.Add(m => m.MOccupation, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MBusinessType, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MPosition, CommonHelper.FormLayoutItemSettingsMethod);
+    motherGroupItem.Items.Add(m => m.MOfficeTel, CommonHelper.FormLayoutItemSettingsMethod);
+
+    var parentGroupItem = settings.Items.AddGroupItem(itemSettings =>
+    {
+        itemSettings.Caption = "ข้อมูลผู้ปกครอง";
+        itemSettings.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+        itemSettings.SettingsItems.VerticalAlign = FormLayoutVerticalAlign.Top;
+        itemSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        itemSettings.ColCount = 3;
+    });
+    parentGroupItem.Items.Add(m => m.PName, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PSurname, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PAge, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PRelationship, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PAddressNo, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PMoo, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PStreet, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PSubDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PProvince, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PZipCode, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PTel, CommonHelper.FormLayoutItemSettingsMethod);
+    parentGroupItem.Items.Add(m => m.PMobileTel, itemSettings =>
+    {
+        dynamic editorSettings = itemSettings.NestedExtensionSettings;
+        editorSettings.Properties.ValidationSettings.ErrorDisplayMode = DevExpress.Web.ASPxEditors.ErrorDisplayMode.ImageWithTooltip;
+        editorSettings.ShowModelErrors = true;
+        itemSettings.ColSpan = 3;
+    });
+    parentGroupItem.Items.Add(m => m.PTelSms, CommonHelper.FormLayoutItemSettingsMethod).HelpText = "(1 หมายเลขเท่านั้น)";
+    parentGroupItem.Items.Add(m => m.PEmailDocument, CommonHelper.FormLayoutItemSettingsMethod).HelpText = "(1 email เท่านั้น)";
+}).GetHtml()

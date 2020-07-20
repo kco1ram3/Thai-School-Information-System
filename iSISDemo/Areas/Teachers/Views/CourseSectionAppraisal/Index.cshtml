@@ -1,0 +1,52 @@
+﻿@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.CourseSectionAppraisal>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("CourseSectionAppraisal");
+
+    iSISModel.CourseSection courseSection = (iSISModel.CourseSection)ViewData["CourseSection"];
+}
+
+<h2>@ModelsRepository.GetLabel("CourseSectionAppraisal")</h2>
+<p>
+    @ModelsRepository.GetLabel("AcademicYear") : @courseSection.Semester.AcademicYear
+    <br />
+    @ModelsRepository.GetLabel("SemesterNo") : @courseSection.Semester.SemesterNo
+    <br />
+    @ModelsRepository.GetLabel("CourseNo") :
+    @{
+        if (courseSection.Course.CourseNo != null)
+        {
+            @courseSection.Course.CourseNo.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("CourseTitle") :
+    @{
+        if (courseSection.Course.Title != null)
+        {
+            @courseSection.Course.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("LevelTitle") :
+    @{
+        if (courseSection.Course.Level.Title != null)
+        {
+            @courseSection.Course.Level.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("LevelShortTitle") :
+    @{
+        if (courseSection.Course.Level.ShortTitle != null)
+        {
+            @courseSection.Course.Level.ShortTitle.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("RoomNo") : @courseSection.Room.RoomNo
+</p>
+
+
+@Html.Partial("_GridViewCourseSectionAppraisal", Model)

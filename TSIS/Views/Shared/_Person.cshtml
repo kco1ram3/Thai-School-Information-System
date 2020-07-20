@@ -1,0 +1,204 @@
+﻿@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@model iSISModel.Person
+
+<table>
+    <tr>
+        <td style="padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Prefix" + ViewData["TabInfo"], "Prefix")).GetHtml()
+            @if ((Model == null) || (Model.CurrentName == null))
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Prefix" + ViewData["TabInfo"] }, { "Width", 70 } });
+            }
+            else
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.CurrentName.Prefix, new ViewDataDictionary(this.ViewData) { { "Name", "Prefix" + ViewData["TabInfo"] }, { "Width", 70 } });
+            }
+        </td>
+        <td style="padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("FirstName" + ViewData["TabInfo"], "FirstName")).GetHtml()
+            @if ((Model == null) || (Model.CurrentName == null))
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Firstname" + ViewData["TabInfo"] }, { "Width", 170 } });
+            }
+            else
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.CurrentName.FirstName, new ViewDataDictionary(this.ViewData) { { "Name", "Firstname" + ViewData["TabInfo"] }, { "Width", 170 } });
+            }
+        </td>
+        <td style="padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LastName" + ViewData["TabInfo"], "LastName")).GetHtml()
+            @if ((Model == null) || (Model.CurrentName == null))
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "LastName" + ViewData["TabInfo"] }, { "Width", 170 } });
+            }
+            else
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.CurrentName.LastName, new ViewDataDictionary(this.ViewData) { { "Name", "LastName" + ViewData["TabInfo"] }, { "Width", 170 } });
+            }
+        </td>
+        <td style="padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("MiddleName" + ViewData["TabInfo"], "MiddleName")).GetHtml()
+            @if ((Model == null) || (Model.CurrentName == null))
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "MiddleName" + ViewData["TabInfo"] }, { "Width", 100 } });
+            }
+            else
+            {
+                Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.CurrentName.MiddleName, new ViewDataDictionary(this.ViewData) { { "Name", "MiddleName" + ViewData["TabInfo"] }, { "Width", 100 } });
+            }
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-top:15px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("BloodGroup" + ViewData["TabInfo"], "BloodGroup")).GetHtml()
+            @Html.DevExpress().ComboBox(
+                    s =>
+                    {
+                        s.Name = "ComboBoxBloodGroup" + ViewData["TabInfo"];
+                        s.Width = 70;
+                        s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        s.Properties.TextField = "Text";
+                        s.Properties.ValueField = "Value";
+                        s.Properties.ValueType = typeof(int);
+                        s.PreRender = (sender, e) =>
+                        {
+                            if ((Model != null) && (Model.BloodGroup != null))
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = Model.BloodGroup.ID;
+                            }
+                        };
+                    }).BindList(ViewBag.BloodGroup).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Birthday" + ViewData["TabInfo"], "Birthday")).GetHtml()
+            @Html.DevExpress().DateEdit(s =>
+                {
+                    s.Name = "DateEditBirthday" + ViewData["TabInfo"];
+                    s.Width = 170;
+                    s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                }).Bind(Model != null ? Model.BirthDate : new DateTime()).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Gender" + ViewData["TabInfo"], "Gender")).GetHtml()
+            @Html.DevExpress().ComboBox(
+                    s =>
+                    {
+                        s.Name = "ComboBoxGender" + ViewData["TabInfo"];
+                        s.Width = 170;
+                        s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        s.Properties.TextField = "Text";
+                        s.Properties.ValueField = "Value";
+                        s.Properties.ValueType = typeof(int);
+                        s.PreRender = (sender, e) =>
+                        {
+                            if ((Model != null) && (Model.Gender != null))
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = Model.Gender.ID;
+                            }
+                        };
+                    }).BindList(ViewBag.GenderCategory).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Nationality" + ViewData["TabInfo"], "Nationality")).GetHtml()
+            @Html.DevExpress().ComboBoxFor(model => model.CitizenOf.Alpha3Code,
+                    s =>
+                    {
+                        s.Name = "ComboBoxNationality" + ViewData["TabInfo"];
+                        s.Width = 170;
+                        s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        s.Properties.TextField = "Text";
+                        s.Properties.ValueField = "Value";
+                        s.Properties.ValueType = typeof(string);
+                        s.PreRender = (sender, e) =>
+                        {
+                            if ((Model != null) && (Model.CitizenOf != null))
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = Model.CitizenOf.Alpha3Code;
+                            }
+                        };
+                    }).BindList(ViewBag.Nationality).GetHtml()
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-top:15px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Religion" + ViewData["TabInfo"], "Religion")).GetHtml()
+            @Html.DevExpress().ComboBox(
+                    s =>
+                    {
+                        s.Name = "ComboBoxReligion" + ViewData["TabInfo"];
+                        s.Width = 70;
+                        s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        s.Properties.TextField = "Text";
+                        s.Properties.ValueField = "Value";
+                        s.Properties.ValueType = typeof(int);
+                        s.PreRender = (sender, e) =>
+                        {
+                            if ((Model != null) && (Model.Religion != null))
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = Model.Religion.ID;
+                            }
+                        };
+                    }).BindList(ViewBag.ReligionCategory).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Race" + ViewData["TabInfo"], "Race")).GetHtml()
+            @Html.DevExpress().ComboBox(
+                    s =>
+                    {
+                        s.Name = "ComboBoxRace" + ViewData["TabInfo"];
+                        s.Width = 170;
+                        s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        s.Properties.TextField = "Text";
+                        s.Properties.ValueField = "Value";
+                        s.Properties.ValueType = typeof(int);
+                        s.PreRender = (sender, e) =>
+                        {
+                            if ((Model != null) && (Model.Race != null))
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = Model.Race.ID;
+                            }
+                        };
+                    }).BindList(ViewBag.RaceCategory).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("HomePhoneNo" + ViewData["TabInfo"], "HomePhoneNo")).GetHtml()
+            @Html.DevExpress().TextBoxFor(model => model.HomePhoneNo, s =>
+                {
+                    s.Name = "TextBoxHomePhoneNo" + ViewData["TabInfo"];
+                    s.Width = 170;
+                }).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("MobilePhoneNo" + ViewData["TabInfo"], "MobilePhoneNo")).GetHtml()
+            @Html.DevExpress().TextBoxFor(model => model.MobilePhoneNo, s =>
+                {
+                    s.Name = "TextBoxMobilePhoneNo" + ViewData["TabInfo"];
+                    s.Width = 170;
+                }).GetHtml()
+        </td>
+        <td style="padding-top:15px; padding-right:25px;">
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Email" + ViewData["TabInfo"], "Email")).GetHtml()
+            @Html.DevExpress().TextBoxFor(model => model.EmailAddress, s =>
+                {
+                    s.Name = "TextBoxEmail" + ViewData["TabInfo"];
+                    s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    s.Properties.ValidationSettings.RegularExpression.ErrorText = "Email is required";
+                    s.Properties.ValidationSettings.RegularExpression.ValidationExpression = @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
+                    s.Width = 300;
+                }).GetHtml()
+        </td>
+    </tr>
+</table>

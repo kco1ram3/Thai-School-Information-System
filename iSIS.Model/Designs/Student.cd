@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.Student" Collapsed="true">
+    <Position X="7.25" Y="2.75" Width="1.5" />
+    <AssociationLine Name="Curriculum" Type="iSISModel.Curriculum" FixedToPoint="true">
+      <Path>
+        <Point X="8.062" Y="3.441" />
+        <Point X="8.062" Y="5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true">
+      <Path>
+        <Point X="8.062" Y="2.75" />
+        <Point X="8.062" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Absences" Type="iSISModel.Absence" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="3.441" />
+        <Point X="7.5" Y="3.938" />
+        <Point X="5.5" Y="3.938" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Rewards" Type="iSISModel.Reward" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.469" Y="2.75" />
+        <Point X="7.469" Y="2.25" />
+        <Point X="5.5" Y="2.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="StudentAcademicYears" Type="iSISModel.StudentAcademicYear" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.625" Y="3.441" />
+        <Point X="8.625" Y="3.904" />
+        <Point X="10.25" Y="3.904" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="StudentSemesters" Type="iSISModel.StudentSemester" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.625" Y="2.75" />
+        <Point X="8.625" Y="2.25" />
+        <Point X="10.25" Y="2.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAAxAAEEMBAAABEQBgACQAIAAIAAAAAQEAgAADQQAY=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Curriculum" />
+      <Property Name="School" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Absences" />
+      <Property Name="Punishments" />
+      <Property Name="Rewards" />
+      <Property Name="StudentAcademicYears" />
+      <Property Name="StudentSemesters" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.Absence" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <AssociationLine Name="Student" Type="iSISModel.Student" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="4.25" />
+        <Point X="7.75" Y="4.25" />
+        <Point X="7.75" Y="3.441" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAEAAAAAAAAAAAAAAAADAAAAAAAACAA=</HashCode>
+      <FileName>Absence.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+      <Property Name="Student" />
+      <Property Name="ClassSection" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.HierarchicalCategory" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgACgAgAAEQAIABAACAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>HierarchicalCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.ClassSection" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAUAAAAFAAgAAAIJAAACAAgAAAAAAAQAAAAAAAABA=</HashCode>
+      <FileName>ClassSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Punishment" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <AssociationLine Name="Student" Type="iSISModel.Student" FixedFromPoint="true">
+      <Path>
+        <Point X="5.5" Y="3.25" />
+        <Point X="7.25" Y="3.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="WrongDoingCategory" Type="iSISModel.HierarchicalCategory" FixedFromPoint="true">
+      <Path>
+        <Point X="4" Y="2.904" />
+        <Point X="2.25" Y="2.904" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="PunishmentCategory" Type="iSISModel.HierarchicalCategory" FixedFromPoint="true">
+      <Path>
+        <Point X="4" Y="3.289" />
+        <Point X="2.25" Y="3.289" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEBAAAAQAAgAAAAAAABAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Punishment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+      <Property Name="WrongDoingCategory" />
+      <Property Name="PunishmentCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Reward" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <AssociationLine Name="Category" Type="iSISModel.HierarchicalCategory">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.091" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Student" Type="iSISModel.Student" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="1.938" />
+        <Point X="7.75" Y="1.938" />
+        <Point X="7.75" Y="2.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAgAAAAAAAAAAAAAAAAAAABAAAAAAAACAA=</HashCode>
+      <FileName>Reward.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Curriculum" Collapsed="true">
+    <Position X="7.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAgAAAAQAAAAAAAAUAAAAACAAAA=</HashCode>
+      <FileName>Curriculum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEAQAAAYAJAAGACgAAAAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.StudentSemester" Collapsed="true">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <AssociationLine Name="Student" Type="iSISModel.Student" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="1.981" />
+        <Point X="8.375" Y="1.981" />
+        <Point X="8.375" Y="2.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAQAAAAAAAIAAAAAAIBAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>StudentSemester.cs</FileName>
+      <NewMemberFileName>StudentAcademicYear.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.StudentAcademicYear" Collapsed="true">
+    <Position X="10.25" Y="3.75" Width="1.75" />
+    <AssociationLine Name="Student" Type="iSISModel.Student" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="4.192" />
+        <Point X="8.375" Y="4.192" />
+        <Point X="8.375" Y="3.441" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAQAQAAAAAAIAAAAAIBAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>StudentAcademicYear.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,68 @@
+﻿@using iSISDemo.Models
+@{
+    Layout = "~/Views/Shared/_lightLayout.cshtml";
+    ViewBag.Title = ModelsRepository.GetLabel("Login");
+}
+
+<h2>@ModelsRepository.GetLabel("Login")</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.DevExpress().Label(settings =>
+    {
+        settings.Name = "UsernameLabel";
+        settings.Text = ModelsRepository.GetLabel("Username");
+        settings.AssociatedControlName = "Username";
+    }).GetHtml()
+
+    <div class="form-field">
+        @Html.DevExpress().TextBox(
+            settings =>
+            {
+                settings.Name = "Username";
+                settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                settings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+            }
+        ).GetHtml()
+    </div>
+    
+    @Html.DevExpress().Label(settings =>
+    {
+        settings.Name = "PasswordLabel";
+        settings.Text = ModelsRepository.GetLabel("Password");
+        settings.AssociatedControlName = "Password";
+    }).GetHtml()
+    
+    <div class="form-field">
+        @Html.DevExpress().TextBox(
+            settings =>
+            {
+                settings.Name = "Password";
+                settings.Properties.Password = true;
+                settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                settings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+            }
+        ).GetHtml()
+    </div>
+    
+    @Html.DevExpress().Button(
+        settings =>
+        {
+            settings.Name = "btnLogin";
+            settings.Text = ModelsRepository.GetLabel("Login");
+            settings.UseSubmitBehavior = true;
+        }
+    ).GetHtml()
+}
+<script>
+    var errorMessage = "@ViewData["ErrorMessage"]";
+    if (errorMessage != null && errorMessage != "") {
+        alert(errorMessage);
+    }
+</script>

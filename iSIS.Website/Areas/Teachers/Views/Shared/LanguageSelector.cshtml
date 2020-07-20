@@ -1,0 +1,16 @@
+﻿@using iSIS.Website.Areas.Teachers.Models;
+
+@Html.DevExpress().ComboBox(
+    settings =>
+    {
+        settings.Name = "languageSelector";
+
+        settings.Width = 100;
+        settings.SelectedIndex = Languages.GetIndex((string)Session["CurrentLanguage"]);
+        settings.Properties.ValueType = typeof(string);
+
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "LanguageCode";
+
+        settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(sender, event) { $('#frmLang').submit(); }";
+    }).BindList(Languages.GetLanguages()).GetHtml()

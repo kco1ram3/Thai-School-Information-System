@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.MLSValue" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAICAKAAAgAAAAAAAAAAAAAAAACEAAAQgQAAEAEA=</HashCode>
+      <FileName>Basic Classes\MLSValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.MultilingualString" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAEIAAckEgCAQEYAAgAAIAIAAAASIAAAAgBAAAAAA=</HashCode>
+      <FileName>Basic Classes\MultilingualString.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Values" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,16 @@
+﻿@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.Screen>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("ScreenData");
+
+    iSISModel.Module module = (iSISModel.Module)ViewData["Module"];
+}
+
+<h2>@ModelsRepository.GetLabel("ScreenData")</h2>
+<p>
+    @ModelsRepository.GetLabel("Module") : @module.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+</p>
+
+
+@Html.Partial("_TreeListScreenData", Model)

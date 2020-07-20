@@ -1,0 +1,17 @@
+﻿@using iSISDemo.Models
+@model IEnumerable<iSISModel.CourseSectionTeacher> 
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("CourseSection");
+}
+
+<h2>
+    @ModelsRepository.GetLabel("CourseSection")&nbsp;
+    @{
+        if (ViewData["PersonName"] != null)
+        {
+            <span>(@ViewData["PersonName"])</span>
+        }
+    }
+</h2>
+
+@Html.Partial("_GridViewCourseSectionTeacherList", Model)

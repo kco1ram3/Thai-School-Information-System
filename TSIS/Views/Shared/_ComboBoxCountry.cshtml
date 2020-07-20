@@ -1,0 +1,31 @@
+﻿@using TSIS.Models
+@using TSIS.Classes
+
+@Html.DevExpress().ComboBox(settings =>
+                            {
+                                settings.Name = ((string)ViewData["AddressCategory"]) + "_ComboBoxCountry";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(string);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (ViewData["SelectedValue"] != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = (string)ViewData["SelectedValue"];
+                                    }
+                                };
+                                settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {"
+                                                                                                + "try {"
+                                                                                                    + ((string)ViewData["AddressCategory"]) + "_ComboBoxProvince.PerformCallback();"
+                                                                                                + "} catch(e) { }"
+                                                                                                + "try {"
+                                                                                                    + ((string)ViewData["AddressCategory"]) + "_ComboBoxDistrict.ClearItems();"
+                                                                                                + "} catch(e) { }"
+                                                                                                + "try {"
+                                                                                                    + ((string)ViewData["AddressCategory"]) + "_ComboBoxSubdistrict.ClearItems();"
+                                                                                                + "} catch(e) { }"
+                                                                                            + "}";
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.Country>)CacheManager.GetCache(CacheManager.CacheName.Country))).GetHtml()

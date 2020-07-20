@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Routing;
+using iSISModel;
+using iSISDemo.Models;
+
+namespace iSISDemo
+{
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // visit http://go.microsoft.com/?LinkId=9394801
+
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            AuthConfig.RegisterAuth();
+            
+            ModelBinders.Binders.DefaultBinder = new DevExpress.Web.Mvc.DevExpressEditorsBinder();
+
+            DevExpress.Web.ASPxClasses.ASPxWebControl.CallbackError += Application_Error;
+
+            //WebSessionContext context = new WebSessionContext((System.Web.SessionState.HttpSessionState)Session["WebSessionContext"]);
+            WebSessionContext context = new WebSessionContext();
+            IList<iSISModel.Language> language = context.PersistenceSession
+                                .QueryOver<iSISModel.Language>()
+                                .OrderBy(i => i.SeqNo).Asc
+                                .List();
+            HttpRuntime.Cache.Insert("Language", language);
+
+            IList<iSISModel.HierarchicalCategory> label = context.PersistenceSession
+                                               .QueryOver<iSISModel.HierarchicalCategory>()
+                                               .Where(l => l.Code == "Label")
+                                               .List();
+            HttpRuntime.Cache.Insert("Label", label);
+        }
+
+        protected void Application_Error(object sender, EventArgs e) 
+        {
+            Exception exception = System.Web.HttpContext.Current.Server.GetLastError();
+            //TODO: Handle Exception
+        }
+    }
+}

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Student,iSISModel" table="Student" >
+
+    <!-- Primary key-->
+    <id name="ID" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <!--<id name="ID" column="StudentID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>-->
+
+    <!--<component name="CreateAction" class="iSISModel.UserAction,iSISModel">
+      <many-to-one name="User" class="iSISModel.User,iSISModel" column="CreatedBy" fetch="join"/>
+      <property name="ActionTS" column="CreatedTS" />
+    </component>
+    <component name="ApproveAction" class="iSISModel.UserAction,iSISModel">
+      <many-to-one name="User" class="iSISModel.User,iSISModel" column="ApprovedBy" fetch="join"/>
+      <property name="ActionTS" column="ApprovedTS" />
+    </component>-->
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange,iSISModel" >
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <property name="Reference" />
+    <property name="Remark" />
+    <property name="IDNo" />
+    <many-to-one name="Category" column="CategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <many-to-one name="School" column="SchoolID" class="iSISModel.School,iSISModel" />
+    <many-to-one name="Person" cascade="save-update, delete" column="PersonID" class="iSISModel.Person,iSISModel" />
+    <many-to-one name="Major" column="MajorID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <many-to-one name="Status" column="StatusID" class="iSISModel.HierarchicalCategory,iSISModel" />
+
+    <many-to-one name="AdmittedClassLevel" column="AdmittedClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>
+    <property name="AdmittedAcademicYear" />
+    <many-to-one name="AdmittedSemester" column="StartSemesterID" class="iSISModel.Semester,iSISModel"/>
+    <property name="AdmittedSemesterNo" />
+    <property name="AdmittedGPA" />
+    <property name="CurrentGPA" />
+
+    <bag name="ClassroomStudents" table="ClassroomStudent" >
+      <key column="StudentID"/>
+      <one-to-many class="iSISModel.ClassroomStudent,iSISModel"/>
+    </bag>
+
+    <bag name="CourseSectionStudents" table="CourseSectionStudent" >
+      <key column="StudentID"/>
+      <one-to-many class="iSISModel.CourseSectionStudent,iSISModel"/>
+    </bag>
+
+    <bag name="PerformanceMeasurements" table="PerformanceMeasurement" >
+      <key column="StudentID"/>
+      <one-to-many class="iSISModel.PerformanceMeasurement,iSISModel"/>
+    </bag>
+
+  </class>
+
+</hibernate-mapping>
+
+

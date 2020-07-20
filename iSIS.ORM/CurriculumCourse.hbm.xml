@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.CurriculumCourse,iSISModel" table="CurriculumCourse">
+
+		<!-- Primary key-->
+		<id name="ID" type="Int64" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <property name="Reference"/>
+    <property name="Remark"/>
+
+    <many-to-one name="Category" column="CategoryID" class="iSISModel.HierarchicalCategory,iSISModel"/>
+    <many-to-one name="Course" column="CourseID" class="iSISModel.Course,iSISModel"/>
+    <many-to-one name="Curriculum" column="CurriculumID" class="iSISModel.Curriculum,iSISModel"/>
+    <many-to-one name="ForClassLevel" column="ForClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>
+    <property name="ForSemesterNo"/>
+
+  </class>
+</hibernate-mapping>
+
+

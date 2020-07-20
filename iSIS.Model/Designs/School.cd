@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Kindergarten = อนุบาล&#xD;&#xA;Primary = ประถม&#xD;&#xA;Secondary = มัธยม">
+    <Position X="9.969" Y="2.628" Height="0.75" Width="1.544" />
+  </Comment>
+  <Comment CommentText="LevelSectionName can be&#xD;&#xA;&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, ...&#xD;&#xA;or &quot;ก&quot;, &quot;ข&quot;, &quot;ค&quot;, ...&#xD;&#xA;or &quot;King&quot;, &quot;Queen&quot;, &quot;Jack&quot;, ...">
+    <Position X="0.522" Y="1.434" Height="0.979" Width="1.877" />
+  </Comment>
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.75" />
+    <AssociationLine Name="ClassLevelSections" Type="iSISModel.ClassLevelSection" FixedFromPoint="true">
+      <Path>
+        <Point X="3.875" Y="1.191" />
+        <Point X="3.875" Y="1.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Rooms" Type="iSISModel.PhysicalRoom" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="0.812" />
+        <Point X="6.75" Y="0.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Semesters" Type="iSISModel.Semester" FixedFromPoint="true">
+      <Path>
+        <Point X="3.5" Y="1.062" />
+        <Point X="2" Y="1.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CurrentSemester" Type="iSISModel.Semester" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="0.812" />
+        <Point X="2" Y="0.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEAQAAAYAJAAGACgAAAAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentSemester" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ClassLevelSections" />
+      <Property Name="Rooms" />
+      <Property Name="Semesters" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.PhysicalRoom" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalRoom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Semester" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="0.642" />
+        <Point X="2.375" Y="0.642" />
+        <Point X="2.375" Y="0.625" />
+        <Point X="3.5" Y="0.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAQAAAAMAAAAAAAAAQAABAQAAABAAAAAA=</HashCode>
+      <FileName>Semester.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.ClassLevelSection" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.75" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true">
+      <Path>
+        <Point X="4.875" Y="1.75" />
+        <Point X="4.875" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Classrooms" Type="iSISModel.Classroom" FixedFromPoint="true">
+      <Path>
+        <Point X="4.875" Y="2.441" />
+        <Point X="4.875" Y="3" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAEAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>ClassLevelSection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ClassLevel" />
+      <Property Name="School" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Classrooms" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.PersonOrgRelationship" Collapsed="true">
+    <Position X="3.5" Y="4.25" Width="1.75" />
+    <Members>
+      <Property Name="Organization" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAAKAA=</HashCode>
+      <FileName>PersonOrgRelationship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organization" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Teacher" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAEAAAAABABAAAABAAAAAAABAAAQAQAAAAAABA=</HashCode>
+      <FileName>Teacher.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ClassroomTeachers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.Student" Collapsed="true">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAxAAEEMBAAABEQBgACQAIAAIAAAAAQEAgAADQQAY=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.ClassroomTeacher" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ClassroomTeacher.cs</FileName>
+      <NewMemberFileName>ClassRoomTeacher.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Classroom" Collapsed="true">
+    <Position X="3.5" Y="3" Width="1.75" />
+    <AssociationLine Name="ClassLevelSection" Type="iSISModel.ClassLevelSection" FixedToPoint="true">
+      <Path>
+        <Point X="3.875" Y="3" />
+        <Point X="3.875" Y="2.441" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAgAAAIBBAAAAAgAAAAAAAQAQAAAAAAAA=</HashCode>
+      <FileName>Classroom.cs</FileName>
+      <NewMemberFileName>ClassRoom.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ClassLevelSection" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ClassroomTeachers" />
+      <Property Name="ClassroomStudents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ClassroomStudent" Collapsed="true">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassroomStudent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.ClassLevel" Collapsed="true">
+    <Position X="6.75" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ClassLevel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.HierarchicalCategory" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgACgAgAAEQAIABAACAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>HierarchicalCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

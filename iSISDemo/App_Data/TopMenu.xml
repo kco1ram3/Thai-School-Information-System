@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <item Name="Home 1" Text="Home" NavigateUrl="#" />
+  <item Name="Products 2" Text="Products" NavigateUrl="#"  />
+  <item Name="Downloads 3" Text="Downloads" NavigateUrl="#"  />
+  <item Name="Support 4" Text="Support" NavigateUrl="#"  />
+  <item Name="Students 5" Text="Students" NavigateUrl="~/Students/Default"  />
+  <item Name="Teachers 6" Text="Teachers" NavigateUrl="~/Teachers/Default"  />
+</items>

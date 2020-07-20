@@ -1,0 +1,141 @@
+﻿@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IList<iSISModel.PartyAddress> 
+@{
+    IList<iSISModel.HierarchicalCategory> addressCategory = (IList<iSISModel.HierarchicalCategory>)CacheManager.GetCache(CacheManager.CacheName.AddressCategory);
+}
+
+@{
+    if (addressCategory.Count > 0)
+    {
+        for (var index = 0; index < addressCategory[0].Children.Count; index++)
+        {
+            iSISModel.PartyAddress partyAddress = Model.FirstOrDefault(x => x.Category == addressCategory[0].Children[index] && x.EffectivePeriod.To > DateTime.Today); 
+            <p>
+                @Html.DevExpress().Label(LabelControl.GetSettingsTopic(addressCategory[0].Children[index].Code, addressCategory[0].Children[index].Code)).GetHtml()
+            </p>
+            if (partyAddress == null)
+            {
+                @Html.Hidden(addressCategory[0].Children[index].Code + "_ID", 0)
+            }
+            else
+            {
+                @Html.Hidden(addressCategory[0].Children[index].Code + "_ID", partyAddress.ID)
+            }
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("AddressNo_" + index, "AddressNo")).GetHtml()
+                            @if (partyAddress == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", addressCategory[0].Children[index].Code + "_AddressNo" } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", partyAddress.Address.AddressNo, new ViewDataDictionary(this.ViewData) { { "Name", addressCategory[0].Children[index].Code + "_AddressNo" } })
+                            }
+                        </td>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Street1_" + index, "Street1")).GetHtml()
+                            @if (partyAddress == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", addressCategory[0].Children[index].Code + "_Street1" } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", partyAddress.Address.Street1, new ViewDataDictionary(this.ViewData) { { "Name", addressCategory[0].Children[index].Code + "_Street1" } })
+                            }
+                        </td>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Street2_" + index, "Street2")).GetHtml()
+                            @if (partyAddress == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", addressCategory[0].Children[index].Code + "_Street2" } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", partyAddress.Address.Street2, new ViewDataDictionary(this.ViewData) { { "Name", addressCategory[0].Children[index].Code + "_Street2" } })
+                            }
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Country_" + index, "Country")).GetHtml()
+                            @if (partyAddress == null || partyAddress.Address.Country == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxCountry.cshtml", new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxCountry.cshtml", new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code }, { "SelectedValue", partyAddress.Address.Country.Alpha3Code ?? "" } })
+                            }
+                        </td>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Province_" + index, "Province")).GetHtml()
+                            @if (partyAddress == null || partyAddress.Address.Country == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxProvince.cshtml", new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else if (partyAddress.Address.Country != null && partyAddress.Address.Province == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxProvince.cshtml", ModelsRepository.GetRootGeographicRegion(partyAddress.Address.Country.Alpha3Code), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxProvince.cshtml", ModelsRepository.GetRootGeographicRegion(partyAddress.Address.Country.Alpha3Code) ?? new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code }, { "SelectedValue", partyAddress.Address.Province.ID.ToString() ?? "" } })
+                            }
+                        </td>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("District_" + index, "District")).GetHtml()
+                            @if (partyAddress == null || partyAddress.Address.Province == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxDistrict.cshtml", new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else if (partyAddress.Address.Province != null && partyAddress.Address.District == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxDistrict.cshtml", partyAddress.Address.Province.Subregions, new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxDistrict.cshtml", partyAddress.Address.Province.Subregions ?? new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code }, { "SelectedValue", partyAddress.Address.District.ID.ToString() ?? "" } })
+                            }
+                        </td>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("Subdistrict_" + index, "Subdistrict")).GetHtml()
+                            @if (partyAddress == null || partyAddress.Address.District == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxSubdistrict.cshtml", new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else if (partyAddress.Address.District != null && partyAddress.Address.Subdistrict == null)
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxSubdistrict.cshtml", partyAddress.Address.District.Subregions, new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code } })
+                            }
+                            else
+                            {
+                                @Html.Partial("~/Views/Shared/_ComboBoxSubdistrict.cshtml", partyAddress.Address.District.Subregions ?? new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "AddressCategory", addressCategory[0].Children[index].Code }, { "SelectedValue", partyAddress.Address.Subdistrict.ID.ToString() ?? "" } })
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("PostalCode_" + index, "PostalCode")).GetHtml()
+                            @Html.DevExpress().TextBox(settings =>
+                                        {
+                                            settings.Name = addressCategory[0].Children[index].Code + "_PostalCode";
+                                            if (partyAddress != null)
+                                            {
+                                                settings.Text = partyAddress.Address.PostalCode;
+                                            }
+                                        }).GetHtml()
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    }
+}

@@ -1,0 +1,99 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[AccountingPeriod]
+       [dbo].[AdmitCurriculum]
+       [dbo].[ChartOfAccount]
+       [dbo].[Configuration]
+       [dbo].[CourseSectionPerformance]
+       [dbo].[Curriculum]
+       [dbo].[JournalEntry]
+       [dbo].[Ledger]
+       [dbo].[PerformanceMeasurement]
+       [dbo].[Person]
+       [dbo].[PersonName]
+       [dbo].[ReceivableItem]
+       [dbo].[SchoolAdministrator]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Absence].[CourseSectionID] is being dropped, data loss could occur.
+       The column [dbo].[Admission].[Description] is being dropped, data loss could occur.
+       The column [dbo].[Admission].[Title] is being dropped, data loss could occur.
+       The column [dbo].[AdmissionTest].[Description] is being dropped, data loss could occur.
+       The column [dbo].[AdmissionTest].[Title] is being dropped, data loss could occur.
+       The column [dbo].[AdmitCurriculum].[DescriptionMLSID] is being dropped, data loss could occur.
+       The column [dbo].[ChartOfAccount].[Description] is being dropped, data loss could occur.
+       The column [dbo].[ChartOfAccount].[IncreaseBalanceBy] is being dropped, data loss could occur.
+       The column [dbo].[CourseSectionPerformance].[CourseSectionAppraisalID] is being dropped, data loss could occur.
+       The column [dbo].[Ledger].[Description] is being dropped, data loss could occur.
+       The column [dbo].[Organization].[ChartOfAccountID] is being dropped, data loss could occur.
+       The column [dbo].[Organization].[FiscalYearEndDate] is being dropped, data loss could occur.
+       The column [dbo].[PerformanceMeasurement].[CourseSectionID] is being dropped, data loss could occur.
+       The type for column CitizenOfCountryID in table [dbo].[Person] is currently  NCHAR (3) NULL but is being changed to  INT
+         NULL. Data loss could occur.
+
+** User actions
+     Drop
+       [dbo].[PartyAddress].[PartyAddress_UIX_PartyIDEffectivePeriod] (Index)
+       [dbo].[PartyIdentity].[PartyIdentity_UIX_PartyIDEffectivePeriod] (Index)
+       [dbo].[PersonName].[PersonName_UIX_PersonIDEffectivePeriod] (Index)
+       [dbo].[Punishment].[Punishment_StudentID] (Index)
+       [dbo].[ReceiptItem].[ReceiptItem_IX] (Index)
+       [dbo].[ReceiptTemplateItem].[ReceiptTemplateItem] (Index)
+       [dbo].[ReceivableItem].[ReceivableItem_IX] (Index)
+       on [dbo].[AccountingPeriod].[BeginningBalance] (Default Constraint)
+       on [dbo].[AccountingPeriod].[EndingBalance] (Default Constraint)
+       [dbo].[DF__ChartOfAc__Balan__3C34F16F] (Default Constraint)
+       on [dbo].[JournalEntry].[BalanceType] (Default Constraint)
+     Alter
+       [dbo].[Absence] (Table)
+       [dbo].[Admission] (Table)
+       [dbo].[AdmissionTest] (Table)
+       [dbo].[Organization] (Table)
+     Table rebuild
+       [dbo].[AccountingPeriod] (Table)
+       [dbo].[AdmitCurriculum] (Table)
+       [dbo].[ChartOfAccount] (Table)
+       [dbo].[Configuration] (Table)
+       [dbo].[CourseSectionPerformance] (Table)
+       [dbo].[Curriculum] (Table)
+       [dbo].[JournalEntry] (Table)
+       [dbo].[Ledger] (Table)
+       [dbo].[PerformanceMeasurement] (Table)
+       [dbo].[Person] (Table)
+       [dbo].[PersonName] (Table)
+       [dbo].[ReceivableItem] (Table)
+       [dbo].[SchoolAdministrator] (Table)
+     Create
+       [dbo].[Ledger].[Ledger_IX] (Index)
+       [dbo].[ClassSection] (Table)
+       [dbo].[ClassSectionStudent] (Table)
+       [dbo].[ClassSectionTeacher] (Table)
+
+** Supporting actions
+     Create
+       [dbo].[AccountingPeriod].[AccountingPeriod_UIX] (Index)
+       [dbo].[ChartOfAccount].[ChartOfAccount_IX] (Index)
+       [dbo].[Curriculum].[Curriculum_UIX_School] (Index)
+       [dbo].[JournalEntry].[JournalEntry_IX_Account] (Index)
+       [dbo].[JournalEntry].[JournalEntry_IX_Transaction] (Index)
+       [dbo].[JournalEntry].[JournalEntry_IX_AccountingPeriod] (Index)
+
+The column [dbo].[Absence].[CourseSectionID] is being dropped, data loss could occur.
+The column [dbo].[Admission].[Description] is being dropped, data loss could occur.
+The column [dbo].[Admission].[Title] is being dropped, data loss could occur.
+The column [dbo].[AdmissionTest].[Description] is being dropped, data loss could occur.
+The column [dbo].[AdmissionTest].[Title] is being dropped, data loss could occur.
+The column [dbo].[AdmitCurriculum].[DescriptionMLSID] is being dropped, data loss could occur.
+The column [dbo].[ChartOfAccount].[Description] is being dropped, data loss could occur.
+The column [dbo].[ChartOfAccount].[IncreaseBalanceBy] is being dropped, data loss could occur.
+The column EffectiveFrom on table [dbo].[Configuration] must be changed from NULL to NOT NULL. If the table contains data, the ALTER script may not work. To avoid this issue, you must add values to this column for all rows or mark it as allowing NULL values, or enable the generation of smart-defaults as a deployment option.
+The column [dbo].[CourseSectionPerformance].[CourseSectionAppraisalID] is being dropped, data loss could occur.
+The column [dbo].[Ledger].[Description] is being dropped, data loss could occur.
+The column [dbo].[Organization].[ChartOfAccountID] is being dropped, data loss could occur.
+The column [dbo].[Organization].[FiscalYearEndDate] is being dropped, data loss could occur.
+The column [dbo].[PerformanceMeasurement].[CourseSectionID] is being dropped, data loss could occur.
+The type for column CitizenOfCountryID in table [dbo].[Person] is currently  NCHAR (3) NULL but is being changed to  INT NULL. Data loss could occur.
+

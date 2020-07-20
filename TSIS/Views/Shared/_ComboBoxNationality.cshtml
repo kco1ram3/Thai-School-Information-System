@@ -1,0 +1,24 @@
+﻿@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+
+@Html.DevExpress().ComboBox(s =>
+{
+    s.Name = "ComboBoxNationality" + ViewBag.AddressCategoryCode;
+    s.Width = 120;
+    s.Enabled = (ViewBag.EditMode != null) ? (bool)ViewBag.EditMode : true;
+    s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+    s.Properties.DropDownStyle = DropDownStyle.DropDown;
+    s.Properties.TextField = "Text";
+    s.Properties.ValueField = "Value";
+    s.Properties.ValueType = typeof(string);
+    s.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e){ ComboBoxProvince" + (ViewBag.AddressCategoryCode != null ? ViewBag.AddressCategoryCode : string.Empty) + ".PerformCallback(); }";
+    s.PreRender = (sender, e) =>
+    {
+        if (ViewBag.SelectedValue != null)
+        {
+            MVCxComboBox cmb = sender as MVCxComboBox;
+            cmb.Value = (string)ViewBag.SelectedValue;
+        }
+    };
+}).BindList(ViewBag.Nationality).GetHtml()

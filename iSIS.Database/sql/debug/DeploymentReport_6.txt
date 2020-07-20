@@ -1,0 +1,39 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Course]
+       [dbo].[Experience]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The type for column OutcomeCategoryID in table [dbo].[Course] is currently  BIGINT NULL but is being changed to  INT
+         NULL. Data loss could occur.
+       The type for column SchoolID in table [dbo].[Course] is currently  BIGINT NULL but is being changed to  INT NULL. Data
+         loss could occur.
+       The column [dbo].[Education].[ClassLevelID] is being dropped, data loss could occur.
+       The column [dbo].[Education].[SchoolID] is being dropped, data loss could occur.
+
+** User actions
+     Alter
+       [dbo].[Configuration] (Table)
+       [dbo].[Education] (Table)
+     Table rebuild
+       [dbo].[Course] (Table)
+       [dbo].[Experience] (Table)
+     Create
+       [dbo].[AcademicAchievement] (Table)
+       [dbo].[AcademicEventParticipation] (Table)
+       [dbo].[Punishment] (Table)
+       [dbo].[Reward] (Table)
+       [dbo].[RoyalDecoration] (Table)
+       [dbo].[StudentApplication] (Table)
+       [dbo].[TestScore] (Table)
+
+** Supporting actions
+
+The type for column OutcomeCategoryID in table [dbo].[Course] is currently  BIGINT NULL but is being changed to  INT NULL. Data loss could occur.
+The type for column SchoolID in table [dbo].[Course] is currently  BIGINT NULL but is being changed to  INT NULL. Data loss could occur.
+The column [dbo].[Education].[ClassLevelID] is being dropped, data loss could occur.
+The column [dbo].[Education].[SchoolID] is being dropped, data loss could occur.
+

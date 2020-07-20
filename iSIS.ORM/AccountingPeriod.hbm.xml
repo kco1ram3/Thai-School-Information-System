@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Accounting.AccountingPeriod,iSISModel" table="AccountingPeriod" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Account" column="AccountID" class="iSISModel.Accounting.LedgerAccount,iSISModel" />
+    <property name="FiscalYear" />
+    <property name="PeriodNo" />
+    <property name="Balance" />
+    <property name="BeginningBalance" />
+    <property name="EndingBalance" />
+    <property name="BeginDate" />
+    <property name="EndDate" />
+    <property name="ClosedDate" />
+
+    <bag name="Entries" table="JournalEntry">
+      <key column="PeriodID"/>
+      <one-to-many class="iSISModel.Accounting.JournalEntry,iSISModel" />
+    </bag>
+
+  </class>
+</hibernate-mapping>
+
+

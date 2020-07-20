@@ -1,0 +1,97 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@using TSIS.Classes
+@model IEnumerable<iSISModel.DiscreteGrade>
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gvAutomaticGradingSetup";
+        settings.KeyFieldName = "ID";
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+        /*
+        settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+        */
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "GradingSystem.ID";
+            column.SetDataItemTemplateContent(c =>
+            {
+                if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "GradingSystem.Title") != null)
+                {
+                    ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "GradingSystem.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                }
+            });
+            column.Caption = ModelsRepository.GetLabel("GradingSystem");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.GroupIndex = 0;
+            column.SetGroupRowTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("GradingSystem") + ": ");
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "GradingSystem.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            });
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Symbol";
+            column.Caption = ModelsRepository.GetLabel("Symbol");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        IList<iSISModel.AutomaticGrading> automaticGrading = (IList<iSISModel.AutomaticGrading>)ViewData["AutomaticGrading"];
+        long automaticGradingID = 0;
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                iSISModel.AutomaticGrading ag = automaticGrading.FirstOrDefault(x => x.DiscreteGrade.ID == int.Parse(DataBinder.Eval(c.DataItem, "ID").ToString()));
+                Html.DevExpress().SpinEdit(
+                        s =>
+                        {
+                            s.Name = "percentage_" + DataBinder.Eval(c.DataItem, "ID");
+                            s.Properties.MinValue = 0;
+                            s.Properties.MaxValue = 100;
+                            s.Properties.EnableClientSideAPI = true;
+                            s.Width = 100;
+                            if (ag != null)
+                            {
+                                automaticGradingID = ag.ID;
+                                if (ag.Percentage != null)
+                                {
+                                    s.Number = int.Parse(ag.Percentage.ToString());
+                                }
+                            }
+                        }
+                    ).GetHtml();
+                ViewContext.Writer.Write(Html.Hidden("id_" + DataBinder.Eval(c.DataItem, "ID"), automaticGradingID));
+            });
+            column.Caption = ModelsRepository.GetLabel("Percentage");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+        });
+
+        settings.PreRender = (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            if (g != null)
+                g.ExpandAll();
+        };
+
+        settings.BeforeGetCallbackResult = (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            if (g != null)
+                g.ExpandAll();
+        };
+    }).Bind(Model).GetHtml()

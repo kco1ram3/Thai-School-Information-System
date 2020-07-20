@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.Relation, iSISModel" table="Relation">
+    <id name="RelationID" column="RelationID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <any name="FirstEntity" meta-type="String" id-type="Int32" >
+      <meta-value value="Person" class="iSISModel.Person,iSISModel"/>
+      <meta-value value="Org" class="iSISModel.Organization,iSISModel"/>
+      <column name="FirstEntityType"/>
+      <column name="FirstEntityID"/>
+    </any>
+    <any name="SecondEntity" meta-type="String" id-type="Int32" >
+      <meta-value value="Person" class="iSISModel.Person,iSISModel"/>
+      <meta-value value="Org" class="iSISModel.Organization,iSISModel"/>
+      <column name="SecondEntityType"/>
+      <column name="SecondEntityID"/>
+    </any>
+    <many-to-one name="Relationship" class="iSISModel.Relationship,iSISModel" column="Relationship" />
+    <many-to-one name="Category" class="iSISModel.TreeListNode,iSISModel" column="CategoryNodeID" />
+    <property name="Remark" type="string" column="Remark" />
+    <property name="Reference" type="string" column="Reference" />
+    <property name="RecordedDate" type="DateTime" column="RecordedDate" />
+    <component name="EffectivePeriod" class="iSISModel.TimeInterval, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+  </class>
+</hibernate-mapping>
+
+

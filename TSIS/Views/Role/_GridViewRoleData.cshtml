@@ -1,0 +1,116 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@using TSIS.Classes
+@model IEnumerable<iSISModel.Role>
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvRoleData";
+            settings.KeyFieldName = "ID";
+            settings.CallbackRouteValues = new { Controller = "Role", Action = "GridViewRoleData" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Role", Action = "GridViewRoleDataAddNewOrUpdate" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Role", Action = "GridViewRoleDataAddNewOrUpdate" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Role", Action = "GridViewRoleDataDelete" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsPopup.EditForm.Width = 200;
+            settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+            settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+            settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+            settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+            settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("RoleData");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+            settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+            //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+            var columnNo = settings.Columns.Add("#");
+            columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+            columnNo.Settings.AllowSort = DefaultBoolean.False;
+            columnNo.Width = 50;
+            columnNo.EditFormSettings.Visible = DefaultBoolean.False;
+
+            settings.CustomColumnDisplayText = (sender, e) =>
+            {
+                if (e.Column.FieldName == "#")
+                {
+                    e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+                }
+            };
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.SetEditItemTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") == null)
+                    {
+                        ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Title" }, { "IsRequired", true }, { "ValidationGroup", settings.Name } }));
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", (iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title"), new ViewDataDictionary(this.ViewData) { { "Name", "Title" }, { "IsRequired", true }, { "ValidationGroup", settings.Name } }));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("Title");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(
+                        Html.ActionLink(ModelsRepository.GetLabel("AuthorizeModule"), "AuthorizeModule", new { id = DataBinder.Eval(c.DataItem, "ID") })
+                    );
+                });
+                column.Width = 100;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.EditFormSettings.Visible = DefaultBoolean.False;
+            });
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.Dynamic;
+            };
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

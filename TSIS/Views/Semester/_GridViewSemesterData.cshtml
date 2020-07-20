@@ -1,0 +1,391 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@model IEnumerable<iSISModel.Semester>
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvSemesterData";
+            settings.KeyFieldName = "ID";
+            settings.CallbackRouteValues = new { Controller = "Semester", Action = "GridViewSemesterData" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Semester", Action = "GridViewSemesterDataAddNewOrUpdate" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Semester", Action = "GridViewSemesterDataAddNewOrUpdate" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Semester", Action = "GridViewSemesterDataDelete" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsPopup.EditForm.Width = 600;
+            settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+            settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+            settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+            settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+            settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("SemesterData");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+            settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+            //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+            /*
+            var columnNo = settings.Columns.Add("#");
+            columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+            columnNo.Settings.AllowSort = DefaultBoolean.False;
+            columnNo.Width = 50;
+            columnNo.EditFormSettings.Visible = DefaultBoolean.False;
+
+            settings.CustomColumnDisplayText = (sender, e) =>
+            {
+                if (e.Column.FieldName == "#")
+                {
+                    e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+                }
+            };
+            */
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "AcademicYear";
+                column.Caption = ModelsRepository.GetLabel("AcademicYear");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.GroupIndex = 0;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "SemesterNo";
+                column.Caption = ModelsRepository.GetLabel("SemesterNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+
+            settings.Columns.AddBand(masterBand =>
+            {
+                masterBand.Caption = ModelsRepository.GetLabel("ApplicationPeriod");
+                masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                masterBand.Columns.Add(column =>
+                {
+                    column.FieldName = "ApplicationPeriod.From";
+                    column.Caption = ModelsRepository.GetLabel("DateFrom");
+                    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditProperties.DisplayFormatInEditMode = true;
+                    dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+                });
+                masterBand.Columns.Add(column =>
+                {
+                    column.FieldName = "ApplicationPeriod.To";
+                    column.Caption = ModelsRepository.GetLabel("DateTo");
+                    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditProperties.DisplayFormatInEditMode = true;
+                    dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+                });
+            });
+
+            settings.Columns.AddBand(masterBand =>
+            {
+                masterBand.Caption = ModelsRepository.GetLabel("TeachingPeriod");
+                masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                masterBand.Columns.Add(column =>
+                {
+                    column.FieldName = "TeachingPeriod.From";
+                    column.Caption = ModelsRepository.GetLabel("DateFrom");
+                    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditProperties.DisplayFormatInEditMode = true;
+                    dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+                });
+                masterBand.Columns.Add(column =>
+                {
+                    column.FieldName = "TeachingPeriod.To";
+                    column.Caption = ModelsRepository.GetLabel("DateTo");
+                    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditProperties.DisplayFormatInEditMode = true;
+                    dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+                });
+            });
+
+            settings.Columns.AddBand(masterBand =>
+            {
+                masterBand.Caption = ModelsRepository.GetLabel("FinalExamPeriod");
+                masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                masterBand.Columns.Add(column =>
+                {
+                    column.FieldName = "FinalExamPeriod.From";
+                    column.Caption = ModelsRepository.GetLabel("DateFrom");
+                    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditProperties.DisplayFormatInEditMode = true;
+                    dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+                });
+                masterBand.Columns.Add(column =>
+                {
+                    column.FieldName = "FinalExamPeriod.To";
+                    column.Caption = ModelsRepository.GetLabel("DateTo");
+                    column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                    column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditProperties.DisplayFormatInEditMode = true;
+                    dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+                });
+            });
+
+            settings.SetEditFormTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("AcademicYear"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().SpinEdit(
+                    s =>
+                    {
+                        s.Name = "AcademicYear";
+                        s.Properties.MinValue = 0;
+                        s.Properties.MaxValue = 10000;
+                        s.Properties.NumberType = SpinEditNumberType.Integer;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "AcademicYear")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("SemesterNo"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().SpinEdit(
+                    s =>
+                    {
+                        s.Name = "SemesterNo";
+                        s.Properties.MinValue = 0;
+                        s.Properties.MaxValue = 100;
+                        s.Properties.NumberType = SpinEditNumberType.Integer;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "SemesterNo")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;' colspan='3'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("ApplicationPeriod"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("DateFrom"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "ApplicationPeriodFrom";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "ApplicationPeriod.From")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("DateTo"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "ApplicationPeriodTo";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "ApplicationPeriod.To")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;' colspan='3'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("TeachingPeriod"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("DateFrom"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "TeachingPeriodFrom";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "TeachingPeriod.From")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("DateTo"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "TeachingPeriodTo";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "TeachingPeriod.To")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;' colspan='3'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("FinalExamPeriod"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("DateFrom"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "FinalExamPeriodFrom";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "FinalExamPeriod.From")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("DateTo"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "FinalExamPeriodTo";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).Bind(DataBinder.Eval(c.DataItem, "FinalExamPeriod.To")).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("</table>");
+                ViewContext.Writer.Write("<div style='float: right; margin: 5px;'>");
+                Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnUpdate";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Save");
+                        s.ClientSideEvents.Click = "function(s, e){ gvSemesterData.UpdateEdit(); }";
+                        s.ValidationGroup = settings.Name;
+                    }).Render();
+                Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnCancel";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Cancel");
+                        s.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        s.ClientSideEvents.Click = "function(s, e){ gvSemesterData.CancelEdit(); }";
+                    }).Render();
+                ViewContext.Writer.Write("</div>");
+            });
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.Dynamic;
+            };
+
+            settings.PreRender = (s, e) =>
+            {
+                MVCxGridView g = s as MVCxGridView;
+                if (g != null)
+                    g.ExpandAll();
+            };
+
+            settings.BeforeGetCallbackResult = (s, e) =>
+            {
+                MVCxGridView g = s as MVCxGridView;
+                if (g != null)
+                    g.ExpandAll();
+            };
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

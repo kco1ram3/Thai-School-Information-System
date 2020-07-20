@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[MLSValue]
+(
+	[ID] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+    [MLSID] BIGINT NULL, 
+    [LanguageCode] NCHAR(5) NULL, 
+    [LanguageID] INT NULL, 
+    [Value] NVARCHAR(4000) NULL, 
+    [UpdatedTS] DATETIME2 NULL
+)

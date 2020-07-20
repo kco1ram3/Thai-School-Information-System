@@ -1,0 +1,110 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@using TSIS.Classes
+@model IEnumerable<iSISModel.Module>
+
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+
+    IList<iSISModel.AuthorizeModule> authorizeModule = (IList<iSISModel.AuthorizeModule>)ViewData["AuthorizeModule"];
+
+    var treeList = Html.DevExpress().TreeList(
+        settings =>
+        {
+            settings.Name = "tlAuthorizeModule";
+            settings.KeyFieldName = "ID";
+            settings.ParentFieldName = "Parent.ID";
+            settings.CallbackRouteValues = new { Controller = "Role", Action = "TreeListAuthorizeModule" };
+            settings.Width = Unit.Percentage(100);
+
+            settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Both;
+            settings.SettingsBehavior.ExpandCollapseAction = TreeListExpandCollapseAction.Button;
+
+            settings.AutoGenerateColumns = false;
+
+            settings.ClientSideEvents.NodeExpanding = "function (s,e) { e.cancel = true; }";
+            settings.ClientSideEvents.NodeCollapsing = "function (s,e) { e.cancel = true; }";
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "SeqNo";
+                column.Caption = ModelsRepository.GetLabel("SeqNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.AllowSort = DefaultBoolean.False;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataCellTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("Title");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.AllowSort = DefaultBoolean.False;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "NavigateUrl";
+                column.Caption = ModelsRepository.GetLabel("NavigateUrl");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.AllowSort = DefaultBoolean.False;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataCellTemplateContent(c =>
+                {
+                    Html.DevExpress().CheckBox(
+                        s =>
+                        {
+                            s.Name = "Authorize_" + DataBinder.Eval(c.DataItem, "ID");
+                            if (authorizeModule.FirstOrDefault(x => x.Module.ID == long.Parse(DataBinder.Eval(c.DataItem, "ID").ToString())) != null)
+                            {
+                                s.Checked = true;
+                            }
+                        }
+                    ).GetHtml();
+                });
+                column.Caption = ModelsRepository.GetLabel("Authorize");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.AllowSort = DefaultBoolean.False;
+                column.Width = 70;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataCellTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(
+                        Html.ActionLink(ModelsRepository.GetLabel("AuthorizeScreen"), "AuthorizeScreen", new { id = ViewData["RoleID"], moduleID = DataBinder.Eval(c.DataItem, "ID") })
+                    );
+                });
+                column.Width = 70;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.AllowSort = DefaultBoolean.False;
+            });
+
+            settings.PreRender = (sender, e) =>
+            {
+                MVCxTreeList treeListControl = (MVCxTreeList)sender;
+                treeListControl.ExpandAll();
+                //treeListControl.StartEdit("2");
+            };
+        }
+    );
+
+    if (ViewData["EditNodeError"] != null)
+    {
+        treeList.SetEditErrorText((string)ViewData["EditNodeError"]);
+    }
+}
+@treeList.Bind(Model).GetHtml()

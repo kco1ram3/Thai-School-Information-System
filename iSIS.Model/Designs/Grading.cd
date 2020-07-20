@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.GradingSystem">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GradingSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.DiscreteGrade">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAggAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>DiscreteGrade.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GradingSystem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.DiscreteGradingSystem">
+    <Position X="0.75" Y="2.25" Width="2" />
+    <AssociationLine Name="Grades" Type="iSISModel.DiscreteGrade">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.659" Y="0.152" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAAEAAAA=</HashCode>
+      <FileName>DiscreteGradingSystem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Grades" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.TestScore">
+    <Position X="13.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAoAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>TestScore.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="StudentApplication" />
+      <Property Name="AdmissionTest" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.AdmissionTest">
+    <Position X="16.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAAAQAACAAAAAAAAAAAACA=</HashCode>
+      <FileName>AdmissionTest.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Admission" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.StudentApplication">
+    <Position X="13.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAADIAgCAAEAKAAEAAACQAAIAAABCABAIAADYAAACAA=</HashCode>
+      <FileName>StudentApplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Admission">
+    <Position X="16.75" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAggBBAAEAQAEIAABgAAAAAQACAIACABCg=</HashCode>
+      <FileName>Admission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.PerformanceIndicator">
+    <Position X="4" Y="1.5" Width="1.75" />
+    <AssociationLine Name="ClassLevelOutcome" Type="iSISModel.ClassLevelOutcome">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.039" Y="0.048" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAgAAAEBAAAAAIAACAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>PerformanceIndicator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ClassLevel" />
+      <Property Name="ClassLevelOutcome" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.PerformanceMeasurement">
+    <Position X="3.75" Y="4.25" Width="2" />
+    <AssociationLine Name="CourseSection" Type="iSISModel.CourseSection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="5.452" />
+        <Point X="6.125" Y="5.452" />
+        <Point X="6.125" Y="4.922" />
+        <Point X="7.25" Y="4.922" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="PerformanceIndicator" Type="iSISModel.PerformanceIndicator">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.317" Y="0.175" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAQgAAgCAAIAAAAAAAAAAAAAAAAAAAAAEAAAQ=</HashCode>
+      <FileName>PerformanceMeasurement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+      <Property Name="Grade" />
+      <Property Name="CourseSection" />
+      <Property Name="Semester" />
+      <Property Name="PerformanceIndicator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.CourseSection" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.75" />
+    <AssociationLine Name="ClassLevelSection" Type="iSISModel.ClassLevelSection">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.047" Y="0.05" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAFAAEAAAIJAAACAIgAAAAAAAQAIAgAAAABA=</HashCode>
+      <FileName>CourseSection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+      <Property Name="ClassLevelSection" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CourseSectionStudents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.Semester" Collapsed="true">
+    <Position X="3.75" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAQAAAAMAAAAAAAAAQAABAQAAABAAAAAA=</HashCode>
+      <FileName>Semester.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Student" Collapsed="true">
+    <Position X="1.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAhAAUEMBAEABEQBgACQAIAAIAAAAAQEAgAADQQAY=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.ClassLevel">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <AssociationLine Name="ClassLevels" Type="iSISModel.ClassLevel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.75" Y="0.5" />
+        <Point X="7.75" Y="0.25" />
+        <Point X="7.5" Y="0.25" />
+        <Point X="7.5" Y="0.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.567" Y="0.258" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAACAA=</HashCode>
+      <FileName>ClassLevel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ClassLevels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.HierarchicalCategory" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggCQAgAAEQAIABCACAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Basic Classes\HierarchicalCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.ClassLevelOutcome">
+    <Position X="9.75" Y="2.25" Width="1.75" />
+    <AssociationLine Name="ClassLevel" Type="iSISModel.ClassLevel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.75" Y="2.25" />
+        <Point X="10.75" Y="1.875" />
+        <Point X="8.5" Y="1.875" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="PerformanceIndicators" Type="iSISModel.PerformanceIndicator">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.131" Y="-0.221" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAEAAAAAAIIAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassLevelOutcome.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ClassLevel" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="PerformanceIndicators" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ClassLevelSection">
+    <Position X="10.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAEAAAAAAAAAAAQAAQAAgAAAAAAA=</HashCode>
+      <FileName>ClassLevelSection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ClassLevel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.CourseSectionStudent">
+    <Position X="9.75" Y="7" Width="1.75" />
+    <AssociationLine Name="CourseSection" Type="iSISModel.CourseSection">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.796" Y="0.143" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAJAAAQAAAAAAAAAAAABAAAAAAABAAAQAQAAEAAEA=</HashCode>
+      <FileName>CourseSectionStudent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CourseSection" />
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Course">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABABAgAABAAAgEAAIAAAFAAABBQAAAAAAAAAA=</HashCode>
+      <FileName>Course.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

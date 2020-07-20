@@ -1,0 +1,34 @@
+﻿@using iSISDemo.Models
+@model IList<iSISModel.GeographicRegion>
+
+@Html.DevExpress().ComboBox(settings =>
+                            {
+                                settings.Name = ((string)ViewData["AddressCategory"]) + "_ComboBoxProvince";
+                                settings.CallbackRouteValues = new { Area = "", Controller = "Default", Action = "ProvincePartial", addressCategory = ViewData["AddressCategory"] };
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(string);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (ViewData["SelectedValue"] != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = (string)ViewData["SelectedValue"];
+                                    }
+                                };
+                                settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {" 
+                                                                                                + "try {" 
+                                                                                                    + ((string)ViewData["AddressCategory"]) + "_ComboBoxDistrict.PerformCallback();" 
+                                                                                                + "} catch(e) { }" 
+                                                                                                + "try {" 
+                                                                                                    + ((string)ViewData["AddressCategory"]) + "_ComboBoxSubdistrict.ClearItems();" 
+                                                                                                + "} catch(e) { }" 
+                                                                                            + "}";
+                                settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) {" 
+                                                                                        + "try {" 
+                                                                                            + "e.customArgs['Country'] = " + ((string)ViewData["AddressCategory"]) + "_ComboBoxCountry.GetValue();" 
+                                                                                        + "} catch(e) { }" 
+                                                                                    + "}";
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.GeographicRegion>)Model)).GetHtml()

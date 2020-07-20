@@ -1,0 +1,9 @@
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISORM\bin\Debug\iSISORM.dll
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISORM\bin\Debug\iSISORM.pdb
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISORM\obj\Debug\iSISORM.csprojResolveAssemblyReference.cache
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISORM\obj\Debug\iSISORM.dll
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISORM\obj\Debug\iSISORM.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISORM\bin\Debug\iSISORM.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISORM\bin\Debug\iSISORM.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISORM\obj\Debug\iSISORM.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISORM\obj\Debug\iSISORM.pdb

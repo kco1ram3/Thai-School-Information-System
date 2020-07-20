@@ -1,0 +1,5 @@
+@using TSIS.Classes
+@{
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+    DevExpress.Web.ASPxWebControl.GlobalTheme = CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentTheme);
+}

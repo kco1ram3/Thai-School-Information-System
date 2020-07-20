@@ -1,0 +1,75 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+@model IList<iSISModel.Admission>
+
+<script type="text/javascript">
+    function OnDetailRowExpanding(s, e) {
+        s.SetFocusedRowIndex(e.visibleIndex);
+    }
+    function OnGridAdmissionsFocusedRowChanged(s, e) {
+        var rowIndex = s.GetFocusedRowIndex();
+        s.ExpandDetailRow(rowIndex);
+        s.GetRowValues(rowIndex, "ID", OnAdmissionsGetRowValues);
+    }
+    function OnAdmissionsGetRowValues(Value) {
+        $.ajax({
+            url: "@Url.Action("getDescription", "Admission")",
+            data: { id: Value },
+            success: function (data) {
+                AdmissionHtmlEditor.SetHtml(data);
+            }
+        });
+    }
+</script>
+
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("Admission");
+}
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "Admissions";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = Unit.Percentage(100);
+
+    var groupAdmissions = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("Admission");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupAdmissions.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupAdmissions.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupAdmissions.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupAdmissions.Items.Add(Admissions =>
+    {
+        Admissions.Caption = "";
+        Admissions.ShowCaption = DefaultBoolean.False;
+        Admissions.SetNestedContent(() =>
+        {
+            @Html.RenderAction("Admissions", "Admission");
+        });
+    });
+    //-----------------------------
+    var groupDescription = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("Description");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupDescription.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupDescription.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupDescription.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+    groupDescription.Items.Add(Description =>
+    {
+        Description.Caption = "";
+        Description.ShowCaption = DefaultBoolean.False;
+        Description.SetNestedContent(() =>
+        {
+            Html.RenderPartial("_AdmissionHtmlEditor", new ViewDataDictionary { { "PreviewOnly", true } });
+        });
+    });
+}).GetHtml()

@@ -1,0 +1,326 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.StudentTimeAttendance>
+
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvTimeAttendanceStudent";
+            settings.KeyFieldName = "ID";
+            settings.CallbackRouteValues = new { Controller = "TimeAttendanceStudent", Action = "GridViewTimeAttendanceStudent" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "TimeAttendanceStudent", Action = "GridViewTimeAttendanceStudentAddNewOrUpdate" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "TimeAttendanceStudent", Action = "GridViewTimeAttendanceStudentAddNewOrUpdate" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "TimeAttendanceStudent", Action = "GridViewTimeAttendanceStudentDelete" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsPopup.EditForm.Width = 600;
+            settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+            settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+            settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+            settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+            settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("TimeAttendanceStudent");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+            settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+            //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+            /*
+            var columnNo = settings.Columns.Add("#");
+            columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+            columnNo.Settings.AllowSort = DefaultBoolean.False;
+            columnNo.Width = 50;
+            columnNo.EditFormSettings.Visible = DefaultBoolean.False;
+
+            settings.CustomColumnDisplayText = (sender, e) =>
+            {
+                if (e.Column.FieldName == "#")
+                {
+                    e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+                }
+            };
+            */
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "FingerScannerID";
+                column.Caption = ModelsRepository.GetLabel("FingerScannerID");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if (((iSISModel.Person)DataBinder.Eval(c.DataItem, "Student.Person")).CurrentName != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.Person)DataBinder.Eval(c.DataItem, "Student.Person")).CurrentName.ToString(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("CurrentName");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "TimeAttendanceDate";
+                column.Caption = ModelsRepository.GetLabel("TimeAttendanceDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+                column.GroupIndex = 0;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "TimeAttendancePeriod.From";
+                column.Caption = ModelsRepository.GetLabel("TimeFrom");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "HH:mm";
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "TimeAttendancePeriod.To";
+                column.Caption = ModelsRepository.GetLabel("TimeTo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "HH:mm";
+            });
+
+            settings.SetEditFormTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("FingerScannerID"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().TextBox(
+                    s =>
+                    {
+                        s.Name = "FingerScannerID";
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        if (DataBinder.Eval(c.DataItem, "FingerScannerID") != null)
+                        {
+                            s.Text = DataBinder.Eval(c.DataItem, "FingerScannerID").ToString();
+                        }
+                    }
+                ).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("TimeAttendanceDate"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "TimeAttendanceDate";
+                        //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                        //s.Width = 100;
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        if (DataBinder.Eval(c.DataItem, "TimeAttendanceDate") != null)
+                        {
+                            s.Date = DateTime.Parse(DataBinder.Eval(c.DataItem, "TimeAttendanceDate").ToString());
+                        }
+                    }
+                ).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("TimeFrom"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "TimeFrom";
+                        s.Properties.TimeSectionProperties.Visible = true;
+                        s.Properties.DisplayFormatString = "HH:mm";
+                        s.Properties.EditFormatString = "HH:mm";
+                        s.Properties.DisplayFormatInEditMode = true;
+
+                        s.ControlStyle.CssClass = "custom";
+                        s.Properties.CalendarProperties.Style.CssClass = "custom";
+                        s.Properties.CalendarProperties.ShowHeader = false;
+                        s.Properties.CalendarProperties.ShowClearButton = false;
+                        s.Properties.CalendarProperties.ShowTodayButton = false;
+
+                        s.Properties.TimeSectionProperties.TimeEditProperties.EditFormatString = "HH:mm";
+
+                        s.Properties.TimeSectionProperties.OkButtonText = ModelsRepository.GetLabel("Ok");
+                        s.Properties.TimeSectionProperties.CancelButtonText = ModelsRepository.GetLabel("Cancel");
+
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        if (DataBinder.Eval(c.DataItem, "TimeAttendancePeriod.From") != null)
+                        {
+                            s.Date = DateTime.Parse(DataBinder.Eval(c.DataItem, "TimeAttendancePeriod.From").ToString());
+                        }
+                        else
+                        {
+                            s.Date = DateTime.Today;
+                        }
+                    }
+                ).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("TimeTo"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().DateEdit(
+                    s =>
+                    {
+                        s.Name = "TimeTo";
+                        s.Properties.TimeSectionProperties.Visible = true;
+                        s.Properties.DisplayFormatString = "HH:mm";
+                        s.Properties.EditFormatString = "HH:mm";
+                        s.Properties.DisplayFormatInEditMode = true;
+
+                        s.ControlStyle.CssClass = "custom";
+                        s.Properties.CalendarProperties.Style.CssClass = "custom";
+                        s.Properties.CalendarProperties.ShowHeader = false;
+                        s.Properties.CalendarProperties.ShowClearButton = false;
+                        s.Properties.CalendarProperties.ShowTodayButton = false;
+
+                        s.Properties.TimeSectionProperties.TimeEditProperties.EditFormatString = "HH:mm";
+
+                        s.Properties.TimeSectionProperties.OkButtonText = ModelsRepository.GetLabel("Ok");
+                        s.Properties.TimeSectionProperties.CancelButtonText = ModelsRepository.GetLabel("Cancel");
+
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        if (DataBinder.Eval(c.DataItem, "TimeAttendancePeriod.To") != null)
+                        {
+                            s.Date = DateTime.Parse(DataBinder.Eval(c.DataItem, "TimeAttendancePeriod.To").ToString());
+                        }
+                        else
+                        {
+                            s.Date = DateTime.Today;
+                        }
+                    }
+                ).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("Student"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().ComboBox(
+                    s =>
+                    {
+                        s.Name = "ComboBoxStudent";
+                        s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        s.Properties.TextField = "Text";
+                        s.Properties.ValueField = "Value";
+                        s.Properties.ValueType = typeof(int);
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.PreRender = (sender, e) =>
+                        {
+                            if (DataBinder.Eval(c.DataItem, "Student") != null)
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = ((iSISModel.Student)DataBinder.Eval(c.DataItem, "Student")).ID;
+                            }
+                        };
+                    }).BindList(ViewData["ComboBoxItemsStudnet"]
+                ).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("</table>");
+                ViewContext.Writer.Write("<div style='float: right; margin: 5px;'>");
+                Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnUpdate";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Save");
+                        s.ValidationGroup = settings.Name;
+                        s.ClientSideEvents.Click = "function(s, e){ gvTimeAttendanceStudent.UpdateEdit(); }";
+                    }).Render();
+                Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnCancel";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Cancel");
+                        s.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        s.ClientSideEvents.Click = "function(s, e){ gvTimeAttendanceStudent.CancelEdit(); }";
+                    }).Render();
+                ViewContext.Writer.Write("</div>");
+            });
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.Dynamic;
+            };
+
+            settings.PreRender = (s, e) =>
+            {
+                MVCxGridView g = s as MVCxGridView;
+                if (g != null)
+                    g.ExpandAll();
+            };
+
+            settings.BeforeGetCallbackResult = (s, e) =>
+            {
+                MVCxGridView g = s as MVCxGridView;
+                if (g != null)
+                    g.ExpandAll();
+            };
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

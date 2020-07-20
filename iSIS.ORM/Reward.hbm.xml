@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Reward,iSISModel" table="Reward" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Reference" />
+    <property name="Remark" />
+    <property name="Date" />
+    <property name="Description" />
+    <many-to-one name="Category" column="CategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <many-to-one name="Student" column="StudentID" class="iSISModel.Student,iSISModel" />
+
+  </class>
+</hibernate-mapping>
+
+

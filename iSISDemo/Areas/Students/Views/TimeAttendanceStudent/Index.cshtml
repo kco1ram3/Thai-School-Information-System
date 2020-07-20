@@ -1,0 +1,15 @@
+﻿@using iSISDemo.Models
+@model IEnumerable<iSISModel.StudentTimeAttendance>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("TimeAttendanceStudent");
+}
+
+<style>
+    .custom .dxMonthGridWithWeekNumbers {
+        display: none;
+    }
+</style>
+
+<h2>@ModelsRepository.GetLabel("TimeAttendanceStudent")</h2>
+
+@Html.Partial("_GridViewTimeAttendanceStudent", Model)

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.Experience,iSISModel" table="Experience" >
+
+    <!-- Primary key-->
+    <id name="ID" column="ID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <!--xxx-->
+    <many-to-one name="Person" class="iSISModel.Person, iSISModel" column="PersonID" />
+    <many-to-one name="Organization" class="iSISModel.Organization, iSISModel" column="OrganizationID" />
+    <property name="OrganizationName" />
+    <property name="OrganizationAddress" />
+    <property name="JobDescription" />
+    <property name="Reference" />
+    <property name="Remark" />
+  </class>
+</hibernate-mapping>

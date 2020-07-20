@@ -1,0 +1,21 @@
+﻿CREATE TABLE [dbo].AdmitCurriculum
+(
+	[ID] INT Identity(1,1) NOT NULL PRIMARY KEY,
+	AdmissionID int,
+	AdmittedClassLevelID int,
+	ApplicationFormURL nvarchar(500),
+	Capacity int,
+	CurriculumID int,
+	--DescriptionMLSID bigint,
+	Description nvarchar(500),
+	DrawingFrom datetime2,
+	DrawingTo datetime2,
+	ForLocalPeopleOnly bit,
+	RegisterFrom datetime2,
+	RegisterTo datetime2,
+	TestFrom datetime2,
+	TestTo datetime2,
+	TestResultPublishedDate datetime2,
+	--TitleMLSID bigint,
+	Title nvarchar(500),
+)

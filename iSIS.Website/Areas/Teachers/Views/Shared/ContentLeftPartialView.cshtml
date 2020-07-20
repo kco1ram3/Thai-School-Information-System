@@ -1,0 +1,5 @@
+﻿@using iSIS.Website.Areas.Teacher.Models;
+
+<div class="leftPanel">
+    @Html.DevExpress().TreeView(TreeViewMenu.GetTreeViewSettings((string)Session["CurrentLanguage"]))).GetHtml()
+</div>

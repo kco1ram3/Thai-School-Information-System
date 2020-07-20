@@ -1,0 +1,9 @@
+﻿@using iSISDemo.Models
+@model IEnumerable<iSISModel.Teacher>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("ClassroomData");
+}
+
+<h2>@ModelsRepository.GetLabel("ClassroomData")</h2>
+
+@Html.Partial("_GridViewClassroomTeacherList", Model)

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.StudentApplication,iSISModel" table="StudentApplication" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Admission" column="AdmissionID" class="iSISModel.Admission,iSISModel" />
+    <property name="Reference" />
+    <property name="Remark" />
+    <property name="IDNo" />
+    <many-to-one name="AppliedCurriculum" column="AppliedCurriculumID" class="iSISModel.AdmitCurriculum,iSISModel" />
+    <property name="AppliedDate" />
+    <many-to-one name="Applicant" column="ApplicantID" class="iSISModel.Person,iSISModel" />
+    <many-to-one name="Father" column="FatherID" class="iSISModel.Person,iSISModel" />
+    <many-to-one name="Guardian" column="GuardianID" class="iSISModel.Person,iSISModel" />
+    <many-to-one name="Mother" column="MotherID" class="iSISModel.Person,iSISModel" />
+    <many-to-one name="LastSchool" column="LastSchoolID" class="iSISModel.School,iSISModel" />
+    <many-to-one name="LastClassLevel" column="LastClassLevelID" class="iSISModel.ClassLevel,iSISModel" />
+    <property name="GPA" />
+    <property name="ONETScore" />
+
+    <property name="IsAdmitted" />
+    <property name="TotalTestScore" />
+    <property name="Rank" />
+
+
+
+    <bag name="AlternateSchools" table="AlternateSchool" >
+      <key column="StudentApplicationID"/>
+      <one-to-many class="iSISModel.AlternateSchool,iSISModel"/>
+    </bag>
+
+    <bag name="TestScores" table="TestScore" >
+      <key column="StudentApplicationID"/>
+      <one-to-many class="iSISModel.TestScore,iSISModel"/>
+    </bag>
+
+    <many-to-one name="TestRoom" column="AdmissionTestRoomID" class="iSISModel.AdmissionTestRoom,iSISModel" />
+  </class>
+</hibernate-mapping>
+
+

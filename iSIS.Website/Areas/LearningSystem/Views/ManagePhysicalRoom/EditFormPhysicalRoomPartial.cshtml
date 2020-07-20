@@ -1,0 +1,149 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvEditingPhysicalRoom";
+            settings.KeyFieldName = "ID";
+            settings.CallbackRouteValues = new { Controller = "ManagePhysicalRoom", Action = "EditFormPhysicalRoomPartial" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "ManagePhysicalRoom", Action = "EditFormPhysicalRoomAddNewPartial" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "ManagePhysicalRoom", Action = "EditFormPhysicalRoomUpdatePartial" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "ManagePhysicalRoom", Action = "EditFormPhysicalRoomDeletePartial" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+
+            /*
+             * settings.CommandColumn.ButtonType = GridViewCommandButtonType.Image;
+             * foreach (GridViewCommandColumnButton item in settings.CommandColumn.CustomButtons)
+            {
+                item.ButtonType = ColumnCommandButtonType.
+            }*/
+
+            settings.Columns.Add("BuildingTitle");
+            settings.Columns.Add("RoomNo");
+            settings.Columns.Add("EffectivePeriod.From");
+            settings.Columns.Add("EffectivePeriod.To");
+
+            settings.SetEditFormTemplateContent(c =>
+            {
+                var item = ViewData["EditablePhysicalRoom"] != null ? ViewData["EditablePhysicalRoom"] : c.DataItem;
+                ViewContext.Writer.Write(
+                    "<div class=\"edit_form\">" +
+                    "<div class=\"line\">"
+                );
+
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "เทอม:";
+                        edtSettings.AssociatedControlName = "Semester.SemesterNo";
+                    }
+                )
+                .Render();
+                Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "Semester.SemesterNo";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = true;
+                    }
+                )
+                .Bind(DataBinder.Eval(item, "Semester.SemesterNo"))
+                .Render();
+                ViewContext.Writer.Write(
+                    "</div>" +
+                    "<div class=\"line\">"
+                );
+
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "อาคารเรียน:";
+                        edtSettings.AssociatedControlName = "Room.BuildingTitle";
+                    }
+                )
+                .Render();
+                Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "Room.BuildingTitle";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = true;
+                    }
+                )
+                .Bind(DataBinder.Eval(item, "Room.BuildingTitle"))
+                .Render();
+                ViewContext.Writer.Write(
+                    "</div>" +
+                    "<div class=\"line\">"
+                );
+
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "ห้องเรียน:";
+                        edtSettings.AssociatedControlName = "Room.RoomNo";
+                    }
+                )
+                .Render();
+                Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "Room.RoomNo";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = true;
+                    }
+                )
+                .Bind(DataBinder.Eval(item, "Room.RoomNo"))
+                .Render();
+                ViewContext.Writer.Write(
+                    "</div>" +
+                    "<div class=\"line\">"
+                );
+
+
+                Html.DevExpress().Button(
+                    btnSettings =>
+                    {
+                        btnSettings.Name = "btnUpdate";
+                        btnSettings.ControlStyle.CssClass = "button";
+                        btnSettings.Text = "Update";
+                        btnSettings.ClientSideEvents.Click = "function(s, e){ gvEditingPhysicalRoom.UpdateEdit(); }";
+                    }
+                )
+                .Render();
+                Html.DevExpress().Button(
+                    btnSettings =>
+                    {
+                        btnSettings.Name = "btnCancel";
+                        btnSettings.ControlStyle.CssClass = "button";
+                        btnSettings.Text = "Cancel";
+                        btnSettings.ClientSideEvents.Click = "function(s, e){ gvEditingPhysicalRoom.CancelEdit(); }";
+                    }
+                )
+                .Render();
+                ViewContext.Writer.Write(
+                    "</div></div>"
+                );
+            });
+
+            /*settings.PreRender = (sender, e) =>
+            {
+                ((MVCxGridView)sender).StartEdit(1);
+            };*/
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+
+@grid.Bind(Model).GetHtml()

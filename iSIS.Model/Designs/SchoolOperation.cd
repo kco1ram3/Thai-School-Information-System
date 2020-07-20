@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="4.5" Y="4" Width="1.75" />
+    <AssociationLine Name="ClassLevelSections" Type="iSISModel.ClassLevelSection" FixedFromPoint="true">
+      <Path>
+        <Point X="4.938" Y="4.691" />
+        <Point X="4.938" Y="5.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Semesters" Type="iSISModel.Semester" FixedFromPoint="true">
+      <Path>
+        <Point X="4.938" Y="4" />
+        <Point X="4.938" Y="3.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.123" Y="0.089" Height="0.182" Width="0.92" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEARAAAYAJAAGYCgAAEAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ClassLevelSections" />
+      <Property Name="Semesters" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.PhysicalRoom" Collapsed="true">
+    <Position X="4.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalRoom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Semester" Collapsed="true">
+    <Position X="4.5" Y="2.75" Width="1.75" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true">
+      <Path>
+        <Point X="5.812" Y="3.441" />
+        <Point X="5.812" Y="4" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.919" Y="0.11" Height="0.182" Width="0.816" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAQAAAAMAAAAAAAAAQAABAQAAABAAAAAA=</HashCode>
+      <FileName>Semester.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.ClassLevelSection" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAEAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>ClassLevelSection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Course" Collapsed="true">
+    <Position X="10.25" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABABAgAABAAAgEAAIAAABAAABBQAAAAAAAAAA=</HashCode>
+      <FileName>Course.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.CourseSection" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAIAAMJAAAAAAAACAAAAAQAIAAAAAAAA=</HashCode>
+      <FileName>CourseSection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+      <Property Name="Semester" />
+      <Property Name="ClassLevelSection" />
+      <Property Name="Room" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.RoyalDecoration,iSISModel" table="RoyalDecoration" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Reference" />
+    <property name="Remark" />
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="Date"/>
+    </component>
+    
+    <many-to-one name="RoyalDecorationCategory" column="RoyalDecorationCategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <many-to-one name="Person" column="PersonID" class="iSISModel.Person,iSISModel" />
+
+  </class>
+</hibernate-mapping>
+
+

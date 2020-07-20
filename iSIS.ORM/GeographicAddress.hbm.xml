@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.GeographicAddress,iSISModel" table="GeographicAddress">
+
+		<!-- Primary key-->
+		<id name="ID" type="Int64" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <many-to-one name="AddressNo" cascade="save-update, delete" column="AddressNoMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Street1" cascade="save-update, delete" column="Street1MLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Street2" cascade="save-update, delete" column="Street2MLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Province" column="ProvinceID" class="iSISModel.GeographicRegion,iSISModel"/>
+    <many-to-one name="District" column="DistrictID" class="iSISModel.GeographicRegion,iSISModel"/>
+    <many-to-one name="Subdistrict" column="SubdistrictID" class="iSISModel.GeographicRegion,iSISModel"/>
+    <many-to-one name="Town" column="TownID" class="iSISModel.GeographicRegion,iSISModel"/>
+    <many-to-one name="Country" column="CountryID" class="iSISModel.Country,iSISModel"/>
+    <property name="PostalCode" />
+  </class>
+</hibernate-mapping>
+
+

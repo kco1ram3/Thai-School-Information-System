@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Party,iSISModel" table="Party">
+
+    <!-- Primary key-->
+    <id name="PartyID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <joined-subclass name="iSISModel.Person,iSISModel" table="Person">
+      <key column="PersonID"/>
+
+      <component name="EffectivePeriod" class="iSISModel.DateTimeRange,iSISModel" >
+        <property name="From" column="BirthDate"/>
+        <property name="To" column="DeceasedDate"/>
+      </component>
+      <property name="OrderedDate" />
+      <property name="Reference" />
+      <property name="Remark" />
+
+      <bag name="Addresses" table="PartyAddress" lazy="true" where="PartyDiscriminator=20"
+        collection-type="iSISModel.PersistentListType`3[
+          [iSISModel.PartyAddress, iSISModel],
+          [iSISModel.CategorizedTemporalList`1[iSISModel.PartyAddress, iSISModel], iSISModel],
+          [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyAddress, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyAddress, iSISModel"/>
+      </bag>
+      <!--<bag name="AssociatedBankAccounts" table="PartyBankAccount" access="field.camelcase" where="PartyDiscriminator=20" >
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyBankAccount,iSISModel"/>
+      </bag>-->
+      <!--<many-to-one name="Properties" column="Properties" class="iSISModel.PropertyValue, iSISModel" not-found="ignore"/>-->
+      <many-to-one name="BloodGroup" column="BloodGroupNodeID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase" />
+      <!--<many-to-one name="Category" column="CategoryNodeID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase" />-->
+      <bag name="Categories" table="PartyCategory" access="field.camelcase" lazy="true" where="PartyDiscriminator=20"
+          collection-type="iSISModel.PersistentListType`3[
+	          [iSISModel.PartyCategory, iSISModel], 
+	          [iSISModel.CategorizedTemporalList`1[iSISModel.PartyCategory, iSISModel], iSISModel], 
+	          [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyCategory, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyCategory, iSISModel"/>
+      </bag>
+      <many-to-one name="CitizenOf" column="CitizenCountryID" class="iSISModel.Country, iSISModel" access="field.camelcase" />
+      <!--<many-to-one name="CurrentName" column="CurrentNameID" class="iSISModel.PersonName, iSISModel" access="field.camelcase"/>-->
+      <property name="Email" access="field.camelcase" />
+      <property name="Faxes" access="field.camelcase" />
+      <many-to-one name="Gender" column="GenderNodeID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase" />
+      <bag name="Identities" table="PartyIdentity" lazy="true" where="PartyDiscriminator=20"
+        collection-type="iSISModel.PersistentListType`3[
+		        [iSISModel.PartyIdentity, iSISModel], 
+		        [iSISModel.CategorizedTemporalList`1[iSISModel.PartyIdentity, iSISModel], iSISModel], 
+		        [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyIdentity, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyIdentity, iSISModel"/>
+      </bag>
+      <property name="MobilePhone" access="field.camelcase" />
+      <bag name="MoneyRateSchedules" table="PartyMoneyRateSchedule" lazy="true" where="PartyDiscriminator=20"
+        collection-type="iSISModel.PersistentListType`3[
+          [iSISModel.PartyMoneyRateSchedule,iSISModel],
+          [iSISModel.CategorizedTemporalList`1[iSISModel.PartyMoneyRateSchedule,iSISModel],iSISModel],
+          [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyMoneyRateSchedule,iSISModel],iSISModel]],iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyMoneyRateSchedule,iSISModel"/>
+      </bag>
+      <bag name="Names" table="PersonName" access="field.camelcase" lazy="true" 
+          collection-type="iSISModel.PersistentListType`3[
+	          [iSISModel.PersonName,iSISModel], 
+	          [iSISModel.TemporalList`1[iSISModel.PersonName, iSISModel], iSISModel], 
+	          [iSISModel.PersistentTemporalList`1[iSISModel.PersonName, iSISModel], iSISModel]], iSISModel">
+        <key column="PersonID"/>
+        <one-to-many class="iSISModel.PersonName, iSISModel"/>
+      </bag>
+      <many-to-one name="Nationality" column="NationalityID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase" />
+      <property name="OfficialIDNo" column="OfficialIDNo" type="String" />
+      <many-to-one name="Occupation" column="OccupationID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase" />
+      <property name="Phone" access="field.camelcase" />
+      <many-to-one name="Religion" column="ReligionNodeID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase"/>
+      <property name="URL" access="field.camelcase" />
+    </joined-subclass>
+
+
+
+    <joined-subclass name="iSISModel.Organization,iSISModel" table="Organization">
+      <key column="OrgID"/>
+
+      <component name="CreateAction" class="iSISModel.UserAction,iSISModel">
+        <many-to-one name="User" class="iSISModel.User,iSISModel" column="CreatedBy" fetch="join"/>
+        <property name="ActionTS" column="CreatedTS" />
+      </component>
+      <component name="ApproveAction" class="iSISModel.UserAction,iSISModel">
+        <many-to-one name="User" class="iSISModel.User,iSISModel" column="ApprovedBy" fetch="join"/>
+        <property name="ActionTS" column="ApprovedTS" />
+      </component>
+      <component name="EffectivePeriod" class="iSISModel.DateTimeRange,iSISModel" >
+        <property name="From" column="EffectiveFrom"/>
+        <property name="To" column="EffectiveTo"/>
+      </component>
+      <property name="OrderedDate" />
+      <property name="Reference" />
+      <property name="Remark" />
+      <property name="UpdatedTS" />
+      <many-to-one name="UpdatedBy" column="UpdatedBy" class="iSISModel.User,iSISModel" fetch="join" />
+
+      <bag name="Addresses" table="PartyAddress" lazy="true" where="PartyDiscriminator=10"
+          collection-type="iSISModel.PersistentListType`3[
+            [iSISModel.PartyAddress, iSISModel],
+            [iSISModel.CategorizedTemporalList`1[iSISModel.PartyAddress, iSISModel], iSISModel],
+            [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyAddress, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyAddress, iSISModel"/>
+        <!--<loader query-ref="LoadOrgAddresses"/>-->
+      </bag>
+      <bag name="Attributes" table="PartyAttribute" lazy="true" where="PartyDiscriminator=10"
+        collection-type="iSISModel.PersistentListType`3[
+          [iSISModel.PartyAttribute, iSISModel],
+          [iSISModel.CategorizedTemporalList`1[iSISModel.PartyAttribute, iSISModel], iSISModel],
+          [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyAttribute, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyAttribute,iSISModel"/>
+      </bag>
+      <bag name="AssociatedBankAccounts" table="PartyBankAccount" lazy="true" where="PartyDiscriminator=10">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyBankAccount,iSISModel"/>
+      </bag>
+      <many-to-one name="ContactName" column="ContactNameMLSID" class="iSISModel.MultilingualString,iSISModel" />
+      <bag name="Categories" table="PartyCategory" lazy="true" where="PartyDiscriminator=10"
+          collection-type="iSISModel.PersistentListType`3[
+						[iSISModel.PartyCategory, iSISModel], 
+						[iSISModel.CategorizedTemporalList`1[iSISModel.PartyCategory, iSISModel], iSISModel], 
+						[iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyCategory, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyCategory,iSISModel"/>
+      </bag>
+      <property name="Email" column="Email" type="String"  not-null="false" />
+      <bag name="Identities" table="PartyIdentity" lazy="true" where="PartyDiscriminator=10"
+          collection-type="iSISModel.PersistentListType`3[
+				  	[iSISModel.PartyIdentity, iSISModel], 
+						[iSISModel.CategorizedTemporalList`1[iSISModel.PartyIdentity, iSISModel], iSISModel], 
+						[iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyIdentity, iSISModel], iSISModel]], iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyIdentity,iSISModel"/>
+      </bag>
+      <property name="ImageFileName" column="ImageFileName" type="String"  not-null="false" />
+      <many-to-one name="Nationality" column="NationalityID" class="iSISModel.HierarchicalCategory, iSISModel" access="field.camelcase" />
+      <property name="OfficialIDNo" column="OfficialIDNo" type="String" />
+      <bag name="Users" table="User" cascade="delete">
+        <key column="OrgID"/>
+        <one-to-many class="iSISModel.User,iSISModel" />
+      </bag>
+
+      <!--start OrgBase-->
+      <many-to-one name="CurrentName" column="CurrentNameID" class="iSISModel.OrgName,iSISModel" cascade="save-update"/>
+      <property name="Code" column="Code" type="String"  not-null="true" />
+      <many-to-one name="HolidayCalendar" column="HolidayCalendarID" class="iSISModel.TimeSchedule,iSISModel" access="field.camelcase"/>
+      <bag name="MoneyRateSchedules" table="PartyMoneyRateSchedule" lazy="true" where="PartyDiscriminator=10"
+        collection-type="iSISModel.PersistentListType`3[
+          [iSISModel.PartyMoneyRateSchedule,iSISModel],
+          [iSISModel.CategorizedTemporalList`1[iSISModel.PartyMoneyRateSchedule,iSISModel],iSISModel],
+          [iSISModel.PersistentCategorizedTemporalList`1[iSISModel.PartyMoneyRateSchedule,iSISModel],iSISModel]],iSISModel">
+        <key column="PartyID"/>
+        <one-to-many class="iSISModel.PartyMoneyRateSchedule,iSISModel"/>
+      </bag>
+      <bag name="Names" table="OrgName" lazy="true" where="OwnerDiscriminator=10"
+        collection-type="iSISModel.PersistentListType`3[
+						[iSISModel.OrgName, iSISModel], 
+						[iSISModel.TemporalList`1[iSISModel.OrgName, iSISModel], iSISModel], 
+						[iSISModel.PersistentTemporalList`1[iSISModel.OrgName, iSISModel], iSISModel]], iSISModel">
+        <key column="OwnerID"/>
+        <one-to-many class="iSISModel.OrgName,iSISModel"/>
+      </bag>
+      <property name="URL" column="URL" type="String" />
+      <many-to-one name="WorkCalendar" column="WorkCalendarID" class="iSISModel.TimeSchedule,iSISModel" access="field.camelcase"/>
+      <!--end OrgBase-->
+    </joined-subclass>
+
+
+
+
+  </class>
+
+
+</hibernate-mapping>

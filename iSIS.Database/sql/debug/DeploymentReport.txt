@@ -1,0 +1,74 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[A]
+       [dbo].[ClassLevel]
+       [dbo].[ClassLevelSection]
+       [dbo].[Classroom]
+       [dbo].[ClassroomStudent]
+       [dbo].[ClassroomTeacher]
+       [dbo].[Country]
+       [dbo].[DesiredOutcome]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The type for column ID in table [dbo].[A] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT
+         IDENTITY (1, 1) NOT NULL. Data loss could occur.
+       The type for column ClassLevelID in table [dbo].[ClassLevelSection] is currently  BIGINT NULL but is being changed to 
+         INT NULL. Data loss could occur.
+       The type for column ID in table [dbo].[ClassLevelSection] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being
+         changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+       The type for column ClassLevelSectionID in table [dbo].[Classroom] is currently  BIGINT NULL but is being changed to 
+         INT NULL. Data loss could occur.
+       The type for column ID in table [dbo].[Classroom] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to 
+         INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+       The column [dbo].[ClassroomStudent].[ClassSectionID] is being dropped, data loss could occur.
+       The type for column ClassLevelID in table [dbo].[ClassroomStudent] is currently  BIGINT NULL but is being changed to 
+         INT NULL. Data loss could occur.
+       The column [dbo].[ClassroomTeacher].[ClassSectionID] is being dropped, data loss could occur.
+       The type for column CreditHours in table [dbo].[Course] is currently  FLOAT (53) NULL but is being changed to  REAL
+         NULL. Data loss could occur.
+       The column [dbo].[DesiredOutcome].[CurriculumID] is being dropped, data loss could occur.
+
+** User actions
+     Table rebuild
+       [dbo].[A] (Table)
+       [dbo].[ClassLevel] (Table)
+       [dbo].[ClassLevelSection] (Table)
+       [dbo].[Classroom] (Table)
+       [dbo].[ClassroomStudent] (Table)
+       [dbo].[ClassroomTeacher] (Table)
+       [dbo].[Country] (Table)
+       [dbo].[DesiredOutcome] (Table)
+     Alter
+       [dbo].[Course] (Table)
+       [dbo].[Curriculum] (Table)
+     Create
+       [dbo].[Absence] (Table)
+       [dbo].[Admission] (Table)
+       [dbo].[AdmissionTest] (Table)
+       [dbo].[AdmitCurriculum] (Table)
+       [dbo].[AlternateSchool] (Table)
+       [dbo].[Application] (Table)
+       [dbo].[CurriculumCourse] (Table)
+       [dbo].[CurriculumFramework] (Table)
+       [dbo].[Education] (Table)
+       [dbo].[Experience] (Table)
+       [dbo].[Photo] (Table)
+       [dbo].[Role] (Table)
+       [dbo].[UserRole] (Table)
+
+** Supporting actions
+
+The type for column ID in table [dbo].[A] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+The type for column ClassLevelID in table [dbo].[ClassLevelSection] is currently  BIGINT NULL but is being changed to  INT NULL. Data loss could occur.
+The type for column ID in table [dbo].[ClassLevelSection] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+The type for column ClassLevelSectionID in table [dbo].[Classroom] is currently  BIGINT NULL but is being changed to  INT NULL. Data loss could occur.
+The type for column ID in table [dbo].[Classroom] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+The column [dbo].[ClassroomStudent].[ClassSectionID] is being dropped, data loss could occur.
+The type for column ClassLevelID in table [dbo].[ClassroomStudent] is currently  BIGINT NULL but is being changed to  INT NULL. Data loss could occur.
+The column [dbo].[ClassroomTeacher].[ClassSectionID] is being dropped, data loss could occur.
+The type for column CreditHours in table [dbo].[Course] is currently  FLOAT (53) NULL but is being changed to  REAL NULL. Data loss could occur.
+The column [dbo].[DesiredOutcome].[CurriculumID] is being dropped, data loss could occur.
+

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.StudentAcademicYear,iSISModel" table="StudentAcademicYear" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Reference" />
+    <property name="Remark" />
+    <property name="GPA" />
+    <property name="BehavioralPoint" />
+    <property name="DeductedPoint" />
+    <property name="AcademicYear" />
+    <many-to-one name="ClassLevel" column="ClassLevelID" class="iSISModel.ClassLevel,iSISModel" />
+    <many-to-one name="Student" column="StudentID" class="iSISModel.Student,iSISModel" />
+    <many-to-one name="School" column="SchoolID" class="iSISModel.School,iSISModel" />
+
+  </class>
+</hibernate-mapping>
+
+

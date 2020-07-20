@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LearningSystem Url="javascript:void(0)" Title="" >
+  <CourseManagementSystem>
+    <menu Url="ManagePhysicalRoom/EditFormPhysicalRoom" Title="จัดการห้องต่างๆ" />
+    <menu Url="ManageClassroom/EditFormClassroom" Title="จัดการห้องเรียน" />
+    <menu Url="javascript:void(0)" Title="กำหนดห้องเรียน" />
+  </CourseManagementSystem>
+  <GradingSystem>
+    <menu Url="javascript:void(0)" Title="เลื่อนชั้น" />
+    <menu Url="javascript:void(0)" Title="สร้างตารางเก็บคะแนน" />
+    <menu Url="javascript:void(0)" Title="บันทึกคะแนน" />
+    <menu Url="javascript:void(0)" Title="กำหนดกิจกรรม" />
+  </GradingSystem>
+  <TeacherManagementSystem>
+    <menu Url="javascript:void(0)" Title="จัดการครูประจำชั้น" />
+    <menu Url="javascript:void(0)" Title="จัดการครูประจำวิชา" />
+    <menu Url="javascript:void(0)" Title="เปลี่ยนครูประจำชั้น" />
+    <menu Url="javascript:void(0)" Title="เปลี่ยนครูประจำวิชา" />
+  </TeacherManagementSystem>
+</LearningSystem>

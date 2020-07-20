@@ -1,0 +1,139 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.CourseSectionStudent>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("Detail");
+    iSISModel.ClassroomStudent classroomStudent = (iSISModel.ClassroomStudent)ViewData["ClassroomStudent"];
+    IList<iSISModel.DiscreteGrade> discreteGrade = (IList<iSISModel.DiscreteGrade>)ViewData["DiscreteGrade"];
+}
+
+<h2>@ModelsRepository.GetLabel("Detail")</h2>
+<p>
+    @ModelsRepository.GetLabel("AcademicYear") : @classroomStudent.Classroom.Semester.AcademicYear
+    <br />
+    @ModelsRepository.GetLabel("SemesterNo") : @classroomStudent.Classroom.Semester.SemesterNo
+    <br />
+    @ModelsRepository.GetLabel("LevelTitle") :
+    @{
+        if (classroomStudent.Classroom.ClassLevelSection.ClassLevel.Title != null)
+        {
+            @classroomStudent.Classroom.ClassLevelSection.ClassLevel.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("LevelShortTitle") :
+    @{
+        if (classroomStudent.Classroom.ClassLevelSection.ClassLevel.ShortTitle != null)
+        {
+            @classroomStudent.Classroom.ClassLevelSection.ClassLevel.ShortTitle.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("RoomNo") : @classroomStudent.Classroom.Room.RoomNo
+</p>
+<p>
+    @ModelsRepository.GetLabel("IDNo") : @classroomStudent.Student.IDNo
+    <br />
+    @ModelsRepository.GetLabel("CurrentName") :
+    @{
+        if (classroomStudent.Student.Person != null && classroomStudent.Student.Person.CurrentName != null)
+        {
+            @classroomStudent.Student.Person.CurrentName.ToString(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("Email") : @classroomStudent.Student.Person.EmailAddress
+</p>
+
+<style>
+    #row_data table tbody {
+        vertical-align: top;
+    }
+
+    #row_data table tbody td {
+        padding: 5px;
+    }
+
+    #row_data table td {
+        border: 1px solid;
+    }
+
+    #row_data table tbody tr {
+        cursor: pointer;
+    }
+</style>
+
+<div id="row_data">
+    <table>
+        <thead>
+            <tr>
+                <th>@ModelsRepository.GetLabel("CourseNo")</th>
+                <th>@ModelsRepository.GetLabel("CourseTitle")</th>
+                <th>@ModelsRepository.GetLabel("Grade")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (iSISModel.CourseSectionStudent css in Model)
+                {
+                    <tr onclick="javascript: pcCourse.SetActiveTab(pcCourse.GetTabByName('@css.ID'));">
+                        <td>
+                            @{
+                    if (css.CourseSection.Course.CourseNo != null)
+                    {
+                        @css.CourseSection.Course.CourseNo.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+                    }
+                            }
+                        </td>
+                        <td>
+                            @{
+                    if (css.CourseSection.Course.Title != null)
+                    {
+                        @css.CourseSection.Course.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+                    }
+                            }
+                        </td>
+                        <td>
+                            @{
+                    if (discreteGrade.FirstOrDefault(x => x == css.Grade) != null)
+                    {
+                        @discreteGrade.FirstOrDefault(x => x == css.Grade).Symbol
+                    }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<p></p>
+@Html.DevExpress().PageControl(
+    settings =>
+    {
+        settings.Name = "pcCourse";
+        settings.EnableClientSideAPI = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Height = 350;
+        settings.EnableTabScrolling = true;
+        settings.TabAlign = TabAlign.Justify;
+
+        foreach (iSISModel.CourseSectionStudent css in Model)
+        {
+            string tabName = "";
+            if (css.CourseSection.Course.Title != null)
+            {
+                tabName = css.CourseSection.Course.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage));
+                tabName += " ";
+            }
+            if (css.CourseSection.Course.CourseNo != null)
+            {
+                tabName += "(" + css.CourseSection.Course.CourseNo.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)) + ")";
+            }
+            settings.TabPages.Add(tabName, css.ID.ToString()).SetContent(() =>
+            {
+                Html.RenderPartial("~/Areas/Teachers/Views/PerformanceMeasurement/_PerformanceIndicator.cshtml", css.CourseSection, new ViewDataDictionary(this.ViewData) { { "IsReadOnly", true } });
+            });
+        }
+    }).GetHtml()

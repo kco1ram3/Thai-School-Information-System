@@ -1,0 +1,28 @@
+﻿@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.Module>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("AuthorizeModule");
+
+    iSISModel.Role role = (iSISModel.Role)ViewData["Role"];
+}
+
+<h2>@ModelsRepository.GetLabel("AuthorizeModule")</h2>
+<p>
+    @ModelsRepository.GetLabel("Role") : @role.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("_TreeListAuthorizeModule", Model)
+    <p>
+        @Html.DevExpress().Button(
+            settings =>
+            {
+                settings.Name = "btnSave";
+                settings.Text = ModelsRepository.GetLabel("Save");
+                settings.UseSubmitBehavior = true;
+            }
+        ).GetHtml()
+    </p>
+}

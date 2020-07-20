@@ -1,0 +1,172 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.ClassroomStudent>
+
+@{
+    string controlCheckboxName = "";
+    bool isCallback = false;
+    if (ViewData["IsCallback"] != null)
+    {
+        isCallback = (bool)ViewData["IsCallback"];
+    }
+
+    bool isLastSemesterOfYear = false;
+    if (ViewData["IsLastSemesterOfYear"] != null)
+    {
+        isLastSemesterOfYear = (bool)ViewData["IsLastSemesterOfYear"];
+    }
+}
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gvClassroomStudentList";
+        settings.KeyFieldName = "ID";
+        settings.CallbackRouteValues = new { Controller = "Classroom", Action = "GridViewClassroomStudentList", classroomID = ViewData["classroomID"] };
+        //settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+        if (isLastSemesterOfYear)
+        {
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    Html.DevExpress().CheckBox(
+                        s =>
+                        {
+                            s.Name = "Student_" + DataBinder.Eval(c.DataItem, "ID");
+                            s.Properties.ClientSideEvents.CheckedChanged = "function (s, e) {"
+                                                                                 + "var isCheckAll = true;"
+                                                                                 + "var controls = (controlCheckboxName.GetValue()).split(',');"
+                                                                                 + "for(index = 0; index < controls.length; index++) {"
+                                                                                    + "var nextControl = controls[index];"
+                                                                                    + "if (nextControl !== '') {"
+                                                                                        + "var obj = eval(nextControl);"
+                                                                                        + "if (!obj.GetValue()) { isCheckAll = false; break; } "
+                                                                                    + "}"
+                                                                                 + "}"
+                                                                                 + "StudentCheckAll.SetChecked(isCheckAll);"
+                                                                            + "}";
+                            if (((iSISModel.Student)DataBinder.Eval(c.DataItem, "Student")).EffectivePeriod.To <= DateTime.Today)
+                            {
+                                s.ClientVisible = false;
+                            }
+
+                            if (s.ClientVisible)
+                            {
+                                if (controlCheckboxName == "")
+                                {
+                                    controlCheckboxName = ",";
+                                }
+                                controlCheckboxName += s.Name + ",";
+                            }
+                        }
+                    ).GetHtml();
+                });
+                column.SetHeaderTemplateContent(c =>
+                {
+                    Html.DevExpress().CheckBox(
+                        s =>
+                        {
+                            s.Name = "StudentCheckAll";
+                            s.Properties.ClientSideEvents.CheckedChanged = "function (s, e) {"
+                                                                                 + "var controls = (controlCheckboxName.GetValue()).split(',');"
+                                                                                 + "for(index = 0; index < controls.length; index++) {"
+                                                                                    + "var nextControl = controls[index];"
+                                                                                    + "if (nextControl !== '') {"
+                                                                                        + "var obj = eval(nextControl);"
+                                                                                        + "obj.SetChecked(StudentCheckAll.GetValue());"
+                                                                                    + "}"
+                                                                                 + "}"
+                                                                            + "}";
+                        }
+                    ).GetHtml();
+                });
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.Width = 70;
+
+            });
+        }
+        
+        var columnNo = settings.Columns.Add("#");
+        columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+        columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+        columnNo.Settings.AllowSort = DefaultBoolean.False;
+        columnNo.Width = 50;
+
+        settings.CustomColumnDisplayText = (sender, e) =>
+        {
+            if (e.Column.FieldName == "#")
+            {
+                e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+            }
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Student.IDNo";
+            column.Caption = ModelsRepository.GetLabel("IDNo");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                if (((iSISModel.Person)DataBinder.Eval(c.DataItem, "Student.Person")).CurrentName != null)
+                {
+                    ViewContext.Writer.Write(((iSISModel.Person)DataBinder.Eval(c.DataItem, "Student.Person")).CurrentName.ToString(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                }
+            });
+            column.Caption = ModelsRepository.GetLabel("CurrentName");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Student.Person.EmailAddress";
+            column.Caption = ModelsRepository.GetLabel("Email");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("Detail"), "Detail", new { Controller = "PerformanceMeasurement", id = DataBinder.Eval(c.DataItem, "ID") })
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+    }).Bind(Model).GetHtml()
+
+@{
+    if (!isCallback)
+    {
+        Html.DevExpress().TextBox(
+            settings =>
+            {
+                settings.Name = "controlCheckboxName";
+                settings.ClientEnabled = true;
+                settings.ClientVisible = false;
+                settings.Text = controlCheckboxName;
+            }
+        ).GetHtml();
+    }
+}

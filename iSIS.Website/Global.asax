@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="iSIS.Website.MvcApplication" Language="C#" %>

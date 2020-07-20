@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.Admission" Collapsed="true">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedToPoint="true">
+      <Path>
+        <Point X="7.188" Y="3.941" />
+        <Point X="7.188" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="StartSemester" Type="iSISModel.Semester" FixedFromPoint="true">
+      <Path>
+        <Point X="8.25" Y="3.562" />
+        <Point X="10" Y="3.562" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="AdmissionTestRooms" Type="iSISModel.AdmissionTestRoom" FixedFromPoint="true">
+      <Path>
+        <Point X="7" Y="3.25" />
+        <Point X="7" Y="2.441" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="StudentApplications" Type="iSISModel.StudentApplication" FixedFromPoint="true">
+      <Path>
+        <Point X="6.75" Y="3.812" />
+        <Point X="4.75" Y="3.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAggBBAAEAQAEIAABgAAAAAQACAIACABCg=</HashCode>
+      <FileName>Admission.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+      <Property Name="StartSemester" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="AdmissionTestRooms" />
+      <Property Name="StudentApplications" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <AssociationLine Name="Curriculums" Type="iSISModel.Curriculum" FixedToPoint="true">
+      <Path>
+        <Point X="7.188" Y="5.441" />
+        <Point X="7.188" Y="6.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEARAAAYAJAAGYCgAAEAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Curriculums" />
+      <Property Name="Admissions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.Semester" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAQAAAAMAAAAAAAAAQAABAQAAABAAAAAA=</HashCode>
+      <FileName>Semester.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.StudentApplication" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.75" />
+    <AssociationLine Name="Applicant" Type="iSISModel.Person" FixedFromPoint="true">
+      <Path>
+        <Point X="3" Y="3.296" />
+        <Point X="2" Y="3.296" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Guardian" Type="iSISModel.Person" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.125" Y="3.941" />
+        <Point X="3.125" Y="4.316" />
+        <Point X="1.25" Y="4.316" />
+        <Point X="1.25" Y="3.941" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LastSchool" Type="iSISModel.School" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="3.938" />
+        <Point X="5.125" Y="3.938" />
+        <Point X="5.125" Y="4.875" />
+        <Point X="6.75" Y="4.875" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="TestScores" Type="iSISModel.TestScore" FixedFromPoint="true">
+      <Path>
+        <Point X="3.438" Y="3.25" />
+        <Point X="3.438" Y="2.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Admission" Type="iSISModel.Admission" FixedFromPoint="true">
+      <Path>
+        <Point X="4.75" Y="3.5" />
+        <Point X="6.75" Y="3.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="TestRoom" Type="iSISModel.AdmissionTestRoom" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="3.312" />
+        <Point X="5.125" Y="3.312" />
+        <Point X="5.125" Y="2.063" />
+        <Point X="6.5" Y="2.063" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAADIAgCAAEAKAAEAAACQAAIAAABCABAIAADYAAACAA=</HashCode>
+      <FileName>StudentApplication.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Applicant" />
+      <Property Name="Mother" />
+      <Property Name="Guardian" />
+      <Property Name="LastSchool" />
+      <Property Name="Admission" />
+      <Property Name="TestRoom" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="AlternateSchools" />
+      <Property Name="TestScores" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.Curriculum" Collapsed="true">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIAAAAAAAAAgAAAAAAgAAAAQAAAAAAAAQAAAAACAAAA=</HashCode>
+      <FileName>Curriculum.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.AdmitCurriculum" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <AssociationLine Name="Admission" Type="iSISModel.Admission" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="5.096" />
+        <Point X="8.808" Y="5.096" />
+        <Point X="8.808" Y="3.812" />
+        <Point X="8.25" Y="3.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Curriculum" Type="iSISModel.Curriculum" FixedFromPoint="true">
+      <Path>
+        <Point X="10.75" Y="5.441" />
+        <Point X="10.75" Y="6.596" />
+        <Point X="8.25" Y="6.596" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAEAEAgAEAAAAgAAEICAQAACAAACAAQAAAAAAA=</HashCode>
+      <FileName>AdmitCurriculum.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Admission" />
+      <Property Name="Curriculum" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Person" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>REAkgAAAIAAEACCAAEAAAAZQAEIAAAAgAQABMgBAAZA=</HashCode>
+      <FileName>Basic Classes\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.TestScore" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <AssociationLine Name="StudentApplication" Type="iSISModel.StudentApplication" FixedToPoint="true">
+      <Path>
+        <Point X="4.376" Y="2.312" />
+        <Point X="4.376" Y="3.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.513" Y="0.165" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="AdmissionTest" Type="iSISModel.AdmissionTest" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="1.75" />
+        <Point X="4" Y="0.292" />
+        <Point X="10.75" Y="0.292" />
+        <Point X="10.75" Y="1.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAoAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>TestScore.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="StudentApplication" />
+      <Property Name="AdmissionTest" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.AdmissionTest" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <AssociationLine Name="Admission" Type="iSISModel.Admission" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="2.125" />
+        <Point X="8.82" Y="2.125" />
+        <Point X="8.82" Y="3.312" />
+        <Point X="8.25" Y="3.312" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAAAQAACAAAAAAAAAAAACA=</HashCode>
+      <FileName>AdmissionTest.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Admission" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.AlternateSchool" Collapsed="true">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="5.188" />
+        <Point X="5.125" Y="5.188" />
+        <Point X="5.125" Y="5.189" />
+        <Point X="6.75" Y="5.189" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="StudentApplication" Type="iSISModel.StudentApplication" FixedFromPoint="true">
+      <Path>
+        <Point X="4.429" Y="4.75" />
+        <Point X="4.429" Y="3.941" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAIAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>AlternateSchool.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+      <Property Name="StudentApplication" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.PhysicalRoom" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>PhysicalRoom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.AdmissionTestRoom" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAACAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AdmissionTestRoom.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PhysicalRoom" />
+      <Property Name="Admission" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

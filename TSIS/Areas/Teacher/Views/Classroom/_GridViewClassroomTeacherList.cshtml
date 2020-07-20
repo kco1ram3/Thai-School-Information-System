@@ -1,0 +1,66 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@using TSIS.Classes
+@model IEnumerable<iSISModel.Teacher>
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gvClassroomTeacherList";
+        settings.KeyFieldName = "ID";
+        settings.CallbackRouteValues = new { Controller = "Classroom", Action = "GridViewClassroomTeacherList" };
+        //settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+        var columnNo = settings.Columns.Add("#");
+        columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+        columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+        columnNo.Settings.AllowSort = DefaultBoolean.False;
+        columnNo.Width = 50;
+
+        settings.CustomColumnDisplayText = (sender, e) =>
+        {
+            if (e.Column.FieldName == "#")
+            {
+                e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+            }
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                if (((iSISModel.Person)DataBinder.Eval(c.DataItem, "Person")).CurrentName != null)
+                {
+                    ViewContext.Writer.Write(((iSISModel.Person)DataBinder.Eval(c.DataItem, "Person")).CurrentName.ToString(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                }
+            });
+            column.Caption = ModelsRepository.GetLabel("CurrentName");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("ClassroomTeacher"), "ClassroomTeacher", new { id = DataBinder.Eval(c.DataItem, "Person.ID") })
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+    }).Bind(Model).GetHtml()

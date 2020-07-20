@@ -1,0 +1,197 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+@using TSIS.Areas.Announcement.Controllers;
+@model iSISModel.Admission
+
+<script type="text/javascript">
+    var gridDetailInstance = null;
+
+    function GetGridDetailInstance(s, e) {
+        gridDetailInstance = s;
+    }
+</script>
+
+@{
+    ViewBag.Title = @ModelsRepository.GetLabel("Admission");
+}
+
+@using (Html.BeginForm("Update", "Admission", FormMethod.Post))
+{
+    @Html.DevExpress().FormLayout(settings =>
+    {
+        settings.Name = "AdmissionFormLayout";
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Width = Unit.Percentage(100);
+        //======================================================
+        var groupAdmissionInfo = settings.Items.AddGroupItem(groupSettings =>
+        {
+            groupSettings.Caption = @ModelsRepository.GetLabel("Admission");
+            groupSettings.ShowCaption = DefaultBoolean.True;
+            groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+            groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        });
+        groupAdmissionInfo.SettingsItems.ShowCaption = DefaultBoolean.True;
+        groupAdmissionInfo.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+        groupAdmissionInfo.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+        groupAdmissionInfo.Items.Add(admissionInfo =>
+        {
+            admissionInfo.Caption = "";
+            admissionInfo.ShowCaption = DefaultBoolean.False;
+            admissionInfo.SetNestedContent(() =>
+            {
+                ViewContext.Writer.Write("<table><tr><td style=\"padding-right:25px;\">");
+                //-----------------------------------------------
+                @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelAcademicYear", "AcademicYear")).GetHtml();
+                @Html.DevExpress().ComboBox(
+                    comboSettings =>
+                    {
+                        comboSettings.Name = "ComboBoxAcademicYear";
+                        comboSettings.Width = 100;
+                        comboSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                        comboSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        comboSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        comboSettings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("ErrorAcademicYear");
+                        comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                        comboSettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                        comboSettings.Properties.TextField = "Text";
+                        comboSettings.Properties.ValueField = "Value";
+                        comboSettings.Properties.ValueType = typeof(Int64);
+                        comboSettings.PreRender = (sender, e) =>
+                        {
+                            if (Model.StartSemester != null)
+                            {
+                                MVCxComboBox cmb = sender as MVCxComboBox;
+                                cmb.Value = Model.StartSemester.ID;
+                            }
+                        };
+                    }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.Semester>)ViewData["Semester"])).GetHtml();
+
+                ViewContext.Writer.Write("</td></tr></table>");
+                //-----------------------------------------------
+                ViewContext.Writer.Write("<table><tr><td style=\"padding-right:25px;\">");
+                ViewContext.Writer.Write("<tr><td style=\"padding-top:15px; padding-right:25px;\">");
+                @Html.DevExpress().Label(LabelControl.GetSettingsTopic("StartDate", "StartDate")).GetHtml();
+                @Html.DevExpress().DateEditFor(model => model.ApplyPeriod.From, s =>
+                {
+                    s.Name = "DateEditStartDate";
+                    s.Width = 120;
+                    s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                    //s.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                    //s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    //s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    //s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("ErrorAcademicYear");
+                }).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                //-----------------------------------------------
+                ViewContext.Writer.Write("<td style=\"padding-top:15px; padding-right:25px;\">");
+                @Html.DevExpress().Label(LabelControl.GetSettingsTopic("EndDate", "EndDate")).GetHtml();
+                @Html.DevExpress().DateEditFor(model => model.ApplyPeriod.To, s =>
+                {
+                    s.Name = "DateEditEndDate";
+                    s.Width = 120;
+                    s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                    //s.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                    //s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    //s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    //s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("ErrorAcademicYear");
+                }).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                //-----------------------------------------------
+                ViewContext.Writer.Write("</tr></table>");
+                //-----------------------------------------------
+                ViewContext.Writer.Write("<table width=\"100%\"><tr><td style=\"padding-top:15px; padding-right:25px;\">");
+                //-----------------------------------------------
+                @Html.DevExpress().Label(LabelControl.GetSettingsTopic("ApplicationFormURL", "ApplicationFormURL")).GetHtml();
+                @Html.DevExpress().TextBoxFor(model => model.ApplicationFormURL, s =>
+                {
+                    s.Name = "TextBoxApplicationFormURL";
+                    s.Width = 400;
+                    s.ShowModelErrors = true;
+                    s.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                    s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("ErrorApplicationFormURL");
+                    s.Properties.ValidationSettings.Display = Display.Dynamic;
+                }).Render();
+                //-----------------------------------------------
+                ViewContext.Writer.Write("</td></tr></table>");
+            });
+        });
+        //======================================================
+        var groupAdmitCurriculum = settings.Items.AddGroupItem(groupSettings =>
+        {
+            groupSettings.Caption = @ModelsRepository.GetLabel("AdmitCurriculums");
+            groupSettings.ShowCaption = DefaultBoolean.True;
+            groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+            groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        });
+        groupAdmitCurriculum.SettingsItems.ShowCaption = DefaultBoolean.True;
+        groupAdmitCurriculum.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+        groupAdmitCurriculum.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+        groupAdmitCurriculum.Items.Add(AdmitCurriculumInfo =>
+        {
+            AdmitCurriculumInfo.Caption = "";
+            AdmitCurriculumInfo.ShowCaption = DefaultBoolean.False;
+            AdmitCurriculumInfo.SetNestedContent(() =>
+            {
+                Html.RenderAction(
+                    "AdmitCurriculumsDetail",
+                    "AdmitCurriculums",
+                    new
+                    {
+                        AdmissionID = Model.ID,
+                        EditMode = true
+                    }
+                );
+            });
+        });
+        //======================================================
+        var groupAdmissionDescription = settings.Items.AddGroupItem(groupSettings =>
+        {
+            groupSettings.Caption = @ModelsRepository.GetLabel("Description");
+            groupSettings.ShowCaption = DefaultBoolean.True;
+            groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+            groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        });
+        groupAdmissionDescription.Items.Add(admissionDescription =>
+        {
+            admissionDescription.Name = "Description";
+            admissionDescription.ShowCaption = DefaultBoolean.False;
+            admissionDescription.RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+            admissionDescription.SetNestedContent(() =>
+            {
+                using (Html.BeginForm())
+                {
+                    Html.RenderPartial("_AdmissionHtmlEditor", Model, new ViewDataDictionary { { "PreviewOnly", false } });
+                }
+            });
+        });
+        //======================================================
+        settings.Items.Add(itemSettings =>
+        {
+            itemSettings.ShowCaption = DefaultBoolean.False;
+            itemSettings.SetNestedContent(() =>
+            {
+                ViewContext.Writer.Write("<div class='line' align='center'>");
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnUpdateAdmission";
+                    btnSettings.Text = @ModelsRepository.GetLabel("Save");
+                    btnSettings.Width = Unit.Pixel(100);
+                    btnSettings.ControlStyle.CssClass = "button";
+                    btnSettings.UseSubmitBehavior = true;
+                }).Render();
+                ViewContext.Writer.Write("&nbsp;&nbsp;");
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnCancelAdmission";
+                    btnSettings.Text = @ModelsRepository.GetLabel("Cancel");
+                    btnSettings.Width = Unit.Pixel(100);
+                    btnSettings.ControlStyle.CssClass = "button";
+                    btnSettings.RouteValues = new { Controller = "Admission", Action = "Index" };
+                }).Render();
+                ViewContext.Writer.Write("</div>");
+            });
+        });
+    }).GetHtml()
+}

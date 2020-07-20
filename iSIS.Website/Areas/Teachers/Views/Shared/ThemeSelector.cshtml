@@ -1,0 +1,16 @@
+﻿@using iSIS.Website.Areas.Teachers.Models;
+
+@Html.DevExpress().ComboBox(
+    settings =>
+    {
+        settings.Name = "themeSelector";
+
+        settings.Width = 180;
+        settings.SelectedIndex = Themes.GetIndex((string)Session["CurrentTheme"]);
+        settings.Properties.ValueType = typeof(string);
+
+        settings.Properties.TextField = "Name";
+        settings.Properties.ValueField = "Value";
+
+        settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(sender, event) { $('#frmTheme').submit(); }";
+    }).BindList(Themes.GetThemes()).GetHtml()

@@ -1,0 +1,1024 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/dsltools/UseCaseModel"
+  dslVersion="1.0.0.0"
+  Id="2ac6f09e-2bba-48d4-8682-425130367460"
+  name="iSIS.UML" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <actor
+        Id="2a6b7eb5-27f5-4958-9f73-dce65364b958"
+        name="ครูประจำชั้น"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="8c474eb3-25e3-4c2a-afda-76ae204a5b06"
+            isDerived="false"
+            sourceEndRoleName="ครูประจำชั้น"
+            targetEndRoleName="ปรับตารางการใช้ห้องเรียนต่างๆ"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="a55f7511-d8e6-44b4-9649-c3c28aa795d1"
+              LastKnownName="ปรับตารางการใช้ห้องเรียนต่างๆ"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="64f852c0-17b7-447c-9257-c7a970456967"
+                  name="ครูประจำชั้น"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="abc3149a-ed69-407e-b22c-51894c26ff62"
+                  name="ปรับตารางการใช้ห้องเรียนต่างๆ"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="62dc75dd-ff00-4b37-9abc-3b44f30b0d3a"
+            isDerived="false"
+            sourceEndRoleName="ครูประจำชั้น"
+            targetEndRoleName="กำหนดกิจกรรมระหว่างภาค"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="fc1ee0c3-ea75-41ba-b07e-0cbf1c391183"
+              LastKnownName="กำหนดกิจกรรมระหว่างภาค"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7e7a983c-e0a6-436b-b214-6cdc9f0d0706"
+                  name="ครูประจำชั้น"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0422ed48-b324-4cd8-9ed5-e39001f2e162"
+                  name="กำหนดกิจกรรมระหว่างภาค"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="3ce53ba2-e1eb-4483-a606-fed7a103ba52"
+        name="ครูประจำวิชา"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="4aaf6790-d919-46c4-953e-27e9231c57fd"
+            isDerived="false"
+            sourceEndRoleName="ครูประจำวิชา"
+            targetEndRoleName="จัดตารางเรียน ตารางสอบ"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="77392f80-6f2a-4f71-a513-41ed203ec182"
+              LastKnownName="จัดตารางเรียน ตารางสอบ"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="19f269d0-f929-49a9-bab7-dff8a03548d9"
+                  name="ครูประจำวิชา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ba218a39-8b5d-4e19-a58c-0353f583a712"
+                  name="จัดตารางเรียน ตารางสอบ"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f14e6b12-32b4-4257-b662-17bd6d0ca99b"
+            isDerived="false"
+            sourceEndRoleName="ครูประจำวิชา"
+            targetEndRoleName="ปรับตารางเรียน ตารางสอบ"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e17d86b9-6ca9-423a-b0f5-5c05c481babf"
+              LastKnownName="ปรับตารางเรียน ตารางสอบ"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d41e545d-7a41-489b-84c3-92da071a59f0"
+                  name="ครูประจำวิชา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d83dc81c-a5ba-4452-b5d1-743a1c4a8654"
+                  name="ปรับตารางเรียน ตารางสอบ"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="b24997f1-a803-4678-bcd8-8192a9126de6"
+            isDerived="false"
+            sourceEndRoleName="ครูประจำวิชา"
+            targetEndRoleName="สร้างตารางเก็บคะแนนระหว่างภาค"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="c6c98695-0444-4121-85e6-262fa8cc7578"
+              LastKnownName="สร้างตารางเก็บคะแนนระหว่างภาค"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8c648c54-014d-4e43-a204-c5597cd206ad"
+                  name="ครูประจำวิชา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f5df4f77-66ca-4e4b-9e65-c932e06952df"
+                  name="สร้างตารางเก็บคะแนนระหว่างภาค"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="14793a3f-2381-4671-abb4-fa04421c7477"
+            isDerived="false"
+            sourceEndRoleName="ครูประจำวิชา"
+            targetEndRoleName="บันทึกคะแนนระหว่างภาค"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="308bb50d-bf7f-4bf5-af3a-16e9f828daef"
+              LastKnownName="บันทึกคะแนนระหว่างภาค"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="57ab82c5-4cd9-456c-9486-297ce6cafc37"
+                  name="ครูประจำวิชา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a6cd0c46-67af-47de-8348-e3c8e114e4f8"
+                  name="บันทึกคะแนนระหว่างภาค"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="87b027e9-c04e-4960-bf38-797864bdfe5f"
+        name="เจ้าหน้าที่การศึกษา"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="d9e60327-1b4a-4052-a68a-04efc7ed687e"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="กำหนดห้องเรียนแต่ละตอนเรียน"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="d1168f89-660a-4d40-84b0-dba807e4be78"
+              LastKnownName="กำหนดห้องเรียนแต่ละตอนเรียน"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f4c63ec9-330e-4bf3-9d77-d013ceb8fbd2"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="33f2cbe9-3980-4c6c-b906-b9e34a174b71"
+                  name="กำหนดห้องเรียนแต่ละตอนเรียน"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="51198b42-5251-42ff-aef9-e4711c77423b"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="จัดห้องเรียนต่างๆ"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="0fb485aa-6dfa-407d-b0c2-11654c14eebb"
+              LastKnownName="จัดห้องเรียนต่างๆ"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="590adc34-624e-48cd-965a-90474300a09f"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="871dcf6b-ca22-4d44-b6ba-a87a352ae371"
+                  name="จัดห้องเรียนต่างๆ"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4300f49a-bd5c-4dca-b8da-565c6e353d7d"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="ปรับตารางเรียน ตารางสอบ"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e17d86b9-6ca9-423a-b0f5-5c05c481babf"
+              LastKnownName="ปรับตารางเรียน ตารางสอบ"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b0218acf-1438-4376-a946-5b154b8885fc"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ba8b010f-4256-40a8-9126-842293e045a7"
+                  name="ปรับตารางเรียน ตารางสอบ"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4058f3f0-f198-4a5d-a909-fdcbc8b139a9"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="ปรับตารางการใช้ห้องเรียนต่างๆ"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="a55f7511-d8e6-44b4-9649-c3c28aa795d1"
+              LastKnownName="ปรับตารางการใช้ห้องเรียนต่างๆ"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2372a007-e42e-4415-b7e9-b73c73f3bba8"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="12f1a7da-076b-4e0d-b04f-19cdc5e35419"
+                  name="ปรับตารางการใช้ห้องเรียนต่างๆ"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="c7b49c9f-cbd0-4979-853e-017303627d25"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="กำหนดกิจกรรมระหว่างภาค"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="fc1ee0c3-ea75-41ba-b07e-0cbf1c391183"
+              LastKnownName="กำหนดกิจกรรมระหว่างภาค"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="54ae1ad3-6153-4e33-bd6e-d5a17e1f1efa"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="189d5baa-a31f-4401-b885-453d08291fa0"
+                  name="กำหนดกิจกรรมระหว่างภาค"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="7e8c86f1-1b5c-4f6b-80b2-4b756ce18ebc"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="เลื่อนชั้น&#xD;&#xA;แต่ละตอนเรียน"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="b87fffdb-91d2-47a6-a723-d0cff3708f05"
+              LastKnownName="เลื่อนชั้น&#xD;&#xA;แต่ละตอนเรียน"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b62ccec1-6969-4765-a708-d43ffb85425a"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ce1a8eb2-b028-4754-914c-6103f7520c9c"
+                  name="เลื่อนชั้น&#xD;&#xA;แต่ละตอนเรียน"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="1dd9dfe3-0c16-4cca-85ca-bde781901d8f"
+        name="ผู้อำนวยการโรงเรียน"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="801fcceb-7203-4156-a647-08e2c6db2fe8"
+            isDerived="false"
+            sourceEndRoleName="ผู้อำนวยการโรงเรียน"
+            targetEndRoleName="อนุมัติการเลื่อนชั้น"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="a52a3ca9-06f9-4c8d-b9c0-6378d077a284"
+              LastKnownName="อนุมัติการเลื่อนชั้น"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="48fba951-1cfc-4b8f-9b82-54457fdee436"
+                  name="ผู้อำนวยการโรงเรียน"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d970b0b8-0390-46e4-8c5b-ebc074d74861"
+                  name="อนุมัติการเลื่อนชั้น"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="bd4e282a-7295-441f-b9bf-e73fc6e24ad1"
+        name="Grading System"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b87fffdb-91d2-47a6-a723-d0cff3708f05"
+        name="เลื่อนชั้น&#xD;&#xA;แต่ละตอนเรียน"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="bd4e282a-7295-441f-b9bf-e73fc6e24ad1"
+            LastKnownName="Grading System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c6c98695-0444-4121-85e6-262fa8cc7578"
+        name="สร้างตารางเก็บคะแนนระหว่างภาค"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="bd4e282a-7295-441f-b9bf-e73fc6e24ad1"
+            LastKnownName="Grading System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="308bb50d-bf7f-4bf5-af3a-16e9f828daef"
+        name="บันทึกคะแนนระหว่างภาค"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="bd4e282a-7295-441f-b9bf-e73fc6e24ad1"
+            LastKnownName="Grading System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="fc1ee0c3-ea75-41ba-b07e-0cbf1c391183"
+        name="กำหนดกิจกรรมระหว่างภาค"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="bd4e282a-7295-441f-b9bf-e73fc6e24ad1"
+            LastKnownName="Grading System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a52a3ca9-06f9-4c8d-b9c0-6378d077a284"
+        name="อนุมัติการเลื่อนชั้น"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="bd4e282a-7295-441f-b9bf-e73fc6e24ad1"
+            LastKnownName="Grading System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="4c81e601-2039-4d9b-86b4-6b656424c354"
+        name="Course Management System"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d1168f89-660a-4d40-84b0-dba807e4be78"
+        name="กำหนดห้องเรียนแต่ละตอนเรียน"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c81e601-2039-4d9b-86b4-6b656424c354"
+            LastKnownName="Course Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="77392f80-6f2a-4f71-a513-41ed203ec182"
+        name="จัดตารางเรียน ตารางสอบ"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c81e601-2039-4d9b-86b4-6b656424c354"
+            LastKnownName="Course Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="0fb485aa-6dfa-407d-b0c2-11654c14eebb"
+        name="จัดห้องเรียนต่างๆ"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c81e601-2039-4d9b-86b4-6b656424c354"
+            LastKnownName="Course Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e17d86b9-6ca9-423a-b0f5-5c05c481babf"
+        name="ปรับตารางเรียน ตารางสอบ"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c81e601-2039-4d9b-86b4-6b656424c354"
+            LastKnownName="Course Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a55f7511-d8e6-44b4-9649-c3c28aa795d1"
+        name="ปรับตารางการใช้ห้องเรียนต่างๆ"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="4c81e601-2039-4d9b-86b4-6b656424c354"
+            LastKnownName="Course Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="0b870408-80d1-4872-959b-1aac2e8aa2df"
+        name="เจ้าหน้าที่การศึกษา1"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="12f0fc30-575c-4a7d-bc72-00a106d606f1"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="จัดครูประจำชั้น"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="52de2f08-06f9-4849-a7b2-eb8334081e39"
+              LastKnownName="จัดครูประจำชั้น"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1948bdd7-17d3-4766-8951-43a2c86e5910"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2e5973d8-2b0c-4f2b-8f23-f5e1e7127dad"
+                  name="จัดครูประจำชั้น"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="9c187f0f-15f5-46c8-b722-ec0756e95467"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="จัดครูประจำวิชา"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="01889c98-e65b-4532-bd74-47efacc25240"
+              LastKnownName="จัดครูประจำวิชา"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d485bb07-8b24-4f62-a9a6-172115bc6242"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2495b4e7-5028-42d7-ac82-5ab5e8ca7828"
+                  name="จัดครูประจำวิชา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="3f179c1b-6844-41d7-a6cf-f2093328a055"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="เปลี่ยนครูประจำชั้น"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="79c8e996-770c-441b-ab87-b05ed689f21d"
+              LastKnownName="เปลี่ยนครูประจำชั้น"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f317d548-360a-4066-87f2-5c8fb7e8dd26"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d2e0826f-fc3f-46f0-803e-e4845fcfbda5"
+                  name="เปลี่ยนครูประจำชั้น"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f940f8f1-bfd9-47ce-b995-859113cd5d58"
+            isDerived="false"
+            sourceEndRoleName="เจ้าหน้าที่การศึกษา"
+            targetEndRoleName="เปลี่ยนครูประจำวิชา"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="6f993411-4c6c-40be-a8b3-76815b196213"
+              LastKnownName="เปลี่ยนครูประจำวิชา"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="82abd650-f9c2-40ba-8c63-186a4259f263"
+                  name="เจ้าหน้าที่การศึกษา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1706ba6b-a532-43b1-b4d0-80e5290b6b32"
+                  name="เปลี่ยนครูประจำวิชา"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="dd049e57-9910-45fe-a865-22c21d334b29"
+        name="ผู้อำนวยการโรงเรียน1"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="74dd223c-3a78-42e7-aab7-f6c133ef8dd7"
+            isDerived="false"
+            sourceEndRoleName="ผู้อำนวยการโรงเรียน"
+            targetEndRoleName="อนุมัติการปรับย้ายครู"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="196dfb9a-9aab-4e52-9ef3-b5b55f36ba92"
+              LastKnownName="อนุมัติการปรับย้ายครู"
+              LastKnownLocation="iSIS.UML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5ce5dff7-c8c3-419c-8595-5295c748d891"
+                  name="ผู้อำนวยการโรงเรียน"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1f03dda7-1c08-432c-a235-69ff37397796"
+                  name="อนุมัติการปรับย้ายครู"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="fe94d57a-b924-4ffb-b6ae-2238cdc75528"
+        name="Teacher Management System"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="52de2f08-06f9-4849-a7b2-eb8334081e39"
+        name="จัดครูประจำชั้น"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fe94d57a-b924-4ffb-b6ae-2238cdc75528"
+            LastKnownName="Teacher Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="01889c98-e65b-4532-bd74-47efacc25240"
+        name="จัดครูประจำวิชา"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fe94d57a-b924-4ffb-b6ae-2238cdc75528"
+            LastKnownName="Teacher Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="79c8e996-770c-441b-ab87-b05ed689f21d"
+        name="เปลี่ยนครูประจำชั้น"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fe94d57a-b924-4ffb-b6ae-2238cdc75528"
+            LastKnownName="Teacher Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="6f993411-4c6c-40be-a8b3-76815b196213"
+        name="เปลี่ยนครูประจำวิชา"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fe94d57a-b924-4ffb-b6ae-2238cdc75528"
+            LastKnownName="Teacher Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="196dfb9a-9aab-4e52-9ef3-b5b55f36ba92"
+        name="อนุมัติการปรับย้ายครู"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="fe94d57a-b924-4ffb-b6ae-2238cdc75528"
+            LastKnownName="Teacher Management System"
+            LastKnownLocation="iSIS.UML.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Edit PhysicalRoom";
+}
+
+@model List<iSISModel.PhysicalRoom>
+<div>
+    ชื่อโรงเรียน:
+    @Html.Partial("Common/SchoolAutoCompletePartial")
+</div>
+@using (Html.BeginForm())
+{
+    @Html.Partial("EditFormPhysicalRoomPartial", Model)
+}

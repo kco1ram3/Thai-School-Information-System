@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.CourseSectionStudent,iSISModel" table="CourseSectionStudent">
+
+		<!-- Primary key-->
+		<id name="ID" type="Int64" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <many-to-one name="CourseSection" column="CourseSectionID" class="iSISModel.CourseSection,iSISModel"/>
+    <many-to-one name="Student" column="StudentID" class="iSISModel.Student,iSISModel"/>
+    <many-to-one name="Grade" column="GradeID" class="iSISModel.DiscreteGrade,iSISModel"/>
+    <property name="AttendedHours" />
+    <property name="GradePoint" />
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <property name="Reference" />
+    <property name="Remark" />
+
+    <bag name="Performances" table="CourseSectionPerformance" inverse="true">
+      <key column="CourseSectionStudentID"/>
+      <one-to-many class="iSISModel.CourseSectionPerformance,iSISModel"/>
+    </bag>
+
+  </class>
+</hibernate-mapping>
+
+

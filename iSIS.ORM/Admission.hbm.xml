@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.Admission,iSISModel" table="Admission">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property name="SeqNo" />
+    <!--<many-to-one name="AdmittedClassLevel" column="AdmittedClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>-->
+    <many-to-one name="Description" cascade="save-update, delete" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="StartSemester" column="SemesterID" class="iSISModel.Semester,iSISModel"/>
+    <many-to-one name="School" column="SchoolID" class="iSISModel.School,iSISModel"/>
+    <many-to-one name="ApplicationReceiptTemplate" column="ApplicationReceiptTemplateID" class="iSISModel.ReceiptTemplate,iSISModel"/>
+    <many-to-one name="RegistrationReceiptTemplate" column="RegistrationReceiptTemplateID" class="iSISModel.ReceiptTemplate,iSISModel"/>
+
+    <property name="ApplicationFormURL" />
+    <!--<property name="ApplicationInfoURL" />-->
+    <component name="ApplyPeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="ApplyFrom"/>
+      <property name="To" column="ApplyTo"/>
+    </component>
+
+    <!--<property name="RegistrationFormURL" />
+    <property name="RegistrationInfoURL" />-->
+    <!--<component name="RegistrationPeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="RegisterFrom"/>
+      <property name="To" column="RegisterTo"/>
+    </component>-->
+
+
+    <bag name="AdmitCurriculums" table="AdmitCurriculum">
+      <key column="AdmissionID"/>
+      <one-to-many class="iSISModel.AdmitCurriculum,iSISModel" />
+    </bag>
+
+    <bag name="AdmissionTests" table="AdmissionTest">
+      <key column="AdmissionID"/>
+      <one-to-many class="iSISModel.AdmissionTest,iSISModel" />
+    </bag>
+
+    <bag name="AdmissionTestRooms" table="AdmissionTestRoom">
+      <key column="AdmissionID"/>
+      <one-to-many class="iSISModel.AdmissionTestRoom,iSISModel" />
+    </bag>
+    
+    <bag name="StudentApplications" table="StudentApplication">
+      <key column="AdmissionID"/>
+      <one-to-many class="iSISModel.StudentApplication,iSISModel" />
+    </bag>
+
+  </class>
+</hibernate-mapping>
+
+

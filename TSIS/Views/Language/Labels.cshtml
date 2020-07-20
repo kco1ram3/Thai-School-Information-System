@@ -1,0 +1,9 @@
+﻿@using TSIS.Models
+@model IEnumerable<iSISModel.HierarchicalCategory>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("LabelSetup");
+}
+
+<h2>@ModelsRepository.GetLabel("LabelSetup")</h2>
+
+@Html.Partial("_GridViewLabelSetup", Model)

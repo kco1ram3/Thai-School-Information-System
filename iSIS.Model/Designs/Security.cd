@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.User" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <AssociationLine Name="UserRoles" Type="iSISModel.UserRole" FixedFromPoint="true">
+      <Path>
+        <Point X="5.5" Y="2.5" />
+        <Point X="6.75" Y="2.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AMAAAAAAAAAAACAAAAAAAAABCAAAAAgCAAABAgAAIAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Person" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="UserRoles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.Organization" Collapsed="true">
+    <Position X="1" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAgCAAAAAAAAAAAAAAAAAAASAAAAAAAAAAIgAACIA=</HashCode>
+      <FileName>Organzation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Role" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <AssociationLine Name="Application" Type="iSISModel.Application" FixedFromPoint="true">
+      <Path>
+        <Point X="7.062" Y="4.191" />
+        <Point X="7.062" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.UserRole" Collapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserRole.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Role" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.OrgName" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>OrgName.cs</FileName>
+      <NewMemberFileName>PersonName.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organization" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Person" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAgAAAAAAEAACAAAAAAAAQAQIAAAAAAQABIgAAAIA=</HashCode>
+      <FileName>Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Application" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Roles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.UserSession" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAgAAAAAAAEAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Log\UserSession.cs</FileName>
+      <NewMemberFileName>UserSession.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.UserSessionLog" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Log\UserSessionLog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Session" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

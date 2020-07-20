@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.AcademicEventParticipation,iSISModel" table="AcademicEventParticipation" >
+
+    <!-- Primary key-->
+    <id name="ID" column="ID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="StartDate"/>
+      <property name="To" column="EndDate"/>
+    </component>
+    <!--xxx-->
+    <many-to-one name="Person" class="iSISModel.Person, iSISModel" column="PersonID" />
+    <many-to-one name="AcademicEventCategory" column="AcademicEventCategoryID" class="iSISModel.HierarchicalCategory,iSISModel" />
+    <property name="AcademicEventTitle" />
+    <property name="Description" />
+    <property name="Venue" />
+    <property name="Reference" />
+    <property name="Remark" />
+  </class>
+</hibernate-mapping>

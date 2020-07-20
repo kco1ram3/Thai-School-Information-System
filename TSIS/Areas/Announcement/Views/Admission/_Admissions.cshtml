@@ -1,0 +1,134 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+@using TSIS.Areas.Announcement.Controllers;
+@model IList<iSISModel.Admission>
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gridviewAdmissions";
+        settings.KeyFieldName = "ID";
+        settings.CallbackRouteValues = new { Controller = "Admission", Action = "Admissions" };
+        settings.Width = Unit.Percentage(100);
+        //settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.ClientSideEvents.FocusedRowChanged = "OnGridAdmissionsFocusedRowChanged";
+        settings.ClientSideEvents.DetailRowExpanding = "OnDetailRowExpanding";
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+        settings.SettingsDetail.ShowDetailButtons = true;
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+        settings.Columns.Add(column =>
+        {
+            //column.Caption = "#";
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("New"), "Create").ToHtmlString()
+                );
+            });
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("Edit"), "Update", new { id = DataBinder.Eval(c.DataItem, "ID") }) + "&nbsp;|&nbsp;" +
+                    Html.ActionLink(ModelsRepository.GetLabel("Delete"), "Delete", new { id = DataBinder.Eval(c.DataItem, "ID") }
+                        , new { onclick = "return confirm('" + ModelsRepository.GetLabel("ConfirmDelete") + "')" }
+                    )
+                );
+            });
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StartSemester.AcademicYear";
+            column.Caption = ModelsRepository.GetLabel("AcademicYear");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "StartSemester.SemesterNo";
+            column.Caption = ModelsRepository.GetLabel("SemesterNo");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.AddBand(masterBand =>
+        {
+            masterBand.Caption = ModelsRepository.GetLabel("ApplicationPeriod");
+            masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "ApplyPeriod.From";
+                column.Caption = ModelsRepository.GetLabel("StartDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "ApplyPeriod.To";
+                column.Caption = ModelsRepository.GetLabel("EndDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ApplicationFormURL";
+            column.Caption = ModelsRepository.GetLabel("ApplicationFormURL");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.SetDetailRowTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<br />" + ModelsRepository.GetLabel("AdmitCurriculums"));
+
+            var AdmissionID = (int)DataBinder.Eval(c.DataItem, "ID");
+            var admission = Model.Where(m => m.ID == AdmissionID).FirstOrDefault();
+            Html.RenderPartial("~/Areas/Announcement/Views/AdmitCurriculums/_AdmitCurriculums.cshtml"
+                               , admission.AdmitCurriculums
+                               , new ViewDataDictionary(this.ViewData) { { "AdmissionID", AdmissionID }, { "EditMode", false } });
+
+            ViewContext.Writer.Write("<br /><br />");
+        });
+
+        settings.ClientLayout = (s, e) =>
+        {
+            if (e.LayoutMode == ClientLayoutMode.Loading)
+            {
+                if (Session["GridAdmissions"] != null)
+                    e.LayoutData = (string)Session["GridAdmissions"];
+            }
+            else
+                Session["GridAdmissions"] = e.LayoutData;
+        };
+    }
+).Bind(Model).GetHtml()

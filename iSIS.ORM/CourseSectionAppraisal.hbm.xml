@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.CourseSectionAppraisal,iSISModel" table="CourseSectionAppraisal">
+
+		<!-- Primary key-->
+		<id name="ID" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <many-to-one name="CourseSection" column="CourseSectionID" class="iSISModel.CourseSection,iSISModel"/>
+    <property name="AppraisalDate" />
+    <property name="SeqNo" />
+    <property name="PerfectScore" />
+    <property name="AverageScore" />
+    <property name="MaxScore" />
+    <property name="MinScore" />
+    <many-to-one name="Description" cascade="save-update, delete" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Title" cascade="save-update, delete" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+	<component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,65 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@using TSIS.Classes
+@model iSISModel.CourseSection
+
+@helper LoopDesiredOutcome(IList<iSISModel.DesiredOutcome> desiredOutcome)
+{
+    foreach (iSISModel.DesiredOutcome item in desiredOutcome)
+    {
+        if (item is iSISModel.OutcomeCategory)
+        {
+            <p><h3><u>@item.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))</u></h3></p>
+            @LoopDesiredOutcome(((iSISModel.OutcomeCategory)item).DesiredOutcomes)
+        }
+        else if (item is iSISModel.ClassLevelOutcome)
+        {
+            iSISModel.ClassLevelSection classLevelSection = (iSISModel.ClassLevelSection)ViewData["ClassLevelSection"];
+            if (((iSISModel.ClassLevelOutcome)item).ClassLevel.ID == classLevelSection.ClassLevel.ID)
+            {
+                foreach (iSISModel.PerformanceIndicator pi in ((iSISModel.ClassLevelOutcome)item).PerformanceIndicators)
+                {
+                    <span>&emsp;</span>@pi.Description.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+                    if (ViewData["PerformanceMeasurementGrade"] != null)
+                    {
+                        iSISModel.PerformanceMeasurement performanceMeasurement = ((IList<iSISModel.PerformanceMeasurement>)ViewData["PerformanceMeasurement"]).FirstOrDefault(x => x.CourseSection == Model && x.PerformanceIndicator == pi);
+                        bool isReadOnly = false;
+                        if (ViewData["IsReadOnly"] != null)
+                        {
+                            isReadOnly = (bool)ViewData["IsReadOnly"];
+                        }
+                        @Html.DevExpress().RadioButtonList(
+                            s =>
+                            {
+                                s.Name = "PerformanceIndicator_" + pi.ID + "_" + Model.ID;
+                                s.Properties.ValueField = "ID";
+                                s.Properties.TextField = "Symbol";
+                                s.Properties.ValueType = typeof(long);
+                                s.Properties.RepeatLayout = RepeatLayout.Table;
+                                s.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                //s.ControlStyle.Border.BorderStyle = BorderStyle.None;
+                                s.PreRender = (sender, e) =>
+                                {
+                                    if (performanceMeasurement != null)
+                                    {
+                                        if (performanceMeasurement.Grade != null)
+                                        {
+                                            MVCxRadioButtonList cmb = sender as MVCxRadioButtonList;
+                                            cmb.Value = performanceMeasurement.Grade.ID;
+                                        }
+
+                                    }
+                                };
+                                s.ReadOnly = isReadOnly;
+                            }
+                        ).BindList(ViewData["PerformanceMeasurementGrade"]).GetHtml();
+                    }
+                    <br />
+                }
+            }
+
+        }
+    }
+}
+
+@LoopDesiredOutcome((IList<iSISModel.DesiredOutcome>)((iSISModel.CourseSection)Model).Course.OutcomeCategory.DesiredOutcomes)

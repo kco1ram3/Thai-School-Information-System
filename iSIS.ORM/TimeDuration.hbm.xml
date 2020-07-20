@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.TimeDuration,iSISModel" table="TimeDuration">
+
+		<!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    
+    <!--<bag name="FirstLevelRegions" table="GeographicRegion" where="ParentID is null">
+      <key column="CountryID"/>
+      <one-to-many class="iSISModel.GeographicRegion,iSISModel"/>
+    </bag>-->
+
+  </class>
+</hibernate-mapping>
+
+

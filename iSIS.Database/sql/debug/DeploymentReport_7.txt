@@ -1,0 +1,24 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Experience]
+       [dbo].[StudentApplication]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Experience].[OrganzationAddress] is being dropped, data loss could occur.
+       The column [dbo].[Experience].[OrganzationID] is being dropped, data loss could occur.
+       The column [dbo].[Experience].[OrganzationName] is being dropped, data loss could occur.
+
+** User actions
+     Table rebuild
+       [dbo].[Experience] (Table)
+       [dbo].[StudentApplication] (Table)
+
+** Supporting actions
+
+The column [dbo].[Experience].[OrganzationAddress] is being dropped, data loss could occur.
+The column [dbo].[Experience].[OrganzationID] is being dropped, data loss could occur.
+The column [dbo].[Experience].[OrganzationName] is being dropped, data loss could occur.
+

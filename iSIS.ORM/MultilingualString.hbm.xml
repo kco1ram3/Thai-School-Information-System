@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.MultilingualString,iSISModel" table="MultilingualString">
+
+		<!-- Primary key-->
+		<id name="ID" column="MLSID" type="Int64" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+    <property name="Code" />
+    <!--<property name="Category" type="iSISModel.MLSCategory,iSISModel" />-->
+
+		<bag name="Values" table="MLSValue" cascade="save-update, delete">
+			<key column="MLSID"/>
+			<one-to-many class="iSISModel.MLSValue,iSISModel"/>
+		</bag>
+
+	</class>
+</hibernate-mapping>
+
+

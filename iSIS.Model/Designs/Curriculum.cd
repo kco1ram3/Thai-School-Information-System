@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.Curriculum" Collapsed="true">
+    <Position X="6.5" Y="3" Width="1.5" />
+    <AssociationLine Name="CurriculumFramework" Type="iSISModel.CurriculumFramework" FixedFromPoint="true">
+      <Path>
+        <Point X="6.5" Y="3.312" />
+        <Point X="4.75" Y="3.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true">
+      <Path>
+        <Point X="7.125" Y="3" />
+        <Point X="7.125" Y="2.441" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.089" Y="0.102" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="StartingClassLevel" Type="iSISModel.ClassLevel" FixedToPoint="true">
+      <Path>
+        <Point X="7.062" Y="3.691" />
+        <Point X="7.062" Y="4.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="EndingClassLevel" Type="iSISModel.ClassLevel" FixedToPoint="true">
+      <Path>
+        <Point X="7.562" Y="3.691" />
+        <Point X="7.562" Y="4.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.325" Y="0.12" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CurriculumCourses" Type="iSISModel.CurriculumCourse" FixedFromPoint="true">
+      <Path>
+        <Point X="8" Y="3.5" />
+        <Point X="10" Y="3.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QIAAAAAAAAAgAAAAAAgAAAAQAAAAAAAAQAAAAACAAAA=</HashCode>
+      <FileName>Curriculum.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurriculumFramework" />
+      <Property Name="School" />
+      <Property Name="StartingClassLevel" />
+      <Property Name="EndingClassLevel" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CurriculumCourses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.CurriculumCourse">
+    <Position X="10" Y="3" Width="1.5" />
+    <AssociationLine Name="Category" Type="iSISModel.HierarchicalCategory" FixedToPoint="true">
+      <Path>
+        <Point X="11.5" Y="3.375" />
+        <Point X="12.75" Y="3.375" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Curriculum" Type="iSISModel.Curriculum" FixedFromPoint="true">
+      <Path>
+        <Point X="10" Y="3.188" />
+        <Point X="8" Y="3.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIIgAAAAAAAAAAAAAAAIAAAAACAA=</HashCode>
+      <FileName>CurriculumCourse.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+      <Property Name="Course" />
+      <Property Name="Curriculum" />
+      <Property Name="ForClassLevel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <AssociationLine Name="Curriculums" Type="iSISModel.Curriculum" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="2.441" />
+        <Point X="7.5" Y="3" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.005" Y="0.154" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="SchoolOutcomeCategoryGradings" Type="iSISModel.SchoolOutcomeCategoryGrading">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.328" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Courses" Type="iSISModel.Course" FixedFromPoint="true">
+      <Path>
+        <Point X="8" Y="2.25" />
+        <Point X="10" Y="2.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEARAAAYAJAAGYCgAAEAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Curriculums" />
+      <Property Name="SchoolOutcomeCategoryGradings" />
+      <Property Name="Courses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ClassLevel" Collapsed="true">
+    <Position X="6.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAACAAgAAAAACAAAAAgAAAAAACgA=</HashCode>
+      <FileName>ClassLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Course" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <AssociationLine Name="OutcomeCategory" Type="iSISModel.OutcomeCategory">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.828" Y="0.123" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABABAgAABAAAgEAAIAAAFAAABBQAAAAAAAAAA=</HashCode>
+      <FileName>Course.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OutcomeCategory" />
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.HierarchicalCategory" Collapsed="true">
+    <Position X="12.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAgggCQAgAAEQAIABCACAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Basic Classes\HierarchicalCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.SchoolOutcomeCategoryGrading" Collapsed="true">
+    <Position X="6" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>SchoolOutcomeCategoryGrading.cs</FileName>
+      <NewMemberFileName>PhysicalRoom.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GradingSystem" />
+      <Property Name="OutcomeCategory" />
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.OutcomeCategory" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAIAABAAAAAQEAAEABAAAAA=</HashCode>
+      <FileName>OutcomeCategory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Courses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.GradingSystem" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GradingSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.DiscreteGrade" Collapsed="true">
+    <Position X="0.75" Y="3" Width="1.5" />
+    <AssociationLine Name="GradingSystem" Type="iSISModel.DiscreteGradingSystem">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.202" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAggAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>DiscreteGrade.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GradingSystem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.DiscreteGradingSystem" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAAEAAAA=</HashCode>
+      <FileName>DiscreteGradingSystem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Grades" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ContinuousGradingSystem" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContinuousGradingSystem.cs</FileName>
+      <NewMemberFileName>DiscreteGradingSystem.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.CurriculumFramework" Collapsed="true">
+    <Position X="2.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAIAABAAAAAQAgAAAAAAAAA=</HashCode>
+      <FileName>CurriculumFramework.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

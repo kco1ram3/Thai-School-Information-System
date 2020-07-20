@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Accounting.AccountingTransaction,iSISModel" table="AccountingTransaction" >
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Amount" />
+    <property name="BalanceType" type="iSISModel.Accounting.BalanceType,iSISModel"/>
+    <property name="Description" />
+    <property name="EnteredTS" />
+    <property name="EntryType" type="iSISModel.Accounting.JournalEntryType,iSISModel"/>
+    <property name="GLDate" />
+    <many-to-one name="Ledger" column="LedgerID" class="iSISModel.Accounting.Ledger,iSISModel" />
+    <property name="PostedTS" />
+    <property name="TransactionDate" />
+
+    <bag name="Entries" table="JournalEntry">
+      <key column="TransactionID"/>
+      <one-to-many class="iSISModel.Accounting.JournalEntry,iSISModel" />
+    </bag>
+
+  </class>
+</hibernate-mapping>
+
+

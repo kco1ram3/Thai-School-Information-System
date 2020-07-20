@@ -1,0 +1,394 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@using TSIS.Classes
+@model IEnumerable<iSISModel.CourseSectionStudent>
+
+@{
+    string controlScoreName = "";
+}
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gvCourseSectionPerformance";
+        settings.KeyFieldName = "ID";
+        settings.CallbackRouteValues = new { Controller = "CourseSectionPerformance", Action = "GridViewCourseSectionPerformance", courseSectionID = ViewData["courseSectionID"] };
+        settings.ClientSideEvents.BeginCallback = "function(s, e) {"
+                                                        + "try {"
+                                                            + "e.customArgs['courseSectionAppraisalID'] = courseSectionAppraisalID.GetValue();"
+                                                        + "} catch(e) { }"
+                                                    + "}";
+        //settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+        var columnNo = settings.Columns.Add("#");
+        columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+        columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+        columnNo.Settings.AllowSort = DefaultBoolean.False;
+        columnNo.Width = 50;
+
+        settings.CustomColumnDisplayText = (sender, e) =>
+        {
+            if (e.Column.FieldName == "#")
+            {
+                e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+            }
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Student.IDNo";
+            column.Caption = ModelsRepository.GetLabel("IDNo");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                if (((iSISModel.Person)DataBinder.Eval(c.DataItem, "Student.Person")).CurrentName != null)
+                {
+                    ViewContext.Writer.Write(((iSISModel.Person)DataBinder.Eval(c.DataItem, "Student.Person")).CurrentName.ToString(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                }
+            });
+            column.Caption = ModelsRepository.GetLabel("CurrentName");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Student.Person.EmailAddress";
+            column.Caption = ModelsRepository.GetLabel("Email");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        IList<iSISModel.CourseSectionPerformance> courseSectionPerformance = (IList<iSISModel.CourseSectionPerformance>)ViewData["CourseSectionPerformance"];
+        IList<iSISModel.CourseSectionAppraisal> courseSectionAppraisal = (IList<iSISModel.CourseSectionAppraisal>)ViewData["CourseSectionAppraisal"];
+        float fullScore = courseSectionAppraisal.Sum(x => x.PerfectScore);
+        int percentage = 100;
+        foreach (iSISModel.CourseSectionAppraisal item in courseSectionAppraisal)
+        {
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    int courseSectionAppraisalID = 0;
+                    if (ViewData["courseSectionAppraisalID"] != null)
+                    {
+                        courseSectionAppraisalID = int.Parse(ViewData["courseSectionAppraisalID"].ToString());
+                    }
+                    if (courseSectionAppraisalID == item.ID && ((iSISModel.Student)DataBinder.Eval(c.DataItem, "Student")).EffectivePeriod.To > DateTime.Today)
+                    {
+                        Html.DevExpress().SpinEdit(
+                            s =>
+                            {
+                                s.Name = "score_" + DataBinder.Eval(c.DataItem, "ID") + "_" + item.ID;
+                                s.Properties.MinValue = 0;
+                                s.Properties.MaxValue = (decimal)item.PerfectScore;
+                                s.Properties.EnableClientSideAPI = true;
+                                s.Width = 100;
+                                s.Properties.ClientSideEvents.KeyDown = "function (s, e) {"
+                                                                            + "if (ASPxClientUtils.GetKeyCode(e.htmlEvent) === ASPxKey.Enter) {"
+                                                                                + "var controls = (controlScoreName.GetValue()).split(',');"
+                                                                                + "var nextControl = controls[controls.indexOf('" + s.Name + "') + 1];"
+                                                                                + "if (nextControl !== '') {"
+                                                                                    + "var obj = eval(nextControl);"
+                                                                                    + "obj.Focus();"
+                                                                                + "}"
+                                                                            + "}"
+                                                                        + "}";
+
+                                iSISModel.CourseSectionPerformance performance = courseSectionPerformance.FirstOrDefault(x => x.CourseSectionStudent.ID == int.Parse(DataBinder.Eval(c.DataItem, "ID").ToString()) && x.CourseSectionAppraisal.ID == item.ID);
+                                if (performance != null)
+                                {
+                                    if (performance.Score != null)
+                                    {
+                                        s.Number = decimal.Parse(performance.Score.ToString());
+                                    }
+                                }
+
+                                if (controlScoreName == "")
+                                {
+                                    controlScoreName = ",";
+                                }
+                                controlScoreName += s.Name + ",";
+                            }
+                        ).GetHtml();
+                    }
+                    else
+                    {
+                        Html.DevExpress().Label(
+                            s =>
+                            {
+                                s.Name = DataBinder.Eval(c.DataItem, "ID") + "_" + item.ID + "_Score";
+                                iSISModel.CourseSectionPerformance performance = courseSectionPerformance.FirstOrDefault(x => x.CourseSectionStudent.ID == int.Parse(DataBinder.Eval(c.DataItem, "ID").ToString()) && x.CourseSectionAppraisal.ID == item.ID);
+                                if (performance != null)
+                                {
+                                    if (performance.Score != null)
+                                    {
+                                        s.Text = performance.Score.ToString();
+                                    }
+                                }
+                            }
+                        ).GetHtml();
+                    }
+                });
+                column.SetHeaderTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write("<center>");
+                    if (item.Title != null)
+                    {
+                        ViewContext.Writer.Write(item.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                    ViewContext.Writer.Write(" (" + item.PerfectScore + ")");
+                    ViewContext.Writer.Write("<br />");
+                    if (percentage < Math.Round(((item.PerfectScore * 100) / fullScore), 0))
+                    {
+                        ViewContext.Writer.Write(percentage + "%");
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write(Math.Round(((item.PerfectScore * 100) / fullScore), 0) + "%");
+                        percentage -= int.Parse(Math.Round(((item.PerfectScore * 100) / fullScore), 0).ToString());
+                    }
+                    ViewContext.Writer.Write("<br />");
+                    int courseSectionAppraisalID = 0;
+                    if (ViewData["courseSectionAppraisalID"] != null)
+                    {
+                        courseSectionAppraisalID = int.Parse(ViewData["courseSectionAppraisalID"].ToString());
+                    }
+                    if (courseSectionAppraisalID == item.ID)
+                    {
+                        Html.DevExpress().Button(
+                        s =>
+                        {
+                            s.Name = "btnSave_" + item.ID;
+                            s.RenderMode = ButtonRenderMode.Link;
+                            s.Text = ModelsRepository.GetLabel("Save");
+                            s.UseSubmitBehavior = true;
+                        }).Render();
+                        ViewContext.Writer.Write("&nbsp;");
+                        ViewContext.Writer.Write(Html.ActionLink(ModelsRepository.GetLabel("Cancel"), null, null, new { onclick = "courseSectionAppraisalID.SetText('0'); gvCourseSectionPerformance.PerformCallback(); return false;" }));
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write(Html.ActionLink(ModelsRepository.GetLabel("Edit"), null, null, new { onclick = "courseSectionAppraisalID.SetText('" + item.ID + "'); gvCourseSectionPerformance.PerformCallback(); return false;" }));
+                    }
+                    /*
+                    Html.DevExpress().DateEdit(
+                        s =>
+                        {
+                            s.Name = item.ID + "_AppraisalDate";
+                            //s.Properties.DisplayFormatString = "dd/MM/yyyy";
+                            s.Width = 100;
+                            s.Date = item.AppraisalDate;
+                            s.ReadOnly = true;
+                        }
+                    ).GetHtml();
+                    */
+                    ViewContext.Writer.Write("</center>");
+                });
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.Settings.AllowDragDrop = DefaultBoolean.False;
+                column.Settings.AllowSort = DefaultBoolean.False;
+            });
+        }
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(courseSectionPerformance.Where(x => x.CourseSectionStudent.ID == int.Parse(DataBinder.Eval(c.DataItem, "ID").ToString())).Sum(x => x.Score));
+            });
+            column.Caption = ModelsRepository.GetLabel("Sum");
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<center>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("Sum"));
+                ViewContext.Writer.Write(" (" + fullScore + ")");
+                ViewContext.Writer.Write("</center>");
+            });
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                if (fullScore <= 0)
+                {
+                    ViewContext.Writer.Write("N/A");
+                }
+                else
+                {
+                    ViewContext.Writer.Write(Math.Round((courseSectionPerformance.Where(x => x.CourseSectionStudent.ID == int.Parse(DataBinder.Eval(c.DataItem, "ID").ToString())).Sum(x => x.Score) * 100) / fullScore, 0));
+                }
+            });
+            column.Caption = ModelsRepository.GetLabel("Percentage");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                int courseSectionAppraisalID = 0;
+                if (ViewData["courseSectionAppraisalID"] != null)
+                {
+                    courseSectionAppraisalID = int.Parse(ViewData["courseSectionAppraisalID"].ToString());
+                }
+                if ((courseSectionAppraisalID == -99 || courseSectionAppraisalID == -999) && ((iSISModel.Student)DataBinder.Eval(c.DataItem, "Student")).EffectivePeriod.To > DateTime.Today)
+                {
+                    /*
+                    Html.DevExpress().RadioButtonList(
+                        s =>
+                        {
+                            s.Name = DataBinder.Eval(c.DataItem, "ID") + "_Grade";
+                            s.Properties.ValueField = "ID";
+                            s.Properties.TextField = "Symbol";
+                            s.Properties.RepeatLayout = RepeatLayout.Table;
+                            s.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                        }
+                    ).BindList(ViewData["DiscreteGrade"]).GetHtml();
+                    */
+
+                    Html.DevExpress().ComboBox(
+                        s =>
+                        {
+                            s.Name = DataBinder.Eval(c.DataItem, "ID") + "_Grade";
+                            s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                            s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                            s.Properties.TextField = "Symbol";
+                            s.Properties.ValueField = "ID";
+                            s.Properties.ValueType = typeof(long);
+                            s.Width = 80;
+                            s.PreRender = (sender, e) =>
+                            {
+                                if (DataBinder.Eval(c.DataItem, "Grade.ID") != null)
+                                {
+                                    MVCxComboBox cmb = sender as MVCxComboBox;
+                                    cmb.Value = long.Parse(DataBinder.Eval(c.DataItem, "Grade.ID").ToString());
+                                }
+                                if (ViewData["AutomaticGrading"] != null)
+                                {
+                                    Dictionary<long, long> result = (Dictionary<long, long>)ViewData["AutomaticGrading"];
+                                    long discreteGradeID = result[long.Parse(DataBinder.Eval(c.DataItem, "ID").ToString())];
+                                    MVCxComboBox cmb = sender as MVCxComboBox;
+                                    cmb.Value = discreteGradeID;
+                                }
+                            };
+                        }
+                    ).BindList(ViewData["DiscreteGrade"]).GetHtml();
+                }
+                else
+                {
+                    Html.DevExpress().Label(
+                        s =>
+                        {
+                            s.Name = DataBinder.Eval(c.DataItem, "ID") + "_Grade";
+                            if (DataBinder.Eval(c.DataItem, "Grade.Symbol") != null)
+                            {
+                                s.Text = DataBinder.Eval(c.DataItem, "Grade.Symbol").ToString();
+                            }
+                        }
+                    ).GetHtml();
+                }
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+
+                ViewContext.Writer.Write("<center>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("Grade"));
+                ViewContext.Writer.Write("<br />");
+
+                int courseSectionAppraisalID = 0;
+                if (ViewData["courseSectionAppraisalID"] != null)
+                {
+                    courseSectionAppraisalID = int.Parse(ViewData["courseSectionAppraisalID"].ToString());
+                }
+                if (courseSectionAppraisalID == -99 || courseSectionAppraisalID == -999)
+                {
+                    ViewContext.Writer.Write(Html.ActionLink(ModelsRepository.GetLabel("Auto"), null, null, new { onclick = "courseSectionAppraisalID.SetText('-999'); gvCourseSectionPerformance.PerformCallback(); return false;" }));
+                    ViewContext.Writer.Write("&nbsp;");
+                    Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnSave_Grade";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Save");
+                        s.UseSubmitBehavior = true;
+                    }).Render();
+                    ViewContext.Writer.Write("&nbsp;");
+                    ViewContext.Writer.Write(Html.ActionLink(ModelsRepository.GetLabel("Cancel"), null, null, new { onclick = "courseSectionAppraisalID.SetText('0'); gvCourseSectionPerformance.PerformCallback(); return false;" }));
+                }
+                else
+                {
+                    ViewContext.Writer.Write(Html.ActionLink(ModelsRepository.GetLabel("Edit"), null, null, new { onclick = "courseSectionAppraisalID.SetText('-99'); gvCourseSectionPerformance.PerformCallback(); return false;" }));
+                }
+                ViewContext.Writer.Write("</center>");
+            });
+            column.Caption = ModelsRepository.GetLabel("Grade");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+        });
+
+        /*
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("Detail"), "Detail", new { id = DataBinder.Eval(c.DataItem, "ID"), courseSectionID = ViewData["courseSectionID"] })
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        */
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("Assessment"), "Index", new { Controller = "PerformanceMeasurement", id = DataBinder.Eval(c.DataItem, "ID") })
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+    }).Bind(Model).GetHtml()
+
+@{
+    if (controlScoreName != "")
+    {
+        Html.DevExpress().TextBox(
+            settings =>
+            {
+                settings.Name = "controlScoreName";
+                settings.ClientEnabled = true;
+                settings.ClientVisible = false;
+                settings.Text = controlScoreName;
+            }
+        ).GetHtml();
+    }
+}

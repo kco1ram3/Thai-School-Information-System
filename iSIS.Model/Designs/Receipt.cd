@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iSISModel.Receipt" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedToPoint="true">
+      <Path>
+        <Point X="1.25" Y="1.191" />
+        <Point X="1.25" Y="2" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ReceiptItems" Type="iSISModel.ReceiptItem">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.037" Y="0.289" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAwBAQAAAQIAAAAAIAAAAAAAABQAAAAAAAAAA=</HashCode>
+      <FileName>Receipt.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ReceiptItems" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ReceiptItem" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Receipt" Type="iSISModel.Receipt">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.079" Y="-0.523" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAASAAAAAAACAECAAAAAAACA=</HashCode>
+      <FileName>ReceiptItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Receipt" />
+      <Property Name="ReceivableItem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.ReceiptTemplate" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedFromPoint="true">
+      <Path>
+        <Point X="0.938" Y="3.5" />
+        <Point X="0.938" Y="2.691" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ReceiptTemplateItems" Type="iSISModel.ReceiptTemplateItem" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="3.938" />
+        <Point X="3.75" Y="3.938" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAABIAAAAQAAAAQAAAAAAAABA=</HashCode>
+      <FileName>ReceiptTemplate.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ReceiptTemplateItems" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ReceivableItem" Collapsed="true">
+    <Position X="3.75" Y="2" Width="1.5" />
+    <AssociationLine Name="School" Type="iSISModel.School" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.188" />
+        <Point X="2" Y="2.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAACA=</HashCode>
+      <FileName>ReceivableItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="School" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <AssociationLine Name="ReceivableItems" Type="iSISModel.ReceivableItem" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="2.5" />
+        <Point X="3.75" Y="2.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEARAAAYAJAAGYCgAAEAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ReceivableItems" />
+      <Property Name="ReceiptTemplates" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.ReceiptTemplateItem" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="2.25" />
+    <AssociationLine Name="ReceiptTemplate" Type="iSISModel.ReceiptTemplate" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="3.625" />
+        <Point X="2" Y="3.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAIAAAAAAAAAAABQAAAAAAAACAAAAAAAAACA=</HashCode>
+      <FileName>ReceiptTemplateItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ReceiptTemplate" />
+      <Property Name="ReceivableItem" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,235 @@
+﻿@using iSISDemo.Models
+@using iSISDemo.Classes;
+@using iSISDemo.Areas.Teachers.Controllers;
+@model IEnumerable<iSISModel.ClassroomStudent>
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("ClassroomStudent");
+
+    iSISModel.Classroom classroom = (iSISModel.Classroom)ViewData["Classroom"];
+    iSISModel.School school = (iSISModel.School)SessionManager.GetSession(HttpContext.Current, SessionManager.SessionName.CurrentSchool);
+    bool isLastSemesterOfYear = false;
+    if (ViewData["IsLastSemesterOfYear"] != null) {
+        isLastSemesterOfYear = (bool)ViewData["IsLastSemesterOfYear"];
+    }
+}
+
+<h2>@ModelsRepository.GetLabel("ClassroomStudent")</h2>
+<p>
+    @ModelsRepository.GetLabel("AcademicYear") : @classroom.Semester.AcademicYear
+    <br />
+    @ModelsRepository.GetLabel("SemesterNo") : @classroom.Semester.SemesterNo
+    <br />
+    @ModelsRepository.GetLabel("LevelTitle") :
+    @{
+        if (classroom.ClassLevelSection.ClassLevel.Title != null)
+        {
+            @classroom.ClassLevelSection.ClassLevel.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("LevelShortTitle") :
+    @{
+        if (classroom.ClassLevelSection.ClassLevel.ShortTitle != null)
+        {
+            @classroom.ClassLevelSection.ClassLevel.ShortTitle.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage))
+        }
+    }
+    <br />
+    @ModelsRepository.GetLabel("RoomNo") : @classroom.Room.RoomNo
+</p>
+
+@Html.Partial("_GridViewClassroomStudentList", Model)
+
+@{
+    if (isLastSemesterOfYear)
+    {
+        <p>
+            @using (Html.BeginForm())
+            {
+                if (school.MaxClassLevel.LevelNo == classroom.ClassLevelSection.ClassLevel.LevelNo)
+                {
+                    Html.DevExpress().TextBox(
+                            s =>
+                            {
+                                s.Name = "selectedCheckboxGraduate";
+                                s.ClientEnabled = true;
+                                s.ClientVisible = false;
+                            }
+                        ).GetHtml();
+                    @Html.DevExpress().Button(
+                    settings =>
+                    {
+                        settings.Name = "btnGraduate";
+                        settings.Text = ModelsRepository.GetLabel("Graduate");
+                        settings.UseSubmitBehavior = true;
+                        settings.ClientSideEvents.Click = "function(s, e) { GridViewSelectedCheckbox(); }";
+                    }
+                ).GetHtml()
+                }
+                else
+                {
+                    @Html.DevExpress().Button(
+                settings =>
+                {
+                    settings.Name = "btnUpgrade";
+                    settings.Text = ModelsRepository.GetLabel("Upgrade");
+                    settings.ClientSideEvents.Click = "function(s, e) {"
+                                                            + "GridViewSelectedCheckbox();"
+                                                            + "ComboBoxClassLevel.SetValue('');"
+                                                            + "ComboBoxClassLevel.SetEnabled(true);"
+                                                            + "ComboBoxRoom.PerformCallback();"
+                                                            + "pcModalClassroomStudent.SetHeaderText('" + ModelsRepository.GetLabel("Upgrade") + "');"
+                                                            + "pcModalClassroomStudent.Show();"
+                                                        + "}";
+                }
+            ).GetHtml()
+                }
+                <span>&nbsp;</span>
+                @Html.DevExpress().Button(
+            settings =>
+            {
+                settings.Name = "btnRepeatedly";
+                settings.Text = ModelsRepository.GetLabel("Repeatedly");
+                settings.ClientSideEvents.Click = "function(s, e) {"
+                                                        + "GridViewSelectedCheckbox();"
+                                                        + "ComboBoxClassLevel.SetValue(" + classroom.ClassLevelSection.ClassLevel.ID + ");"
+                                                        + "ComboBoxClassLevel.SetEnabled(false);"
+                                                        + "ComboBoxRoom.PerformCallback();"
+                                                        + "pcModalClassroomStudent.SetHeaderText('" + ModelsRepository.GetLabel("Repeatedly") + "');"
+                                                        + "pcModalClassroomStudent.Show();"
+                                                    + "}";
+            }
+        ).GetHtml()
+            }
+            @*@Html.DevExpress().Button(
+                    settings =>
+                    {
+                        settings.Name = "btnRepeatedly";
+                        settings.Text = ModelsRepository.GetLabel("Repeatedly");
+                        settings.ClientSideEvents.Click = "function(s, e) {e.processOnServer = confirm('Are you sure?');}";
+                    }
+                ).GetHtml()*@
+        </p>
+    
+        @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalClassroomStudent";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Login";
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                using (Html.BeginForm())
+                {
+                    Html.DevExpress().TextBox(
+                        s =>
+                        {
+                            s.Name = "selectedCheckbox";
+                            s.ClientEnabled = true;
+                            s.ClientVisible = false;
+                        }
+                    ).GetHtml();
+                    ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px; white-space: nowrap;'>");
+                    ViewContext.Writer.Write("<tr valign='top'>");
+                    ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                    ViewContext.Writer.Write(ModelsRepository.GetLabel("LevelNo"));
+                    ViewContext.Writer.Write("</td>");
+                    ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                    Html.DevExpress().ComboBox(
+                            s =>
+                            {
+                                s.Name = "ComboBoxClassLevel";
+                                s.ClientEnabled = true;
+                                s.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                s.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                s.Properties.TextField = "Text";
+                                s.Properties.ValueField = "Value";
+                                s.Properties.ValueType = typeof(Int64);
+                                s.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {"
+                                                                                                    + "try {"
+                                                                                                        + "ComboBoxRoom.PerformCallback();"
+                                                                                                    + "} catch(e) { }"
+                                                                                                + "}";
+                                s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                                s.Properties.ValidationSettings.Display = Display.Dynamic;
+                                s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                                s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.ClassLevel>)ViewData["ClassLevel"])
+                        ).GetHtml();
+                    ViewContext.Writer.Write("</td>");
+                    ViewContext.Writer.Write("</tr>");
+                    ViewContext.Writer.Write("<tr valign='top'>");
+                    ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                    ViewContext.Writer.Write(ModelsRepository.GetLabel("RoomNo"));
+                    ViewContext.Writer.Write("</td>");
+                    ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                    Html.RenderAction("RoomPartial", "Default", new { Area = "", defaultClassLevel = 0, defaultRoom = 0, isRequired = true, validationGroup = settings.Name });
+                    ViewContext.Writer.Write("</td>");
+                    ViewContext.Writer.Write("</tr>");
+                    ViewContext.Writer.Write("</table>");
+                    ViewContext.Writer.Write("<div style='float: right; margin: 5px;'>");
+                    Html.DevExpress().Button(
+                        buttonSettings =>
+                        {
+                            buttonSettings.Name = "btnSave";
+                            buttonSettings.ControlStyle.CssClass = "button";
+                            buttonSettings.Width = 80;
+                            buttonSettings.ValidationGroup = settings.Name;
+                            buttonSettings.Text = ModelsRepository.GetLabel("Save");
+                            buttonSettings.UseSubmitBehavior = true;
+                        }
+                    )
+                    .Render();
+                    Html.DevExpress().Button(
+                        buttonSettings =>
+                        {
+                            buttonSettings.Name = "btnCancel";
+                            buttonSettings.ControlStyle.CssClass = "button";
+                            buttonSettings.Width = 80;
+                            buttonSettings.Text = ModelsRepository.GetLabel("Cancel");
+                            buttonSettings.ClientSideEvents.Click = "function(s, e) { pcModalClassroomStudent.Hide(); }";
+                        }
+                    )
+                    .Render();
+                    ViewContext.Writer.Write("</div>");
+                    ViewContext.Writer.Write("<div class=\"Clear\"></div>");
+                }
+            });
+
+            settings.ClientSideEvents.CloseUp = "function(s, e) { ASPxClientEdit.ClearEditorsInContainer(null, '', false); }";
+        }).GetHtml()
+
+        <script>
+            function GridViewSelectedCheckbox() {
+                var controls = (controlCheckboxName.GetValue()).split(',');
+                var selectedValue = '';
+                for (index = 0; index < controls.length; index++) {
+                    var nextControl = controls[index];
+                    if (nextControl !== '') {
+                        var obj = eval(nextControl);
+                        if (obj.GetValue()) {
+                            if (selectedValue != '') {
+                                selectedValue += ',';
+                            }
+                            selectedValue += nextControl.substring(nextControl.indexOf('_') + 1, nextControl.length)
+                        }
+                    }
+                }
+                selectedCheckbox.SetText(selectedValue);
+                try {
+                    selectedCheckboxGraduate.SetText(selectedValue);
+                } catch (e) {
+
+                }
+            }
+        </script>
+    }
+}

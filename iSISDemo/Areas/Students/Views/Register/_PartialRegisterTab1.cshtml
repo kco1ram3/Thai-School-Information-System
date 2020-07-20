@@ -1,0 +1,66 @@
+﻿@model iSISDemo.Areas.Students.Models.Student
+@using iSISDemo.Areas.Students.Controllers;
+
+@*
+    @Html.DevExpress().LabelFor(m => m.Column1).GetHtml()
+    <div class="form-field">
+        @Html.EditorFor(m => m.Column1)
+        @Html.ValidationMessageFor(m => m.Column1)
+    </div>
+*@
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "FormLayoutResigterTab1";
+    //settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.ColCount = 3;
+    /*
+    settings.Items.Add(model => model.Column1,
+        itemSettings =>
+        {
+            dynamic editorSettings = itemSettings.NestedExtensionSettings;
+            editorSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            editorSettings.ShowModelErrors = true;
+            editorSettings.Width = System.Web.UI.WebControls.Unit.Pixel(230);
+        }).HelpText = "ตัวอักษรต้องไปเกิน 250 ตัวอักษร";
+    */
+    /*
+    var groupItem = settings.Items.AddGroupItem(itemSettings =>
+    {
+        itemSettings.Caption = "ข้อมูลส่วนตัว";
+        itemSettings.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+        itemSettings.SettingsItems.VerticalAlign = FormLayoutVerticalAlign.Top;
+        //itemSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        //itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ColCount = 3;
+    });
+    */
+    settings.Items.Add(m => m.SName, CommonHelper.FormLayoutItemSettingsMethod); //.HelpText = "ตัวอักษรต้องไปเกิน 250 ตัวอักษร";
+    settings.Items.Add(m => m.SSurname, CommonHelper.FormLayoutItemSettingsMethod); //.HelpText = "ตัวอักษรต้องไปเกิน 250 ตัวอักษร";
+    settings.Items.Add(m => m.SNickname, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.Gender, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.DateOfBirth, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(i =>
+    {
+        i.Caption = "";
+        i.SetNestedContent("");
+    });
+    settings.Items.Add(m => m.Race, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.Nationality, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.Religion, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.PlaceOfBirth, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.ProvinceOfBirth, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(i =>
+    {
+        i.Caption = "";
+        i.SetNestedContent("");
+    });
+    settings.Items.Add(m => m.LivingWith, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SAddressNo, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SMoo, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SStreet, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SSubDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SDistrict, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SProvince, CommonHelper.FormLayoutItemSettingsMethod);
+    settings.Items.Add(m => m.SZipCode, CommonHelper.FormLayoutItemSettingsMethod);
+}).GetHtml()

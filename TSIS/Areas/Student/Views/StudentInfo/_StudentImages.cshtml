@@ -1,0 +1,70 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@model iSISModel.Student
+
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("Image");
+}
+
+@Html.DevExpress().CallbackPanel(settingsPanel =>
+{
+    settingsPanel.Name = "CallbackPanelStudentImage";
+    settingsPanel.CallbackRouteValues = new { Controller = "StudentInfo", Action = "StudentImages" };
+    settingsPanel.Width = Unit.Percentage(100);
+    //settingsPanel.Height = 400;
+
+    settingsPanel.SetContent(() =>
+    {
+        if (@ViewBag.UploadMode == true)
+        {
+            @Html.DevExpress().UploadControl(settings =>
+            {
+                settings.Name = "ucMultiFile";
+                settings.AddUploadButtonsHorizontalPosition = AddUploadButtonsHorizontalPosition.Left;
+                settings.FileInputCount = 1;
+                settings.UploadMode = UploadControlUploadMode.Standard;
+                settings.BrowseButton.Text = ModelsRepository.GetLabel("Browse");
+                settings.ShowAddRemoveButtons = true;
+                settings.AddButton.Text = ModelsRepository.GetLabel("Add");
+                settings.RemoveButton.Text = ModelsRepository.GetLabel("Remove");
+                settings.Style["white-space"] = "nowrap";
+                settings.ValidationSettings.AllowedFileExtensions = new string[] { ".jpg", ".jpeg", ".gif", ".png" };
+                //settings.ValidationSettings.MaxFileSize = 20971520;
+                //settings.ValidationSettings.NotAllowedFileExtensionErrorText = ModelsRepository.GetLabel("NotAllowedFileExtensionError");
+            }).GetHtml();
+            ViewContext.Writer.Write(
+                "<p>" +
+                    @ModelsRepository.GetLabel("AllowedImageTypes") + ": jpg, jpeg, gif, png <br/>" +
+                    @ModelsRepository.GetLabel("MaximumFileSize") + ": 2MB" +
+                "</p>" +
+                "<p>"
+            );
+        }
+        @Html.DevExpress().ImageGallery(settings =>
+        {
+            settings.Name = "imageGallery";
+            settings.ImageCacheFolder = "~/Content/ImageGallery/Thumb/";
+            settings.ImageContentBytesField = "Image";
+            settings.EmptyDataText = ModelsRepository.GetLabel("NoImageToDisplay"); ; //No data to display
+            //settings.TextField = "Date";
+            //settings.FullscreenViewerTextField = "Date";
+            settings.SetItemTextTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    String.Format("{0:dd/MM/yyyy hh:mm tt}", c.EvalDataItem("Date")) + "<br />" +
+                    Html.ActionLink(ModelsRepository.GetLabel("Delete"), "StudentDeleteImage", new { id = Model.ID, image_id = c.EvalDataItem("ID") },
+                        new { onclick = "return confirm('" + ModelsRepository.GetLabel("ConfirmDelete") + "')", style = "color: #ffffff" }).ToHtmlString()
+                );
+            });
+            settings.SetFullscreenViewerItemTextTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(String.Format("{0:dd/MM/yyyy hh:mm tt}", c.EvalDataItem("Date")));
+            });
+            settings.AllowPaging = false;
+            settings.SettingsFullscreenViewer.NavigationBarVisibility = ElementVisibilityMode.Always;
+        }).Bind((Model != null) ? Model.Person.Photos : new List<iSISModel.Photo>()).GetHtml();
+        ViewContext.Writer.Write("</p>");
+    });
+    settingsPanel.ClientSideEvents.BeginCallback = "OnBeginCallback";
+    settingsPanel.ClientSideEvents.EndCallback = "OnEndCallback";
+}).GetHtml()

@@ -1,0 +1,145 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models
+@model IEnumerable<iSISModel.Language>
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvLanguageSetup";
+            settings.KeyFieldName = "Code";
+            settings.CallbackRouteValues = new { Controller = "Language", Action = "GridViewLanguageSetup" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Language", Action = "GridViewLanguageSetupAddNewOrUpdate" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Language", Action = "GridViewLanguageSetupAddNewOrUpdate" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Language", Action = "GridViewLanguageSetupDelete" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsPopup.EditForm.Width = 600;
+            settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+            settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+            settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+            settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+            settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("LanguageSetup");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+            settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+            //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+            var columnNo = settings.Columns.Add("#");
+            columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+            columnNo.Settings.AllowSort = DefaultBoolean.False;
+            columnNo.Width = 50;
+            columnNo.EditFormSettings.Visible = DefaultBoolean.False;
+
+            settings.CustomColumnDisplayText = (sender, e) =>
+            {
+                if (e.Column.FieldName == "#")
+                {
+                    e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+                }
+            };
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "SeqNo";
+                column.Caption = ModelsRepository.GetLabel("SeqNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+
+                column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                spinEditProperties.MinValue = 0;
+                spinEditProperties.MaxValue = 999;
+                spinEditProperties.NumberType = SpinEditNumberType.Integer;
+                spinEditProperties.ValidationSettings.Display = Display.Dynamic;
+                spinEditProperties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                spinEditProperties.ValidationSettings.RequiredField.IsRequired = true;
+                spinEditProperties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                spinEditProperties.ValidationSettings.ValidationGroup = settings.Name;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Code";
+                column.Caption = ModelsRepository.GetLabel("Code");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+
+                /*
+                column.ColumnType = MVCxGridViewColumnType.TextBox;
+                var textBoxProperties = column.PropertiesEdit as TextBoxProperties;
+                textBoxProperties.ValidationSettings.Display = Display.Dynamic;
+                textBoxProperties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                textBoxProperties.ValidationSettings.RequiredField.IsRequired = true;
+                textBoxProperties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                textBoxProperties.ValidationSettings.ValidationGroup = settings.Name;
+                */
+
+                column.SetEditItemTemplateContent(c =>
+                {
+                    Html.DevExpress().TextBox(
+                    s =>
+                    {
+                        s.Name = "Code";
+                        if (DataBinder.Eval(c.DataItem, "Code") != null)
+                        {
+                            s.ReadOnly = true;
+                        }
+                        else
+                        {
+                            s.Properties.ValidationSettings.Display = Display.Dynamic;
+                            s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                            s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                            s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                            s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                        }
+                    }).Bind(DataBinder.Eval(c.DataItem, "Code")).GetHtml();
+                });
+            });
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Title";
+                column.Caption = ModelsRepository.GetLabel("Title");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+
+                column.ColumnType = MVCxGridViewColumnType.TextBox;
+                var textBoxProperties = column.PropertiesEdit as TextBoxProperties;
+                textBoxProperties.ValidationSettings.Display = Display.Dynamic;
+                textBoxProperties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                textBoxProperties.ValidationSettings.RequiredField.IsRequired = true;
+                textBoxProperties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                textBoxProperties.ValidationSettings.ValidationGroup = settings.Name;
+            });
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.Dynamic;
+            };
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

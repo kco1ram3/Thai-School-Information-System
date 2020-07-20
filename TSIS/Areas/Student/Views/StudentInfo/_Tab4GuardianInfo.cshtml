@@ -1,0 +1,84 @@
+﻿@using System.Web.UI.WebControls
+@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@model iSISModel.Student
+
+@{
+    WebSessionContext Context = (WebSessionContext)HttpContext.Current.Session["Context"];
+
+    iSISModel.InterPersonRelation fatherRelation = Model.Person.PersonRelationships.Where(p => p.Category.Code == "Father" && p.IsEffectiveNow).SingleOrDefault();
+    iSISModel.Person Father = fatherRelation != null ? fatherRelation.SecondaryPerson : new iSISModel.Person();
+
+    iSISModel.InterPersonRelation motherRelation = Model.Person.PersonRelationships.Where(p => p.Category.Code == "Mother" && p.IsEffectiveNow).SingleOrDefault();
+    iSISModel.Person Mother = motherRelation != null ? motherRelation.SecondaryPerson : new iSISModel.Person();
+
+    iSISModel.InterPersonRelation guardianRelation = Model.Person.PersonRelationships.Where(p => p.Category.Code == "Guardian" && p.IsEffectiveNow).SingleOrDefault();
+    iSISModel.Person Guardian = guardianRelation != null ? guardianRelation.SecondaryPerson : new iSISModel.Person();
+}
+
+<script type="text/javascript">
+    function SelectionChanged(s, e) {
+        var id = s.GetValue();
+
+        $.ajax({
+            url: "@Url.Action("GuardianChanged", "StudentInfo")",
+            data: { personInfo: "Guardian", studentID: @Model.ID, guardianID: id != null ? id : 0 },
+            beforeSend: function() {
+                loadingPanel.Show();
+            },
+            success: function (response) {
+                $('#divGuardian').html(response);
+                loadingPanel.Hide();
+            }
+        });
+    }
+</script>
+
+@Html.DevExpress().RadioButtonList(settingsRadioList =>
+{
+    settingsRadioList.Name = "GuardianRadioButtonList";
+    settingsRadioList.ControlStyle.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+    settingsRadioList.Properties.EnableClientSideAPI = true;
+    settingsRadioList.Properties.ValueField = "Value";
+    settingsRadioList.Properties.TextField = "Text";
+    settingsRadioList.Properties.ValueType = typeof(Int64);
+    settingsRadioList.Properties.RepeatLayout = RepeatLayout.Table;
+    settingsRadioList.Properties.RepeatDirection = RepeatDirection.Horizontal;
+    settingsRadioList.Properties.RepeatColumns = 3;
+    settingsRadioList.Properties.ClientSideEvents.SelectedIndexChanged = "SelectionChanged";
+    settingsRadioList.Properties.ClientSideEvents.Init = "SelectionChanged";
+    settingsRadioList.PreRender = (s, e) =>
+    {
+        Int64 selectedID = (-1);
+
+        if (Guardian == Father) selectedID = fatherRelation != null ? fatherRelation.Category.ID : (-1);
+        else
+            if (Guardian == Mother) selectedID = motherRelation != null ? motherRelation.Category.ID : (-1);
+            else
+                selectedID = guardianRelation != null ? guardianRelation.Category.ID : (-1);
+
+        if (selectedID == (-1))
+        {
+            selectedID = Context.CurrentConfiguration.GuardianCategoryID;
+        }
+        MVCxRadioButtonList rbl = (MVCxRadioButtonList)s;
+        ListEditItem lei = rbl.Items.FindByValue(selectedID);
+        if (lei != null)
+        {
+            rbl.SelectedItem = lei;
+        }
+    };
+}).BindList(ViewBag.PPRelations).GetHtml()
+
+<div id='divGuardian'></div>
+
+@Html.DevExpress().LoadingPanel(
+settings =>
+{
+    settings.Name = "loadingPanel";
+    settings.Modal = true;
+    settings.ContainerElementID = "container";
+    settings.Styles.LoadingDiv.BackColor = System.Drawing.Color.White;
+}).GetHtml()

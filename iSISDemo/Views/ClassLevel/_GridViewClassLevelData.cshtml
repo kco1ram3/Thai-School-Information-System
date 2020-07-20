@@ -1,0 +1,191 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.ClassLevel>
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "gvClassLevelData";
+            settings.KeyFieldName = "ID";
+            settings.CallbackRouteValues = new { Controller = "ClassLevel", Action = "GridViewClassLevelData" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "ClassLevel", Action = "GridViewClassLevelDataAddNewOrUpdate" };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "ClassLevel", Action = "GridViewClassLevelDataAddNewOrUpdate" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "ClassLevel", Action = "GridViewClassLevelDataDelete" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.SettingsPopup.EditForm.Width = 600;
+            settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+            settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+            settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+            settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+            settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("ClassLevelData");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+            settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+            //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+            settings.SettingsPager.FirstPageButton.Visible = true;
+            settings.SettingsPager.LastPageButton.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Visible = true;
+            settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+            var columnNo = settings.Columns.Add("#");
+            columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+            columnNo.Settings.AllowSort = DefaultBoolean.False;
+            columnNo.Width = 50;
+            columnNo.EditFormSettings.Visible = DefaultBoolean.False;
+
+            settings.CustomColumnDisplayText = (sender, e) =>
+            {
+                if (e.Column.FieldName == "#")
+                {
+                    e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+                }
+            };
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "LevelNo";
+                column.Caption = ModelsRepository.GetLabel("LevelNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("Title");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+            settings.Columns.Add(column =>
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "ShortTitle") != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "ShortTitle")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("ShortTitle");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+
+            settings.SetEditFormTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("LevelNo"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                Html.DevExpress().SpinEdit(
+                    s =>
+                    {
+                        s.Name = "LevelNo";
+                        s.Properties.MinValue = 0;
+                        s.Properties.MaxValue = 100;
+                        s.Properties.NumberType = SpinEditNumberType.Integer;
+                        if (DataBinder.Eval(c.DataItem, "LevelNo") != null)
+                        {
+                            s.Number = int.Parse(DataBinder.Eval(c.DataItem, "LevelNo").ToString());
+                        }
+                        s.Properties.ValidationSettings.Display = Display.Dynamic;
+                        s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                        s.Properties.ValidationSettings.ValidationGroup = settings.Name;
+                    }
+                ).GetHtml();
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("<tr valign='top'>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("Title"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") == null)
+                {
+                    ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Title" }, { "IsRequired", true }, { "ValidationGroup", settings.Name } }));
+                }
+                else
+                {
+                    ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", (iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title"), new ViewDataDictionary(this.ViewData) { { "Name", "Title" }, { "IsRequired", true }, { "ValidationGroup", settings.Name } }));
+                }
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("ShortTitle"));
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+                if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "ShortTitle") == null)
+                {
+                    ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "ShortTitle" } }));
+                }
+                else
+                {
+                    ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", (iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "ShortTitle"), new ViewDataDictionary(this.ViewData) { { "Name", "ShortTitle" } }));
+                }
+                ViewContext.Writer.Write("</td>");
+                ViewContext.Writer.Write("</tr>");
+                ViewContext.Writer.Write("</table>");
+                ViewContext.Writer.Write("<div style='float: right; margin: 5px;'>");
+                Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnUpdate";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Save");
+                        s.ClientSideEvents.Click = "function(s, e){ gvClassLevelData.UpdateEdit(); }";
+                        s.ValidationGroup = settings.Name;
+                    }).Render();
+                Html.DevExpress().Button(
+                    s =>
+                    {
+                        s.Name = "btnCancel";
+                        s.RenderMode = ButtonRenderMode.Link;
+                        s.Text = ModelsRepository.GetLabel("Cancel");
+                        s.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        s.ClientSideEvents.Click = "function(s, e){ gvClassLevelData.CancelEdit(); }";
+                    }).Render();
+                ViewContext.Writer.Write("</div>");
+            });
+
+            settings.CellEditorInitialize = (s, e) =>
+            {
+                ASPxEdit editor = (ASPxEdit)e.Editor;
+                editor.ValidationSettings.Display = Display.Dynamic;
+            };
+        });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

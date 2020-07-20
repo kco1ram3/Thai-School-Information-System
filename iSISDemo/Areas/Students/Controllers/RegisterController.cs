@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using iSISDemo.Areas.Students.Models;
+using DevExpress.Web.Mvc;
+
+namespace iSISDemo.Areas.Students.Controllers
+{
+    public class RegisterController : Controller
+    {
+        // GET: Students/Register
+        public ActionResult Index()
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("th-TH");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(Student model)
+        {
+            /*
+            if (ModelState.IsValid)
+            {
+                //return RedirectToAction("", "RegisterList");
+                ViewBag.SuccessValidation = true;
+            }
+            */
+
+            ViewBag.SuccessValidation = true;
+
+            return View(model);
+        }
+    }
+
+    public class CommonHelper
+    {
+        static Action<TextBoxSettings> textBoxSettingsMethod;
+        static Action<LabelSettings> labelSettingsMethod;
+        static Action<MVCxFormLayoutItem> formLayoutItemSettingsMethod;
+
+        public static Action<TextBoxSettings> TextBoxSettingsMethod
+        {
+            get
+            {
+                if (textBoxSettingsMethod == null)
+                    textBoxSettingsMethod = CreateTextBoxSettingsMethod();
+                return textBoxSettingsMethod;
+            }
+        }
+        public static Action<LabelSettings> LabelSettingsMethod
+        {
+            get
+            {
+                if (labelSettingsMethod == null)
+                    labelSettingsMethod = CreateLabelSettingsMethod();
+                return labelSettingsMethod;
+            }
+        }
+        public static Action<MVCxFormLayoutItem> FormLayoutItemSettingsMethod
+        {
+            get
+            {
+                if (formLayoutItemSettingsMethod == null)
+                    formLayoutItemSettingsMethod = CreateFormLayoutItemSettingsMethod();
+                return formLayoutItemSettingsMethod;
+            }
+        }
+        static Action<TextBoxSettings> CreateTextBoxSettingsMethod()
+        {
+            return settings =>
+            {
+                settings.ControlStyle.CssClass = "editor";
+                settings.ShowModelErrors = true;
+                settings.Properties.ValidationSettings.ErrorDisplayMode = DevExpress.Web.ErrorDisplayMode.ImageWithTooltip;
+            };
+        }
+        static Action<LabelSettings> CreateLabelSettingsMethod()
+        {
+            return settings => { settings.ControlStyle.CssClass = "label"; };
+        }
+        static Action<MVCxFormLayoutItem> CreateFormLayoutItemSettingsMethod()
+        {
+            return itemSettings =>
+            {
+                dynamic editorSettings = itemSettings.NestedExtensionSettings;
+                editorSettings.Properties.ValidationSettings.ErrorDisplayMode = DevExpress.Web.ErrorDisplayMode.ImageWithTooltip;
+                editorSettings.ShowModelErrors = true;
+                //editorSettings.Width = System.Web.UI.WebControls.Unit.Pixel(230);
+            };
+        }
+    }
+}

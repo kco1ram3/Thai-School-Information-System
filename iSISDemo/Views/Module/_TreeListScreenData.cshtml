@@ -1,0 +1,124 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.Screen>
+
+@{
+    /*
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    */
+    var treeList = Html.DevExpress().TreeList(
+        settings =>
+        {
+            settings.Name = "tlScreenData";
+            settings.KeyFieldName = "ID";
+            settings.ParentFieldName = "Parent.ID";
+            settings.CallbackRouteValues = new { Controller = "Module", Action = "TreeListScreenData", moduleID = ViewData["ModuleID"] };
+            settings.SettingsEditing.AddNewNodeRouteValues = new { Controller = "Module", Action = "TreeListScreenDataAddNewOrUpdate", moduleID = ViewData["ModuleID"] };
+            settings.SettingsEditing.UpdateNodeRouteValues = new { Controller = "Module", Action = "TreeListScreenDataAddNewOrUpdate", moduleID = ViewData["ModuleID"] };
+            settings.SettingsEditing.DeleteNodeRouteValues = new { Controller = "Module", Action = "TreeListScreenDataDelete", moduleID = ViewData["ModuleID"] };
+            settings.SettingsEditing.NodeDragDropRouteValues = new { Controller = "Module", Action = "TreeListScreenDataMove", moduleID = ViewData["ModuleID"] };
+            settings.SettingsEditing.Mode = TreeListEditMode.PopupEditForm;
+            settings.SettingsEditing.ConfirmDelete = true;
+            settings.SettingsPopupEditForm.Width = 600;
+            settings.SettingsPopupEditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+            settings.SettingsPopupEditForm.VerticalAlign = PopupVerticalAlign.Middle;
+            settings.Width = Unit.Percentage(100);
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.NewButton.Visible = true;
+            settings.CommandColumn.DeleteButton.Visible = true;
+            settings.CommandColumn.EditButton.Visible = true;
+            settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            settings.CommandColumn.Width = 100;
+
+            settings.SettingsText.CommandNew = ModelsRepository.GetLabel("New");
+            settings.SettingsText.CommandDelete = ModelsRepository.GetLabel("Delete");
+            settings.SettingsText.CommandEdit = ModelsRepository.GetLabel("Edit");
+            settings.SettingsText.CommandUpdate = ModelsRepository.GetLabel("Save");
+            settings.SettingsText.CommandCancel = ModelsRepository.GetLabel("Cancel");
+            settings.SettingsPopupEditForm.Caption = ModelsRepository.GetLabel("ScreenData");
+            settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+
+            settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Both;
+            settings.SettingsBehavior.ExpandCollapseAction = TreeListExpandCollapseAction.NodeDblClick;
+
+            settings.AutoGenerateColumns = false;
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "SeqNo";
+                column.Caption = ModelsRepository.GetLabel("SeqNo");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+                column.ColumnType = MVCxTreeListColumnType.SpinEdit;
+                column.AllowSort = DefaultBoolean.False;
+
+                var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                spinEditProperties.MinValue = 0;
+                spinEditProperties.MaxValue = 999;
+                spinEditProperties.NumberType = SpinEditNumberType.Integer;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.SetDataCellTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") != null)
+                    {
+                        ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                    }
+                });
+                column.SetEditCellTemplateContent(c =>
+                {
+                    if ((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title") == null)
+                    {
+                        ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Title" }, { "IsRequired", true } }));
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write(Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", (iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Title"), new ViewDataDictionary(this.ViewData) { { "Name", "Title" }, { "IsRequired", true } }));
+                    }
+                });
+                column.Caption = ModelsRepository.GetLabel("Title");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+                column.AllowSort = DefaultBoolean.False;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "NavigateUrl";
+                column.Caption = ModelsRepository.GetLabel("NavigateUrl");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.EditCellStyle.VerticalAlign = VerticalAlign.Top;
+                column.EditFormCaptionStyle.VerticalAlign = VerticalAlign.Top;
+                column.AllowSort = DefaultBoolean.False;
+
+                column.ColumnType = MVCxTreeListColumnType.TextBox;
+                var textBoxProperties = column.PropertiesEdit as TextBoxProperties;
+                textBoxProperties.ValidationSettings.Display = Display.Dynamic;
+                textBoxProperties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                textBoxProperties.ValidationSettings.RequiredField.IsRequired = true;
+                textBoxProperties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+            });
+
+            settings.PreRender = (sender, e) =>
+            {
+                MVCxTreeList treeListControl = (MVCxTreeList)sender;
+                treeListControl.ExpandAll();
+                //treeListControl.StartEdit("2");
+            };
+        }
+    );
+
+    if (ViewData["EditNodeError"] != null)
+    {
+        treeList.SetEditErrorText((string)ViewData["EditNodeError"]);
+    }
+}
+@treeList.Bind(Model).GetHtml()

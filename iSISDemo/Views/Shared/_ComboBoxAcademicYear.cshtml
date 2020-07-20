@@ -1,0 +1,39 @@
+﻿@using iSISDemo.Models
+@model IList<int> 
+
+@Html.DevExpress().ComboBox(settings =>
+                            {
+                                settings.Name = "ComboBoxAcademicYear";
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                //settings.Properties.TextField = "Text";
+                                //settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(int);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (ViewData["SelectedValue"] != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = (int)ViewData["SelectedValue"];
+                                    }
+                                };
+                                settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {"
+                                                                                                + "try {"
+                                                                                                    + "ComboBoxSemester.PerformCallback();"
+                                                                                                + "} catch(e) { }"
+                                                                                            + "}";
+                                if (ViewData["IsRequired"] != null)
+                                {
+                                    if ((bool)ViewData["IsRequired"])
+                                    {
+                                        if (ViewData["ValidationGroup"] != null)
+                                        {
+                                            settings.Properties.ValidationSettings.ValidationGroup = (string)ViewData["ValidationGroup"];
+                                        }
+                                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                                        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                        settings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                                    }
+                                }
+                            }).BindList(Model).GetHtml()

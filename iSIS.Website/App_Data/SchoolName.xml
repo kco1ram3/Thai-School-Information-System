@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<School>
+  <name Name="โรงเรียนสาธิต1" Id="1" />
+  <name Name="โรงเรียนสาธิต2" Id="2" />
+  <name Name="โรงเรียนสหมิตร1" Id="3" />
+  <name Name="โรงเรียนนวมิทร์1" Id="4" />
+  <name Name="โรงเรียนนวมิทร์2" Id="5" />
+</School>

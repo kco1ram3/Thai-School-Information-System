@@ -1,0 +1,147 @@
+﻿@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@model iSISModel.PartyAddress
+
+@Html.Hidden((string)ViewBag.AddressCategoryCode + "_ID", Model.ID)
+
+<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>
+    <tr valign='top'>
+        <td style='padding-top: 5px; width:70px;'>
+            <br />
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelAddressNo" + ViewBag.AddressCategoryCode, "AddressNo")).GetHtml()
+        </td>
+        <td style='padding-top: 5px; width:150px;'>
+            @if ((Model == null) || (Model.Address == null))
+            {
+                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "AddressNo" + ViewBag.AddressCategoryCode }, { "Width", 120 } });
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Address.AddressNo, new ViewDataDictionary(this.ViewData) { { "Name", "AddressNo" + ViewBag.AddressCategoryCode }, { "Width", 120 } });
+            }
+        </td>
+
+        <td style='padding-top: 5px; width:70px;'>
+            <br />
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelStreet1" + ViewBag.AddressCategoryCode, "Street1")).GetHtml()
+        </td>
+        <td style='padding-top: 5px; width:250px;'>
+            @if ((Model == null) || (Model.Address == null))
+            {
+                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Street1" + ViewBag.AddressCategoryCode }, { "Width", 200 } });
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Address.Street1, new ViewDataDictionary(this.ViewData) { { "Name", "Street1" + ViewBag.AddressCategoryCode }, { "Width", 200 } });
+            }
+        </td>
+        <td style='padding-top: 5px; width:70px;'>
+            <br />
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelStreet2" + ViewBag.AddressCategoryCode, "Street2")).GetHtml()
+        </td>
+        <td style='padding-top: 5px;'>
+            @if ((Model == null) || (Model.Address == null))
+            {
+                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "Street2" + ViewBag.AddressCategoryCode }, { "Width", 200 } });
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", Model.Address.Street2, new ViewDataDictionary(this.ViewData) { { "Name", "Street2" + ViewBag.AddressCategoryCode }, { "Width", 200 } });
+            }
+        </td>
+    </tr>
+    <tr valign='top'>
+        <td style='padding-top: 15px; width:70px;'>
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelCountry" + ViewBag.AddressCategoryCode, "Country")).GetHtml()
+        </td>
+        <td style='padding-top: 15px; width:150px;'>
+            @if ((Model == null) || (Model.Address == null) || (Model.Address.Country == null))
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxNationality.cshtml", ViewData)
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxNationality.cshtml", new ViewDataDictionary(this.ViewData) { { "SelectedValue", Model.Address.Country.Alpha3Code ?? "" } })
+            }
+        </td>
+        <td style='padding-top: 15px; width:50px;'>
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelProvince" + ViewBag.AddressCategoryCode, "Province")).GetHtml()
+        </td>
+        <td style='padding-top: 15px;'>
+            @if ((Model == null) || (Model.Address == null) || (Model.Address.Country == null))
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxProvince.cshtml", new List<iSISModel.GeographicRegion>(), ViewData)
+            }
+            else if ((Model.Address.Country != null) && (Model.Address.Province == null))
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxProvince.cshtml", ModelsRepository.GetRootGeographicRegion(Model.Address.Country.Alpha3Code), ViewData)
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxProvince.cshtml", ModelsRepository.GetRootGeographicRegion(Model.Address.Country.Alpha3Code) ?? new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "SelectedValue", Model.Address.Province.ID.ToString() ?? "" } })
+            }
+        </td>
+    </tr>
+    <tr valign='top'>
+        <td style='padding-top: 15px; width:50px;'>
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelDistrict" + ViewBag.AddressCategoryCode, "District")).GetHtml()
+        </td>
+        <td style='padding-top: 15px; width:150px;'>
+            @if ((Model == null) || (Model.Address == null) || (Model.Address.Province == null))
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxDistrict.cshtml", new List<iSISModel.GeographicRegion>())
+            }
+            else if (Model.Address.Province != null && Model.Address.District == null)
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxDistrict.cshtml", Model.Address.Province.Subregions, ViewData)
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxDistrict.cshtml", Model.Address.Province.Subregions ?? new List<iSISModel.GeographicRegion>(), new ViewDataDictionary(this.ViewData) { { "SelectedValue", Model.Address.District.ID.ToString() ?? "" } })
+            }
+        </td>
+
+        <td style='padding-top: 15px; width:50px;'>
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelSubdistrict" + ViewBag.AddressCategoryCode, "Subdistrict")).GetHtml()
+        </td>
+        <td style='padding-top: 15px;'>
+            @if ((Model == null) || (Model.Address == null) || (Model.Address.District == null))
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxSubdistrict.cshtml", new List<iSISModel.GeographicRegion>())
+            }
+            else if ((Model.Address.District != null) && (Model.Address.Subdistrict == null))
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxSubdistrict.cshtml", Model.Address.District.Subregions, ViewData)
+            }
+            else
+            {
+                @Html.Partial("~/Views/Shared/_ComboBoxSubdistrict.cshtml", Model.Address.District.Subregions, new ViewDataDictionary(this.ViewData) { { "SelectedValue", Model.Address.Subdistrict.ID.ToString() ?? "" } })
+            }
+        </td>
+    </tr>
+</table>
+<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>
+    <tr valign='top'>
+        <td style='padding-top: 5px; width:70px;'>
+            <br />
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("LabelPostalCode" + ViewBag.AddressCategoryCode, "PostalCode")).GetHtml()
+        </td>
+        <td style='padding-top: 5px;'>
+            <br />
+            @Html.DevExpress().TextBox(s =>
+            {
+                s.Name = "PostalCode" + ViewBag.AddressCategoryCode;
+                s.Width = 100;
+                s.Properties.MaskSettings.Mask = "#####";
+                s.ShowModelErrors = true;
+                //s.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                //s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                //s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                //s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("ErrorPostalCode");
+                //s.Properties.ValidationSettings.Display = Display.Dynamic;
+            }).Bind(((Model != null) && (Model.Address != null)) ? Model.Address.PostalCode : "").GetHtml()
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,36 @@
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\bin\Debug\iSISModel.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\bin\Debug\Iesi.Collections.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\bin\Debug\NHibernate.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\bin\Debug\Iesi.Collections.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\bin\Debug\NHibernate.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\obj\Debug\iSISModel.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\obj\Debug\iSISModel.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\bin\Debug\iSISModel.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Model\obj\Debug\iSIS.Model.csprojResolveAssemblyReference.cache
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\bin\Debug\iSISModel.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\bin\Debug\iSISModel.pdb
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\bin\Debug\Iesi.Collections.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\bin\Debug\NHibernate.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\bin\Debug\Iesi.Collections.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\bin\Debug\NHibernate.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\obj\Debug\iSIS.Model.csprojResolveAssemblyReference.cache
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\obj\Debug\iSISModel.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Model\obj\Debug\iSISModel.pdb
+D:\Projects\iSIS\iSIS.Model\bin\Debug\iSISModel.dll
+D:\Projects\iSIS\iSIS.Model\bin\Debug\iSISModel.pdb
+D:\Projects\iSIS\iSIS.Model\bin\Debug\Iesi.Collections.dll
+D:\Projects\iSIS\iSIS.Model\bin\Debug\NHibernate.dll
+D:\Projects\iSIS\iSIS.Model\bin\Debug\Iesi.Collections.xml
+D:\Projects\iSIS\iSIS.Model\bin\Debug\NHibernate.xml
+D:\Projects\iSIS\iSIS.Model\obj\Debug\iSISModel.dll
+D:\Projects\iSIS\iSIS.Model\obj\Debug\iSISModel.pdb
+D:\Projects\iSIS\iSIS.Model\obj\Debug\iSIS.Model.csprojResolveAssemblyReference.cache
+D:\Projects\Merge\iSIS.Model\bin\Debug\iSISModel.dll
+D:\Projects\Merge\iSIS.Model\bin\Debug\iSISModel.pdb
+D:\Projects\Merge\iSIS.Model\bin\Debug\Iesi.Collections.dll
+D:\Projects\Merge\iSIS.Model\bin\Debug\NHibernate.dll
+D:\Projects\Merge\iSIS.Model\bin\Debug\Iesi.Collections.xml
+D:\Projects\Merge\iSIS.Model\bin\Debug\NHibernate.xml
+D:\Projects\Merge\iSIS.Model\obj\Debug\iSIS.Model.csprojResolveAssemblyReference.cache
+D:\Projects\Merge\iSIS.Model\obj\Debug\iSISModel.dll
+D:\Projects\Merge\iSIS.Model\obj\Debug\iSISModel.pdb

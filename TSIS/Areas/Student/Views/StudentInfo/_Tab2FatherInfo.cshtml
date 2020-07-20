@@ -1,0 +1,12 @@
+﻿@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@model iSISModel.Student
+
+@{
+    iSISModel.InterPersonRelation fatherRelation = Model.Person.PersonRelationships.Where(p => p.Category.Code == "Father").SingleOrDefault();
+    iSISModel.Person Father = fatherRelation != null ? fatherRelation.SecondaryPerson : new iSISModel.Person();
+}
+
+@Html.Partial("~/Views/Shared/_PersonAddress.cshtml", Father, new ViewDataDictionary(this.ViewData) { { "PersonInfo", "Father" } })

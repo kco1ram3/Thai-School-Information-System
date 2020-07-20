@@ -1,0 +1,14 @@
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\sql\debug\iSIS.dacpac
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\sql\debug\iSISDatabase.dll
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\sql\debug\iSISDatabase.pdb
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\obj\Debug\iSISDatabase.dll
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\obj\Debug\iSISDatabase.pdb
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\obj\Debug\Model.xml
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\obj\Debug\refactor.xml
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\obj\Debug\postdeploy.sql
+C:\Projects\iSIS\DemoProject\IntegratedSchoolInformationSystem\iSISDatabase\obj\Debug\predeploy.sql
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISDatabase\sql\debug\iSIS.dacpac
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISDatabase\sql\debug\iSISDatabase.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISDatabase\sql\debug\iSISDatabase.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISDatabase\obj\Debug\iSISDatabase.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\ThaiSchoolInformationSystem\iSISDatabase\obj\Debug\iSISDatabase.pdb

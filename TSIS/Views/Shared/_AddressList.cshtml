@@ -1,0 +1,253 @@
+﻿@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@using TSIS.Classes
+@model IList<iSISModel.PartyAddress>
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "detailGridViewAddress" + ViewBag.AddressCategoryCode;
+    settings.KeyFieldName = "ID";
+    settings.Width = Unit.Percentage(100);
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Settings.ShowFooter = false;
+    settings.ClientSideEvents.BeginCallback = "GetGridDetailInstance";
+    settings.CallbackRouteValues = new {
+                                            Area = "", Controller = "Default", Action = "AddressList",
+                                            EditMode = ViewBag.EditMode,
+                                            PersonID = ViewBag.PersonID,
+                                            AddressCategoryCode = ViewBag.AddressCategoryCode
+                                        };
+    settings.SettingsEditing.AddNewRowRouteValues = new {
+                                                            Area = "", Controller = "Default", Action = "AddressPartialUpdate",
+                                                            EditMode = ViewBag.EditMode,
+                                                            PersonID = ViewBag.PersonID,
+                                                            AddressCategoryCode = ViewBag.AddressCategoryCode,
+                                                            ReturnToAction = ViewBag.ReturnToAction
+                                                        };
+    settings.SettingsEditing.UpdateRowRouteValues = new {
+                                                            Area = "", Controller = "Default", Action = "AddressPartialUpdate",
+                                                            EditMode = ViewBag.EditMode,
+                                                            PersonID = ViewBag.PersonID,
+                                                            AddressCategoryCode = ViewBag.AddressCategoryCode,
+                                                            ReturnToAction = ViewBag.ReturnToAction
+                                                        };
+    settings.SettingsEditing.DeleteRowRouteValues = new {
+                                                            Area = "", Controller = "Default", Action = "AddressPartialDelete",
+                                                            EditMode = ViewBag.EditMode,
+                                                            PersonID = ViewBag.PersonID,
+                                                            AddressCategoryCode = ViewBag.AddressCategoryCode,
+                                                            ReturnToAction = ViewBag.ReturnToAction
+                                                        };
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel(ViewBag.AddressCategoryCode);
+    settings.SettingsPopup.EditForm.Width = 830;
+    settings.SettingsPopup.EditForm.Height = 240;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+
+    bool EditMode = (bool)ViewBag.EditMode;
+    settings.CommandColumn.Width = 120;
+    settings.CommandColumn.Visible = EditMode;
+    settings.CommandColumn.ShowEditButton = EditMode;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowDeleteButton = EditMode;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+
+    if (EditMode)
+    {
+        settings.CommandColumn.SetHeaderTemplateContent(c =>
+        {
+            Html.DevExpress().HyperLink(hyperLinkSettings =>
+            {
+                hyperLinkSettings.Name = "link_" + settings.Name;
+                hyperLinkSettings.Properties.Text = ModelsRepository.GetLabel("New");
+                hyperLinkSettings.NavigateUrl = "javascript:void(0);";
+                hyperLinkSettings.Properties.ClientSideEvents.Click = string.Format(@"
+                    function(s, e)
+                    {{
+                        {0}.AddNewRow();
+                    }}
+                    ", settings.Name);
+            }).Render();
+        });
+    }
+    //settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+    settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+    settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+    settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+    settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+    settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+    settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+    //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSize = 20;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "20", "40", "100" };
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("AddressNo");
+        column.Width = 100;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.AddressNo") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.AddressNo")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("Street1");
+        column.Width = 200;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.Street1") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.Street1")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("Street2");
+        column.Width = 200;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.Street2") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.Street2")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("Subdistrict");
+        column.Width = 150;
+        //column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.Subdistrict") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.Subdistrict.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("District");
+        column.Width = 150;
+        //column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.District") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.District.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("Province");
+        column.Width = 150;
+        //column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.Province") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.Province.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("PostalCode");
+        column.Width = 100;
+        //column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address") != null)
+                ViewContext.Writer.Write(DataBinder.Eval(c.DataItem, "Address.PostalCode"));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = ModelsRepository.GetLabel("Country");
+        column.Width = 150;
+        //column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<div align=\"center\">");
+            var Title = string.Empty;
+            if (DataBinder.Eval(c.DataItem, "Address.Country") != null)
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Address.Country.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+            ViewContext.Writer.Write("</div>");
+        });
+    });
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        iSISModel.PartyAddress PartyAddress = null;
+        if (c.KeyValue != null)
+        {
+            PartyAddress = Model.FirstOrDefault(x => x.ID == (int)c.KeyValue);
+        }
+
+        if (PartyAddress == null) PartyAddress = new iSISModel.PartyAddress();
+
+        @Html.RenderPartial("~/Views/Shared/_Address.cshtml", PartyAddress);
+        // Buttons
+        ViewContext.Writer.Write("<div style='float: right; margin: 5px;'>");
+        @Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate" + ViewBag.AddressCategoryCode;
+            btnSettings.RenderMode = ButtonRenderMode.Link;
+            btnSettings.Text = ModelsRepository.GetLabel("Save");
+            btnSettings.ClientSideEvents.Click = "function(s, e){ gridDetailInstance.UpdateEdit(); }";
+        }).GetHtml();
+        @Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel" + ViewBag.AddressCategoryCode;
+            btnSettings.RenderMode = ButtonRenderMode.Link;
+            btnSettings.Text = ModelsRepository.GetLabel("Cancel");
+            btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ gridDetailInstance.CancelEdit(); }";
+        }).GetHtml();
+        ViewContext.Writer.Write("</div>");
+    });
+
+    settings.CellEditorInitialize = (s, e) =>
+    {
+        ASPxEdit editor = (ASPxEdit)e.Editor;
+        editor.ValidationSettings.Display = Display.Dynamic;
+    };
+
+    settings.PreRender = (s, e) =>
+    {
+        MVCxGridView g = s as MVCxGridView;
+        if (g != null)
+            g.ExpandAll();
+    };
+}).Bind(Model.Where(a => a.Category.Code == ViewBag.AddressCategoryCode && a.EffectivePeriod.To > DateTime.Today).ToList()).GetHtml()

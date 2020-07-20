@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.CourseSection,iSISModel" table="CourseSection">
+
+		<!-- Primary key-->
+		<id name="ID" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <many-to-one name="Course" column="CourseID" class="iSISModel.Course,iSISModel"/>
+    <many-to-one name="Semester" column="SemesterID" class="iSISModel.Semester,iSISModel"/>
+    <many-to-one name="ClassLevelSection" column="ClassLevelSectionID" class="iSISModel.ClassLevelSection,iSISModel"/>
+    <many-to-one name="Room" column="RoomID" class="iSISModel.PhysicalRoom,iSISModel"/>
+    <many-to-one name="School" column="SchoolID" class="iSISModel.School,iSISModel"/>
+
+    <bag name="Appraisals" table="CourseSectionAppraisal" inverse="true">
+      <key column="CourseSectionID"/>
+      <one-to-many class="iSISModel.CourseSectionAppraisal,iSISModel"/>
+    </bag>
+    
+    <bag name="CourseSectionStudents" table="CourseSectionStudent" inverse="true">
+      <key column="CourseSectionID"/>
+      <one-to-many class="iSISModel.CourseSectionStudent,iSISModel"/>
+    </bag>
+
+    <bag name="CourseSectionTeachers" table="CourseSectionTeacher" inverse="true">
+      <key column="CourseSectionID"/>
+      <one-to-many class="iSISModel.CourseSectionTeacher,iSISModel"/>
+    </bag>
+
+  </class>
+</hibernate-mapping>
+
+

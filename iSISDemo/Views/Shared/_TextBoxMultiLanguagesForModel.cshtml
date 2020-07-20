@@ -1,0 +1,61 @@
+﻿@using iSISDemo.Models
+@using iSISDemo.Classes
+@model iSISModel.MultilingualString
+@{
+    IList<iSISModel.Language> language = (IList<iSISModel.Language>)CacheManager.GetCache(CacheManager.CacheName.Language);
+}
+@for (var index = 0; index < language.Count; index++)
+{
+    bool isCreate = false;
+    <div>
+        (@language[index].Title)
+        @foreach (var item in Model.Values)
+        {
+            if (language[index].Code == item.LanguageCode)
+            {
+                @Html.DevExpress().TextBoxFor(model => model.Values[index].Value,
+                    settings =>
+                    {
+                        settings.Name = ((string)ViewData["Name"]) + "_" + language[index].Code;
+                        if (ViewData["IsRequired"] != null)
+                        {
+                            if ((bool)ViewData["IsRequired"])
+                            {
+                                if (ViewData["ValidationGroup"] != null)
+                                {
+                                    settings.Properties.ValidationSettings.ValidationGroup = (string)ViewData["ValidationGroup"];
+                                }
+                                settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                                settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                                settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                settings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                            }
+                        }
+                    }).GetHtml()
+                isCreate = true;
+            }
+        }
+        @if (!isCreate)
+        {
+            @Html.DevExpress().TextBox(
+            settings =>
+            {
+                settings.Name = ((string)ViewData["Name"]) + "_" + language[index].Code;
+                if (ViewData["IsRequired"] != null)
+                {
+                    if ((bool)ViewData["IsRequired"])
+                    {
+                        if (ViewData["ValidationGroup"] != null)
+                        {
+                            settings.Properties.ValidationSettings.ValidationGroup = (string)ViewData["ValidationGroup"];
+                        }
+                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        settings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                    }
+                }
+            }).GetHtml()
+        }
+    </div>
+}

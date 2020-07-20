@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.StudentTimeAttendance,iSISModel" table="StudentTimeAttendance">
+    
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property name="FingerScannerID" />
+    <many-to-one name="Student" column="StudentID" class="iSISModel.Student,iSISModel"/>
+    <component name="TimeAttendancePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="TimeAttendanceFrom"/>
+      <property name="To" column="TimeAttendanceTo"/>
+    </component>
+    <property name="TimeAttendanceDate" />
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+
+  </class>
+</hibernate-mapping>
+
+

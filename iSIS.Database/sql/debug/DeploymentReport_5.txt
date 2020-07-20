@@ -1,0 +1,26 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Person]
+       [dbo].[Student]
+       [dbo].[User]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Person].[EffectiveFrom] is being dropped, data loss could occur.
+       The column [dbo].[Person].[EffectiveTo] is being dropped, data loss could occur.
+       The column [dbo].[User].[LastSuccessfulLoginTS] is being dropped, data loss could occur.
+
+** User actions
+     Table rebuild
+       [dbo].[Person] (Table)
+       [dbo].[Student] (Table)
+       [dbo].[User] (Table)
+
+** Supporting actions
+
+The column [dbo].[Person].[EffectiveFrom] is being dropped, data loss could occur.
+The column [dbo].[Person].[EffectiveTo] is being dropped, data loss could occur.
+The column [dbo].[User].[LastSuccessfulLoginTS] is being dropped, data loss could occur.
+

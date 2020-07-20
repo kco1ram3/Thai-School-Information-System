@@ -1,0 +1,44 @@
+﻿<script type="text/javascript">
+    $(document).ready(function() {
+        $("#AllowCustomTokens, #ShowDropDownOnFocus, #IncrementalFilteringMode").change(
+            function() {
+                $("form").submit();
+            }
+        );
+    });
+</script>
+
+@{ AutocompleteOption options = (AutocompleteOption)ViewData["AutocompleteOptions"]; }
+
+@using (Html.BeginForm())
+{
+    <div class="vertComponentContainer">
+        @Html.DevExpress().TokenBox(
+            settings =>
+            {
+                settings.Name = "schoolAutocomplete";
+                settings.Width = 100;
+                settings.Properties.AllowCustomTokens = options.AllowCustomTokens;
+                settings.Properties.IncrementalFilteringMode = options.IncrementalFilteringMode;
+                settings.Properties.ShowDropDownOnFocus = options.ShowDropDownOnFocus;
+                settings.Properties.TextField = "Name";
+                settings.Properties.ValueField = "Id";
+                settings.Properties.Tokens.Add("โรงเรียนสาธิต1");
+            }
+         ).BindToXML("~/App_Data/SchoolName.xml", "//School/*").GetHtml()
+    </div>
+    @*<div class="vertOptionsPanel" style="padding-left: 100px;">
+        <div>
+            <label for="AllowCustomTokens" style="width: 160px">AllowCustomTokens:</label>
+            @Html.CheckBox("AllowCustomTokens", options.AllowCustomTokens)
+        </div>
+        <div>
+            <label for="ShowDropDownOnFocus" style="width: 160px">ShowDropDownOnFocus:</label>
+            @Html.DropDownList("ShowDropDownOnFocus", typeof(ShowDropDownOnFocusMode), options.ShowDropDownOnFocus)
+        </div>
+        <div>
+            <label for="IncrementalFilteringMode" style="width: 160px">IncrementalFilteringMode:</label>
+            @Html.DropDownList("IncrementalFilteringMode", typeof(IncrementalFilteringMode), options.IncrementalFilteringMode)
+        </div>
+    </div>*@
+}

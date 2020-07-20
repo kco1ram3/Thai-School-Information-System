@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.AcademicAchievement,iSISModel" table="AcademicAchievement" >
+
+    <!-- Primary key-->
+    <id name="ID" column="ID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <property name="Date" />
+    <many-to-one name="Person" class="iSISModel.Person, iSISModel" column="PersonID" />
+    <many-to-one name="PerformanceIndicator" column="PerformanceIndicatorID" class="iSISModel.PerformanceIndicator,iSISModel" />
+    <property name="Description" />
+    <property name="Reference" />
+    <property name="Remark" />
+  </class>
+</hibernate-mapping>

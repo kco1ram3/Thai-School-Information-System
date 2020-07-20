@@ -1,0 +1,17 @@
+﻿@using iSISDemo.Models;
+@using iSISDemo.Classes
+
+@Html.DevExpress().ComboBox(
+    settings =>
+    {
+        settings.Name = "themeSelector";
+
+        settings.Width = 180;
+        settings.SelectedIndex = Themes.GetIndex(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentTheme));
+        settings.Properties.ValueType = typeof(string);
+
+        settings.Properties.TextField = "Name";
+        settings.Properties.ValueField = "Value";
+
+        settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(sender, event) { $('#frmTheme').submit(); }";
+    }).BindList(Themes.GetThemes()).GetHtml()

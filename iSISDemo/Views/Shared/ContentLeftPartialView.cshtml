@@ -1,0 +1,11 @@
+@using iSISDemo.Models;
+
+<div class="leftPanel">
+    @* DXCOMMENT: Configure the left panel's treeview *@
+    @*
+    @Html.DevExpress().TreeView(settings => {
+        settings.Name = "LeftTreeView";
+    }).BindToXML(HttpContext.Current.Server.MapPath("~/App_Data/SideMenu.xml"), "/menu/*").GetHtml()
+    *@
+    @Html.DevExpress().TreeView(TreeViewMenu.GetTreeViewSettings()).GetHtml()
+</div>

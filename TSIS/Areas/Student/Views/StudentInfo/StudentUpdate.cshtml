@@ -1,0 +1,103 @@
+﻿@using System.Web.UI.WebControls
+@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@model iSISModel.Student
+
+@{
+    ViewBag.Title = @ModelsRepository.GetLabel("Student");
+}
+
+@using (Html.BeginForm("Update", "StudentInfo", FormMethod.Post))
+{
+    @Html.DevExpress().FormLayout(settings =>
+    {
+        settings.Name = "StudentDetails";
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Width = Unit.Percentage(100);
+
+        var groupStudentInfo = settings.Items.AddGroupItem(groupSettings =>
+        {
+            groupSettings.Caption = @ModelsRepository.GetLabel("StudentDetails");
+            groupSettings.ShowCaption = DefaultBoolean.True;
+            groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+            groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        });
+        groupStudentInfo.SettingsItems.ShowCaption = DefaultBoolean.True;
+        groupStudentInfo.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+        groupStudentInfo.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+        groupStudentInfo.Items.Add(studentInfo =>
+        {
+            studentInfo.Caption = "";
+            studentInfo.ShowCaption = DefaultBoolean.False;
+            studentInfo.SetNestedContent(() =>
+            {
+                @Html.DevExpress().PageControl(SettingsPageControl =>
+                {
+                    SettingsPageControl.Name = "PageControlNewStudent";
+                    SettingsPageControl.Width = Unit.Percentage(100);
+                    SettingsPageControl.Height = Unit.Percentage(100);
+                    //SettingsPageControl.Styles.Content.Border.BorderStyle = BorderStyle.None;
+                    //SettingsPageControl.EnableTabScrolling = true;
+                    //SettingsPageControl.TabAlign = TabAlign.Justify;
+                    //SettingsPageControl.Styles.Tab.CssClass = "scrolling_Tab";
+
+                    SettingsPageControl.TabPages.Add(tabPage =>
+                    {
+                        tabPage.Text = @ModelsRepository.GetLabel("Student");
+                        tabPage.SetContent(() =>
+                        {
+                            @Html.RenderPartial("_Tab1StudentInfo", Model);
+                        });
+                    });
+                    SettingsPageControl.TabPages.Add(tabPage =>
+                    {
+                        tabPage.Text = @ModelsRepository.GetLabel("Father");
+                        tabPage.SetContent(() =>
+                        {
+                            @Html.RenderPartial("_Tab2FatherInfo", Model);
+                        });
+                    });
+                    SettingsPageControl.TabPages.Add(tabPage =>
+                    {
+                        tabPage.Text = @ModelsRepository.GetLabel("Mother");
+                        tabPage.SetContent(() =>
+                        {
+                            @Html.RenderPartial("_Tab3MotherInfo", Model);
+                        });
+                    });
+                    SettingsPageControl.TabPages.Add(tabPage =>
+                    {
+                        tabPage.Text = @ModelsRepository.GetLabel("Guardian");
+                        tabPage.SetContent(() =>
+                        {
+                            @Html.RenderPartial("_Tab4GuardianInfo", Model);
+                        });
+                    });
+                }).GetHtml();
+            });
+        });
+    }).GetHtml();
+
+                ViewContext.Writer.Write("<div class='line' align='center'>");
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnSaveStudentUpdate";
+                    btnSettings.Text = @ModelsRepository.GetLabel("Save");
+                    btnSettings.Width = Unit.Pixel(100);
+                    btnSettings.ControlStyle.CssClass = "button";
+                    btnSettings.UseSubmitBehavior = true;
+                }).Render();
+                ViewContext.Writer.Write("&nbsp;&nbsp;");
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnCancelStudentUpdate";
+                    btnSettings.Text = @ModelsRepository.GetLabel("Cancel");
+                    btnSettings.Width = Unit.Pixel(100);
+                    btnSettings.ControlStyle.CssClass = "button";
+                    btnSettings.RouteValues = new { Controller = "StudentInfo", Action = "Index" };
+                }).Render();
+                ViewContext.Writer.Write("</div><br />");
+}

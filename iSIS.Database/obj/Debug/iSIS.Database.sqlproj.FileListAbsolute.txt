@@ -1,0 +1,15 @@
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Database\sql\debug\iSIS.dacpac
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Database\sql\debug\iSIS.Database.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Database\sql\debug\iSIS.Database.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Database\obj\Debug\iSIS.Database.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Database\obj\Debug\iSIS.Database.pdb
+D:\Projects\iSIS\iSIS.Database\sql\debug\iSIS.dacpac
+D:\Projects\iSIS\iSIS.Database\sql\debug\iSIS.Database.dll
+D:\Projects\iSIS\iSIS.Database\sql\debug\iSIS.Database.pdb
+D:\Projects\iSIS\iSIS.Database\obj\Debug\iSIS.Database.dll
+D:\Projects\iSIS\iSIS.Database\obj\Debug\iSIS.Database.pdb
+D:\Projects\Merge\iSIS.Database\sql\debug\iSIS.dacpac
+D:\Projects\Merge\iSIS.Database\sql\debug\iSIS.Database.dll
+D:\Projects\Merge\iSIS.Database\sql\debug\iSIS.Database.pdb
+D:\Projects\Merge\iSIS.Database\obj\Debug\iSIS.Database.dll
+D:\Projects\Merge\iSIS.Database\obj\Debug\iSIS.Database.pdb

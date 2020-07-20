@@ -1,0 +1,83 @@
+﻿@model iSISDemo.Areas.Students.Models.Student
+@{
+    ViewBag.Title = "สมัครเข้ารับการศึกษา";
+}
+
+<script>
+    $(document).ready(function () {
+        if (Boolean('@(ViewBag.SuccessValidation)')) {
+            alert('บันทึกข้อมูลเรียบร้อย');
+            window.location.href = '@Url.Action("", "RegisterList")';
+        }
+    });
+</script>
+
+<h2>สมัครเข้ารับการศึกษา</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "Button";
+            settings.Text = "บันทึกข้อมูล";
+            settings.UseSubmitBehavior = true;
+        }).GetHtml()
+    </p>
+
+    @Html.DevExpress().PageControl(
+    settings =>
+    {
+        settings.Name = "pcRegister";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        //settings.Height = 350;
+        //settings.EnableTabScrolling = true;
+        //settings.TabAlign = TabAlign.Justify;
+
+        //settings.Styles.Tab.CssClass = "scrolling_Tab";
+
+        settings.TabPages.Add(tabPage =>
+        {
+            tabPage.Text = "ข้อมูลนักเรียน";
+            tabPage.SetContent(() =>
+            {
+                Html.RenderPartial("_PartialRegisterTab1", Model);
+            });
+        });
+        settings.TabPages.Add(tabPage =>
+        {
+            tabPage.Text = "ประวัติการศึกษา";
+            tabPage.SetContent(() =>
+            {
+                Html.RenderPartial("_PartialRegisterTab2", Model);
+            });
+        });
+        settings.TabPages.Add(tabPage =>
+        {
+            tabPage.Text = "ข้อมูลผู้ปกครอง";
+            tabPage.SetContent(() =>
+            {
+                Html.RenderPartial("_PartialRegisterTab3", Model);
+            });
+        });
+        /*
+        settings.TabPages.Add(tabPage =>
+        {
+            tabPage.Text = "ข้อมูลผู้ปกครอง";
+            tabPage.SetContent(() =>
+            {
+                Html.RenderPartial("_PartialRegisterTab4", Model);
+            });
+        });
+        settings.TabPages.Add(tabPage =>
+        {
+            tabPage.Text = "Tab 5";
+            tabPage.SetContent(() =>
+            {
+                Html.RenderPartial("_PartialRegisterTab5", Model);
+            });
+        });
+        */
+
+    }).GetHtml()
+}

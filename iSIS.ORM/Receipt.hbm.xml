@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Receipt,iSISModel" table="Receipt">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <property name="Date"/>
+    <property name="ReceiptNo"/>
+    <property name="PayerName"/>
+    <property name="PayerAddress"/>
+    <property name="TotalAmount"/>
+
+    <many-to-one name="Semester" column="SemesterID" class="iSISModel.Semester,iSISModel" />
+    <many-to-one name="School" column="SchoolID" class="iSISModel.School,iSISModel" />
+    <many-to-one name="Student" column="StudentID" class="iSISModel.Student,iSISModel" />
+
+    <bag name="ReceiptItems" table="ReceiptItem" lazy="true" cascade="delete">
+      <key column="ReceiptID"/>
+      <one-to-many class="iSISModel.ReceiptItem, iSISModel"/>
+    </bag>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,121 @@
+﻿@using System.Web.UI.WebControls
+@using iSISDemo.Models
+@using iSISDemo.Classes
+@model IEnumerable<iSISModel.ClassroomTeacher>
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "gvClassroomList";
+        settings.KeyFieldName = "ID";
+        settings.CallbackRouteValues = new { Controller = "Classroom", Action = "GridViewClassroomList", id = ViewData["id"] };
+        //settings.SettingsBehavior.AllowSort = false;
+        //settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.Width = Unit.Percentage(100);
+
+        settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+        /*
+        var columnNo = settings.Columns.Add("#");
+        columnNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+        columnNo.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        columnNo.Settings.AllowDragDrop = DefaultBoolean.False;
+        columnNo.Settings.AllowSort = DefaultBoolean.False;
+        columnNo.Width = 50;
+
+        settings.CustomColumnDisplayText = (sender, e) =>
+        {
+            if (e.Column.FieldName == "#")
+            {
+                e.DisplayText = (e.VisibleRowIndex + 1).ToString();
+            }
+        };
+        */
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Classroom.Semester.AcademicYear";
+            column.Caption = ModelsRepository.GetLabel("AcademicYear");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.GroupIndex = 0;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Classroom.Semester.SemesterNo";
+            column.Caption = ModelsRepository.GetLabel("SemesterNo");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.GroupIndex = 1;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Classroom.ClassLevelSection.ClassLevel.LevelNo";
+            column.SetDataItemTemplateContent(c =>
+            {
+                if (((iSISModel.Classroom)DataBinder.Eval(c.DataItem, "Classroom")).ClassLevelSection.ClassLevel.Title != null)
+                {
+                    ViewContext.Writer.Write(((iSISModel.Classroom)DataBinder.Eval(c.DataItem, "Classroom")).ClassLevelSection.ClassLevel.Title.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                }
+            });
+            column.Caption = ModelsRepository.GetLabel("LevelTitle");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.GroupIndex = 2;
+            column.SetGroupRowTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(ModelsRepository.GetLabel("LevelNo") + ": ");
+                ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "Classroom.ClassLevelSection.ClassLevel.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                if (((iSISModel.Classroom)DataBinder.Eval(c.DataItem, "Classroom")).ClassLevelSection.ClassLevel.ShortTitle != null)
+                {
+                    ViewContext.Writer.Write(" (" + ((iSISModel.Classroom)DataBinder.Eval(c.DataItem, "Classroom")).ClassLevelSection.ClassLevel.ShortTitle.GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)) + ")");
+                }
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Classroom.Room.RoomNo";
+            column.Caption = ModelsRepository.GetLabel("RoomNo");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink(ModelsRepository.GetLabel("ClassroomStudent"), "ClassroomStudent", "Classroom", new { id = DataBinder.Eval(c.DataItem, "Classroom.ID") }, null)
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.PreRender = (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            if (g != null)
+                g.ExpandAll();
+        };
+
+        /*
+        settings.BeforeGetCallbackResult = (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            if (g != null)
+                g.ExpandAll();
+        };
+        */
+    }).Bind(Model).GetHtml()

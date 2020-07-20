@@ -1,0 +1,43 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[HierarchicalCategory]
+       [dbo].[Organization]
+       [dbo].[Student]
+       [dbo].[Teacher]
+       [dbo].[User]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[HierarchicalCategory].[ClassLevelID] is being dropped, data loss could occur.
+       The column [dbo].[HierarchicalCategory].[SchoolID] is being dropped, data loss could occur.
+       The type for column ID in table [dbo].[HierarchicalCategory] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being
+         changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+       The column [dbo].[Organization].[EmailAddrss] is being dropped, data loss could occur.
+       The type for column ID in table [dbo].[Teacher] is currently  BIGINT NOT NULL but is being changed to  INT NOT NULL.
+         Data loss could occur.
+       The column [dbo].[User].[EffectiveFrom] is being dropped, data loss could occur.
+       The column [dbo].[User].[EffectiveTo] is being dropped, data loss could occur.
+
+** User actions
+     Table rebuild
+       [dbo].[HierarchicalCategory] (Table)
+       [dbo].[Organization] (Table)
+       [dbo].[Student] (Table)
+       [dbo].[Teacher] (Table)
+       [dbo].[User] (Table)
+     Create
+       [dbo].[StudentAcademicYear] (Table)
+       [dbo].[StudentSemester] (Table)
+
+** Supporting actions
+
+The column [dbo].[HierarchicalCategory].[ClassLevelID] is being dropped, data loss could occur.
+The column [dbo].[HierarchicalCategory].[SchoolID] is being dropped, data loss could occur.
+The type for column ID in table [dbo].[HierarchicalCategory] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+The column [dbo].[Organization].[EmailAddrss] is being dropped, data loss could occur.
+The type for column ID in table [dbo].[Teacher] is currently  BIGINT NOT NULL but is being changed to  INT NOT NULL. Data loss could occur.
+The column [dbo].[User].[EffectiveFrom] is being dropped, data loss could occur.
+The column [dbo].[User].[EffectiveTo] is being dropped, data loss could occur.
+

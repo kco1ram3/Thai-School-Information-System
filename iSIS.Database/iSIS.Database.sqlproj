@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+    <PostConversionRemoveFromScc>
+    </PostConversionRemoveFromScc>
+    <PostConversionAddToScc>
+    </PostConversionAddToScc>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>iSIS.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ShowWizard>False</ShowWizard>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
+    <ModelCollation>1054,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <LoadSqlClrTypes>True</LoadSqlClrTypes>
+    <RootNamespace>iSISDatabase</RootNamespace>
+    <DefaultSchema>dbo</DefaultSchema>
+    <PreviousProjectVersion>4.1</PreviousProjectVersion>
+    <ValidateCasingOnIdentifiers>False</ValidateCasingOnIdentifiers>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{f35e908f-f4e7-4b52-b90a-3ce4b3c48bd6}</ProjectGuid>
+    <GenerateDatabaseFile>False</GenerateDatabaseFile>
+    <GenerateCreateScript>True</GenerateCreateScript>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SqlServerVerification>True</SqlServerVerification>
+    <TargetLanguage>CS</TargetLanguage>
+    <DefaultCollation>Thai_CI_AS</DefaultCollation>
+    <AnsiNullDefault>True</AnsiNullDefault>
+    <AnsiNulls>True</AnsiNulls>
+    <AnsiPadding>True</AnsiPadding>
+    <AnsiWarnings>True</AnsiWarnings>
+    <ArithAbort>True</ArithAbort>
+    <ConcatNullYieldsNull>True</ConcatNullYieldsNull>
+    <QuotedIdentifier>True</QuotedIdentifier>
+    <NumericRoundAbort>False</NumericRoundAbort>
+    <RecursiveTriggersEnabled>False</RecursiveTriggersEnabled>
+    <DatabaseState>ONLINE</DatabaseState>
+    <UpdateOptions>READ_WRITE</UpdateOptions>
+    <CloseCursorOnCommitEnabled>False</CloseCursorOnCommitEnabled>
+    <DefaultCursor>LOCAL</DefaultCursor>
+    <AutoClose>False</AutoClose>
+    <AutoCreateStatistics>True</AutoCreateStatistics>
+    <AutoShrink>False</AutoShrink>
+    <AutoUpdateStatistics>True</AutoUpdateStatistics>
+    <TornPageDetection>False</TornPageDetection>
+    <DatabaseAccess>MULTI_USER</DatabaseAccess>
+    <Recovery>FULL</Recovery>
+    <EnableFullTextSearch>True</EnableFullTextSearch>
+    <DatabaseChaining>False</DatabaseChaining>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <Trustworthy>False</Trustworthy>
+    <AutoUpdateStatisticsAsynchronously>False</AutoUpdateStatisticsAsynchronously>
+    <PageVerify>NONE</PageVerify>
+    <ServiceBrokerOption>DisableBroker</ServiceBrokerOption>
+    <DateCorrelationOptimizationOn>False</DateCorrelationOptimizationOn>
+    <Parameterization>SIMPLE</Parameterization>
+    <AllowSnapshotIsolation>False</AllowSnapshotIsolation>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
+    <VardecimalStorageFormatOn>True</VardecimalStorageFormatOn>
+    <SupplementalLoggingOn>False</SupplementalLoggingOn>
+    <DefaultFileStreamFilegroup />
+    <IsChangeTrackingOn>False</IsChangeTrackingOn>
+    <IsChangeTrackingAutoCleanupOn>True</IsChangeTrackingAutoCleanupOn>
+    <ChangeTrackingRetentionPeriod>2</ChangeTrackingRetentionPeriod>
+    <ChangeTrackingRetentionUnit>Days</ChangeTrackingRetentionUnit>
+    <IsEncryptionOn>False</IsEncryptionOn>
+    <IsBrokerPriorityHonored>False</IsBrokerPriorityHonored>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\sql\release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TargetDatabase>
+    </TargetDatabase>
+    <TreatTSqlWarningsAsErrors>False</TreatTSqlWarningsAsErrors>
+    <SuppressTSqlWarnings />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.\sql\debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TargetDatabase>
+    </TargetDatabase>
+    <TreatTSqlWarningsAsErrors>False</TreatTSqlWarningsAsErrors>
+    <SuppressTSqlWarnings />
+    <SqlTargetName>iSIS</SqlTargetName>
+  </PropertyGroup>
+  <!--Import the settings-->
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" Condition="'$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" Condition="'$(SQLDBExtensionsRefPath)' == ''" />
+  <ItemGroup>
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Pre-Deployment" />
+    <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="Data Generation Plans" />
+    <Folder Include="Schema Comparisons" />
+    <Folder Include="Properties\" />
+    <Folder Include="Schema Objects\" />
+    <Folder Include="Schema Objects\Schemas\" />
+    <Folder Include="Schema Objects\Schemas\dbo\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Defaults\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Functions\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Rules\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Types\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Types\User Defined Data Types\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Types\User Defined Types CLR\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Types\User Defined Table Types\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Programmability\Types\XML Schema Collections\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Service Broker\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Service Broker\Queues\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Synonyms\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Tables\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Tables\Constraints\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Tables\Indexes\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Tables\Keys\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Tables\Triggers\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Tables\Statistics\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Views\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Views\Indexes\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Views\Triggers\" />
+    <Folder Include="Schema Objects\Schemas\dbo\Views\Statistics\" />
+    <Folder Include="Schema Objects\Database Level Objects\" />
+    <Folder Include="Schema Objects\Database Level Objects\Assemblies\" />
+    <Folder Include="Schema Objects\Database Level Objects\Database Triggers\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Schemas\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Users\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Certificates\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Asymmetric Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Master Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Signatures\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Symmetric Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Database Encryption Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Database Audit Specification\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Roles\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Roles\Application Roles\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Roles\Database Roles\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Broker Priorities\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Contracts\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Event Notifications\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Message Types\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Remote Service Binding\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Routes\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Services\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Full Text Stoplists\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Filegroups\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Files\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Full Text Catalogs\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Partition Functions\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Partition Schemes\" />
+    <Folder Include="Scripts\Schema Updates" />
+  </ItemGroup>
+  <ItemGroup>
+    <BuildContributorArgument Include="OutDir=$(OutDir)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Permissions.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\GeographicAddress.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\GeographicRegion.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\PartyAddress.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Language.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\PerformanceIndicator.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\A.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CourseSectionTeacher.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ClassLevelSection.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Classroom.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Semester.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Organization.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\OrgName.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\MultilingualString.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\MLSValue.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Person.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Teacher.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\PersonName.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\DesiredOutcome.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\GradingSystem.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\DiscreteGrade.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Configuration.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\HierarchicalCategory.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ClassroomStudent.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CourseSection.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CourseSectionStudent.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ClassroomTeacher.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Country.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Student.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\User.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Password.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Password_IX_User.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\GeograpicRegion_IX_CountryID.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ClassLevel.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Curriculum.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\SchoolOutcomeCategoryGrading.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Room.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\PerformanceMeasurement.table.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\PartyIdentity.table.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Course.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\UserRole.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CurriculumFramework.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CurriculumCourse.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Experience.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Education.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Application.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\AlternateSchool.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\AdmitCurriculum.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\AdmissionTest.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Admission.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Absence.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Photo.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Role.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\StudentAcademicYear.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\StudentSemester.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\TestScore.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\AcademicAchievement.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\AcademicEventParticipation.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Punishment.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Reward.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\RoyalDecoration.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\StudentApplication.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Country_UIX_Alpha2.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\SchoolAdministrator.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Receipt.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ReceiptItem.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ReceiptTemplate.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ReceiptTemplateItem.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ReceivableItem.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\AdmissionTestRoom.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Register.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\RegisterDetail.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\RegisterPayment.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Curriculum_UIX_School.sql" />
+    <None Include="Scripts\Schema Updates\Update 2013-05-03.sql" />
+    <None Include="Scripts\Schema Updates\Update 2013-05-05.sql" />
+    <None Include="Scripts\Schema Updates\Update 2013-05-10.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CourseSectionAppraisal.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\CourseSectionAppraisal.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\CourseSectionPerformance.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Accounting.ChartOfAccount.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Accounting.AccountingTransaction.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Accounting.Ledger.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Accounting.JournalEntry.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Accounting.ChartOfAccount_IX.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Accounting.Ledger_IX.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Accounting.AccountingTransaction_IX.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Accounting.JournalEntry_IX_Transaction.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\Accounting.JournalEntry_IX_Account.sql" />
+    <None Include="Scripts\Schema Updates\Update 2013-07-09.sql" />
+    <None Include="Scripts\Schema Updates\Update 2013-07-12.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Accounting.AccountingPeriod.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\AccountingPeriod_IX.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Indexes\JournalEntry_IX_AccountingPeriod.sql" />
+    <None Include="Scripts\Schema Updates\Update 2013-07-21.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Debug.publish.xml" />
+    <None Include="Release.publish.xml" />
+    <None Include="iSISDatabase.publish.xml" />
+    <None Include="Scripts\Schema Updates\Update 2013-07-04.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="iSISDatabase.refactorlog" />
+  </ItemGroup>
+</Project>

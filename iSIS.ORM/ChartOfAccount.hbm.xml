@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Accounting.ChartOfAccount,iSISModel" table="ChartOfAccount" discriminator-value="0">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <discriminator column="Discriminator" type="byte" />
+
+    <property name="Balance" />
+    <property name="Description" />
+    <!--<many-to-one name="Description" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>-->
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+    <many-to-one name="Organization" column="OrganizationID" class="iSISModel.Organization,iSISModel" />
+    <many-to-one name="ParentCategory" column="ParentCategoryID" class="iSISModel.Accounting.AccountCategory,iSISModel" />
+    <property name="Reference" />
+    <property name="Remark" />
+    <many-to-one name="RootCategory" column="RootCategoryID" class="iSISModel.Accounting.AccountCategory,iSISModel" />
+    <many-to-one name="ShortTitle" column="ShortTitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Title" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+
+    <subclass name="iSISModel.Accounting.AccountCategory,iSISModel" discriminator-value="1">
+      <bag name="Accounts" table="ChartOfAccount">
+        <key column="ParentCategoryID"/>
+        <one-to-many class="iSISModel.Accounting.ChartOfAccount,iSISModel" />
+      </bag>
+    </subclass>
+
+    <subclass name="iSISModel.Accounting.LedgerAccount,iSISModel" discriminator-value="2">
+      <many-to-one name="CurrentPeriod" column="CurrentPeriodID" class="iSISModel.Accounting.AccountingPeriod,iSISModel" />
+      <property name="IncreaseBalanceBy" type="iSISModel.Accounting.PostingRule,iSISModel"/>
+      <property name="MonthsPerPeriod" />
+      <bag name="Periods" table="AccountingPeriod">
+        <key column="AccountID"/>
+        <one-to-many class="iSISModel.Accounting.AccountingPeriod,iSISModel" />
+      </bag>
+    </subclass>
+
+  </class>
+</hibernate-mapping>
+
+

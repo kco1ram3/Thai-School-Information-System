@@ -1,0 +1,271 @@
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\iSIS.Website.dll.config
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\iSIS.Website.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\iSIS.Website.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\EntityFramework.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Newtonsoft.Json.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Helpers.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Http.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Mvc.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Razor.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\WebMatrix.Data.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\WebMatrix.WebData.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\EntityFramework.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Newtonsoft.Json.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Helpers.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Http.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Mvc.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.Razor.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\WebMatrix.Data.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\WebMatrix.WebData.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\obj\Debug\iSIS.Website.csprojResolveAssemblyReference.cache
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\obj\Debug\iSIS.Website.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\obj\Debug\iSIS.Website.pdb
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\iSISModel.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\NHibernate.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Iesi.Collections.dll
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\NHibernate.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\Iesi.Collections.xml
+C:\Users\ZigLost\Documents\Visual Studio 2013\Projects\iSIS\iSIS.Website\bin\iSISModel.pdb
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\iSIS.Website.dll.config
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\iSIS.Website.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\iSIS.Website.pdb
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\EntityFramework.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\iSISModel.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\Microsoft.Web.Infrastructure.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Helpers.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Http.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Mvc.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Razor.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.WebPages.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\WebMatrix.Data.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\WebMatrix.WebData.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\NHibernate.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\Iesi.Collections.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\iSISModel.pdb
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\EntityFramework.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Helpers.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Http.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Mvc.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.Razor.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.WebPages.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\WebMatrix.Data.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\WebMatrix.WebData.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\NHibernate.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\bin\Iesi.Collections.xml
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\obj\Debug\iSIS.Website.csprojResolveAssemblyReference.cache
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\obj\Debug\iSIS.Website.dll
+D:\NIDA Software Engineer #3\TSIS\Project\iSIS\iSIS.Website\obj\Debug\iSIS.Website.pdb
+D:\ProjectMVC\iSIS\iSIS.Website\bin\iSIS.Website.dll.config
+D:\ProjectMVC\iSIS\iSIS.Website\bin\iSIS.Website.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\iSIS.Website.pdb
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\EntityFramework.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\iSISModel.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\Microsoft.Web.Infrastructure.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Helpers.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Http.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Mvc.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Razor.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.WebPages.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\WebMatrix.Data.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\WebMatrix.WebData.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\NHibernate.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\Iesi.Collections.dll
+D:\ProjectMVC\iSIS\iSIS.Website\bin\iSISModel.pdb
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\EntityFramework.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Helpers.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Http.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Mvc.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.Razor.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.WebPages.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\WebMatrix.Data.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\WebMatrix.WebData.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\NHibernate.xml
+D:\ProjectMVC\iSIS\iSIS.Website\bin\Iesi.Collections.xml
+D:\ProjectMVC\iSIS\iSIS.Website\obj\Debug\iSIS.Website.csprojResolveAssemblyReference.cache
+D:\ProjectMVC\iSIS\iSIS.Website\obj\Debug\iSIS.Website.dll
+D:\ProjectMVC\iSIS\iSIS.Website\obj\Debug\iSIS.Website.pdb
+D:\Projects\iSIS\iSIS.Website\obj\Debug\iSIS.Website.csprojResolveAssemblyReference.cache
+D:\Projects\iSIS\iSIS.Website\obj\Debug\iSIS.Website.dll
+D:\Projects\iSIS\iSIS.Website\obj\Debug\iSIS.Website.pdb
+D:\Projects\iSIS\iSIS.Website\bin\iSIS.Website.dll.config
+D:\Projects\iSIS\iSIS.Website\bin\iSIS.Website.dll
+D:\Projects\iSIS\iSIS.Website\bin\iSIS.Website.pdb
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.dll
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.dll
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.dll
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.dll
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\Projects\iSIS\iSIS.Website\bin\EntityFramework.dll
+D:\Projects\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.dll
+D:\Projects\iSIS\iSIS.Website\bin\iSISModel.dll
+D:\Projects\iSIS\iSIS.Website\bin\Microsoft.Web.Infrastructure.dll
+D:\Projects\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\Projects\iSIS\iSIS.Website\bin\Newtonsoft.Json.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Helpers.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Http.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Mvc.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Razor.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.dll
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.dll
+D:\Projects\iSIS\iSIS.Website\bin\WebMatrix.Data.dll
+D:\Projects\iSIS\iSIS.Website\bin\WebMatrix.WebData.dll
+D:\Projects\iSIS\iSIS.Website\bin\NHibernate.dll
+D:\Projects\iSIS\iSIS.Website\bin\Iesi.Collections.dll
+D:\Projects\iSIS\iSIS.Website\bin\iSISModel.pdb
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.AspNet.xml
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.Core.xml
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.xml
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.xml
+D:\Projects\iSIS\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\Projects\iSIS\iSIS.Website\bin\EntityFramework.xml
+D:\Projects\iSIS\iSIS.Website\bin\EntityFramework.SqlServer.xml
+D:\Projects\iSIS\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\Projects\iSIS\iSIS.Website\bin\Newtonsoft.Json.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Net.Http.Formatting.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Helpers.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Http.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Http.WebHost.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Mvc.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.Razor.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Deployment.xml
+D:\Projects\iSIS\iSIS.Website\bin\System.Web.WebPages.Razor.xml
+D:\Projects\iSIS\iSIS.Website\bin\WebMatrix.Data.xml
+D:\Projects\iSIS\iSIS.Website\bin\WebMatrix.WebData.xml
+D:\Projects\iSIS\iSIS.Website\bin\NHibernate.xml
+D:\Projects\iSIS\iSIS.Website\bin\Iesi.Collections.xml
+D:\Projects\Merge\iSIS.Website\bin\iSIS.Website.dll.config
+D:\Projects\Merge\iSIS.Website\bin\iSIS.Website.dll
+D:\Projects\Merge\iSIS.Website\bin\iSIS.Website.pdb
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.AspNet.dll
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.Core.dll
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OAuth.dll
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OpenId.dll
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\Projects\Merge\iSIS.Website\bin\EntityFramework.dll
+D:\Projects\Merge\iSIS.Website\bin\EntityFramework.SqlServer.dll
+D:\Projects\Merge\iSIS.Website\bin\iSISModel.dll
+D:\Projects\Merge\iSIS.Website\bin\Microsoft.Web.Infrastructure.dll
+D:\Projects\Merge\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\Projects\Merge\iSIS.Website\bin\Newtonsoft.Json.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Net.Http.Formatting.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Helpers.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Http.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Http.WebHost.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Mvc.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Razor.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.WebPages.Deployment.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.WebPages.dll
+D:\Projects\Merge\iSIS.Website\bin\System.Web.WebPages.Razor.dll
+D:\Projects\Merge\iSIS.Website\bin\WebMatrix.Data.dll
+D:\Projects\Merge\iSIS.Website\bin\WebMatrix.WebData.dll
+D:\Projects\Merge\iSIS.Website\bin\NHibernate.dll
+D:\Projects\Merge\iSIS.Website\bin\Iesi.Collections.dll
+D:\Projects\Merge\iSIS.Website\bin\iSISModel.pdb
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.AspNet.xml
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.Core.xml
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OAuth.xml
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OpenId.xml
+D:\Projects\Merge\iSIS.Website\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\Projects\Merge\iSIS.Website\bin\EntityFramework.xml
+D:\Projects\Merge\iSIS.Website\bin\EntityFramework.SqlServer.xml
+D:\Projects\Merge\iSIS.Website\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\Projects\Merge\iSIS.Website\bin\Newtonsoft.Json.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Net.Http.Formatting.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Helpers.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Http.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Http.WebHost.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Mvc.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.Razor.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.WebPages.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.WebPages.Deployment.xml
+D:\Projects\Merge\iSIS.Website\bin\System.Web.WebPages.Razor.xml
+D:\Projects\Merge\iSIS.Website\bin\WebMatrix.Data.xml
+D:\Projects\Merge\iSIS.Website\bin\WebMatrix.WebData.xml
+D:\Projects\Merge\iSIS.Website\bin\NHibernate.xml
+D:\Projects\Merge\iSIS.Website\bin\Iesi.Collections.xml
+D:\Projects\Merge\iSIS.Website\obj\Debug\iSIS.Website.csprojResolveAssemblyReference.cache
+D:\Projects\Merge\iSIS.Website\obj\Debug\iSIS.Website.dll
+D:\Projects\Merge\iSIS.Website\obj\Debug\iSIS.Website.pdb

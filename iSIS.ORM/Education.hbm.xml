@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.Education,iSISModel" table="Education" >
+
+    <!-- Primary key-->
+    <id name="ID" column="ID" type="Int64" unsaved-value="0" >
+      <generator class="native"/>
+    </id>
+
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="StartDate"/>
+      <property name="To" column="GraduatedDate"/>
+    </component>
+    <!--xxx-->
+    <many-to-one name="Person" class="iSISModel.Person, iSISModel" column="PersonID" />
+    <many-to-one name="EducationLevel" class="iSISModel.HierarchicalCategory,iSISModel" column="EducationLevelID" />
+    <property name="AcademicInstituteName" />
+    <property name="AcademicInstituteAddress" />
+    <property name="DegreeTitle" />
+    <property name="ShortDegreeTitle" />
+    <property name="Reference" />
+    <property name="Remark" />
+  </class>
+</hibernate-mapping>

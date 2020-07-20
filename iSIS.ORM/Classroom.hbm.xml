@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.Classroom,iSISModel" table="Classroom">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="ClassLevelSection" column="ClassLevelSectionID" class="iSISModel.ClassLevelSection,iSISModel"/>
+    <many-to-one name="Room" column="RoomID" class="iSISModel.PhysicalRoom,iSISModel"/>
+    <many-to-one name="School" column="SchoolID" class="iSISModel.School,iSISModel"/>
+    <many-to-one name="Semester" column="SemesterID" class="iSISModel.Semester,iSISModel"/>
+
+    <bag name="ClassroomStudents" table="ClassroomStudent">
+      <key column="ClassroomID"/>
+      <one-to-many class="iSISModel.ClassroomStudent,iSISModel" />
+    </bag>
+
+    <bag name="ClassroomTeachers" table="ClassroomTeacher" >
+      <key column="ClassroomID"/>
+      <one-to-many class="iSISModel.ClassroomTeacher,iSISModel"/>
+    </bag>
+
+  </class>
+</hibernate-mapping>
+
+

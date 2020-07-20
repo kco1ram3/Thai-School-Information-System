@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.AdmitCurriculum,iSISModel" table="AdmitCurriculum">
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Admission" column="AdmissionID" class="iSISModel.Admission,iSISModel"/>
+    <many-to-one name="AdmittedClassLevel" column="AdmittedClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>
+    <property name="ApplicationFormURL" />
+    <property name="Capacity" />
+    <many-to-one name="Curriculum" column="CurriculumID" class="iSISModel.Curriculum,iSISModel" />
+    <!--<many-to-one name="Description" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>-->
+    <many-to-one name="Description" cascade="save-update, delete" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Title" cascade="save-update, delete" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <component name="DrawingPeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="DrawingFrom"/>
+      <property name="To" column="DrawingTo"/>
+    </component>
+    <property name="ForLocalPeopleOnly" />
+    <component name="RegistrationPeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="RegisterFrom"/>
+      <property name="To" column="RegisterTo"/>
+    </component>
+    <component name="TestPeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="TestFrom"/>
+      <property name="To" column="TestTo"/>
+    </component>
+    <property name="TestResultPublishedDate" />
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+  </class>
+</hibernate-mapping>
+
+

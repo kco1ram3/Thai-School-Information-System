@@ -1,0 +1,76 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+
+<script type="text/javascript">
+    var studentID = null;
+    function OnGridFocusedRowChanged(s, e) {
+        s.GetRowValues(s.GetFocusedRowIndex(), "ID", OnGetRowValues);
+    }
+    function OnGetRowValues(Value) {
+        studentID = Value;
+        if (!CallbackPanelStudentImage.InCallback())
+            CallbackPanelStudentImage.PerformCallback();
+    }
+    function OnBeginCallback(s, e) {
+        e.customArgs["StudentID"] = studentID;
+        studentID = null;
+    }
+    function OnEndCallback(s, e) {
+        if (studentID != null)
+            CallbackPanelStudentImage.PerformCallback();
+    }
+</script>
+
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("StudentInfo");
+}
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "StudentInfo";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = Unit.Percentage(100);
+
+    var groupStudentList = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("StudentList");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupStudentList.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupStudentList.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupStudentList.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupStudentList.Items.Add(Admissions =>
+    {
+        Admissions.Caption = "";
+        Admissions.ShowCaption = DefaultBoolean.False;
+        Admissions.SetNestedContent(() =>
+        {
+            @Html.RenderAction("StudentList", "StudentInfo");
+        });
+    });
+
+    var groupStudentImages = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("StudentImages");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupStudentImages.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupStudentImages.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupStudentImages.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupStudentImages.Items.Add(StudentImages =>
+    {
+        StudentImages.Caption = "";
+        StudentImages.ShowCaption = DefaultBoolean.False;
+        StudentImages.SetNestedContent(() =>
+        {
+            @Html.RenderAction("StudentImages", "StudentInfo", new ViewDataDictionary { { "UploadMode", false } });
+        });
+    });
+}).GetHtml()
+

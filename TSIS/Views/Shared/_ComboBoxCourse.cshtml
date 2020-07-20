@@ -1,0 +1,40 @@
+﻿@using TSIS.Models
+@model IList<iSISModel.Course>
+
+@Html.DevExpress().ComboBox(settings =>
+                            {
+                                settings.Name = "ComboBoxCourse";
+                                settings.CallbackRouteValues = new { Area = "", Controller = "Default", Action = "CoursePartial", defaultClassLevel = 0, defaultCourse = 0, isRequired = ViewData["IsRequired"], validationGroup = ViewData["ValidationGroup"] };
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                settings.Properties.TextField = "Text";
+                                settings.Properties.ValueField = "Value";
+                                settings.Properties.ValueType = typeof(Int64);
+                                settings.PreRender = (sender, e) =>
+                                {
+                                    if (ViewData["SelectedValue"] != null)
+                                    {
+                                        MVCxComboBox cmb = sender as MVCxComboBox;
+                                        cmb.Value = (Int64)ViewData["SelectedValue"];
+                                    }
+                                };
+                                settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) {"
+                                                                                        + "try {"
+                                                                                            + "e.customArgs['ClassLevel'] = ComboBoxClassLevel.GetValue();"
+                                                                                        + "} catch(e) { }"
+                                                                                    + "}";
+                                if (ViewData["IsRequired"] != null)
+                                {
+                                    if ((bool)ViewData["IsRequired"])
+                                    {
+                                        if (ViewData["ValidationGroup"] != null)
+                                        {
+                                            settings.Properties.ValidationSettings.ValidationGroup = (string)ViewData["ValidationGroup"];
+                                        }
+                                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                                        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+                                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                        settings.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("Required");
+                                    }
+                                }
+                            }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.Course>)Model)).GetHtml()

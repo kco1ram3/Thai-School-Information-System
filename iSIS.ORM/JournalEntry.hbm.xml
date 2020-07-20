@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+
+  <class name="iSISModel.Accounting.JournalEntry,iSISModel" table="JournalEntry" discriminator-value="0">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <discriminator column="Discriminator" type="byte" />
+
+    <many-to-one name="Account" column="AccountID" class="iSISModel.Accounting.LedgerAccount,iSISModel" />
+    <property name="Amount" />
+    <many-to-one name="Period" column="PeriodID" class="iSISModel.Accounting.AccountingPeriod,iSISModel" />
+    <property name="PostedTS" type="timestamp" />
+    <property name="SeqNo" />
+    <many-to-one name="Transaction" column="TransactionID" class="iSISModel.Accounting.AccountingTransaction,iSISModel" />
+
+    <subclass name="iSISModel.Accounting.CreditEntry,iSISModel" discriminator-value="1">
+    </subclass>
+
+    <subclass name="iSISModel.Accounting.DebitEntry,iSISModel" discriminator-value="2">
+    </subclass>
+
+  </class>
+</hibernate-mapping>
+
+

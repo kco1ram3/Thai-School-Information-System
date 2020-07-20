@@ -1,0 +1,32 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+@using TSIS.Areas.Announcement.Controllers;
+@model iSISModel.Admission
+
+@Html.DevExpress().HtmlEditor(settings =>
+{
+    settings.Name = "AdmissionHtmlEditor";
+    settings.CallbackRouteValues = new { Controller = "Admission", Action = "AdmissionHtmlEditor" };
+    settings.Width = Unit.Percentage(100);
+    settings.ToolbarMode = HtmlEditorToolbarMode.Menu;
+
+    if (@ViewBag.PreviewOnly == false)
+    {
+        settings.Settings.AllowDesignView = true;
+        settings.Settings.AllowHtmlView = true;
+        settings.Settings.AllowPreview = true;
+    }
+    else
+    {
+        settings.Settings.AllowDesignView = false;
+        settings.Settings.AllowHtmlView = false;
+        settings.Settings.AllowPreview = true;
+    }
+
+    settings.SettingsImageUpload.UploadCallbackRouteValues = new { Controller = "Admission", Action = "AdmissionHtmlEditorImageUpload" };
+    settings.SettingsImageUpload.UploadImageFolder = AdmissionControllerAdmissionHtmlEditorSettings.ImageUploadDirectory;
+    settings.SettingsImageUpload.ValidationSettings.Assign(AdmissionControllerAdmissionHtmlEditorSettings.ImageUploadValidationSettings);
+
+    settings.SettingsImageSelector.Assign(AdmissionControllerAdmissionHtmlEditorSettings.ImageSelectorSettings);
+
+}).Bind(Model != null ? Model.Description : null).GetHtml()

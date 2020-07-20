@@ -1,0 +1,194 @@
+﻿@using System.Web.UI.WebControls
+@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS.Models;
+@model iSISModel.Student
+
+<script type="text/javascript">
+    var gridDetailInstance = null;
+
+    function GetGridDetailInstance(s, e) {
+        gridDetailInstance = s;
+    }
+</script>
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "StudentInfo";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = Unit.Percentage(100);
+    //==================================
+    var groupStudyInfo = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("StudyInfo");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupStudyInfo.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupStudyInfo.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupStudyInfo.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupStudyInfo.Items.Add(studyInfo =>
+    {
+        studyInfo.Caption = "";
+        studyInfo.ShowCaption = DefaultBoolean.False;
+        studyInfo.SetNestedContent(() =>
+        {
+            ViewContext.Writer.Write("<table><tr><td style=\"padding-top:0px; padding-right:25px;\">");
+            //-----------------------------------------------
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("StudentID", "StudentID")).GetHtml();
+            @Html.DevExpress().TextBoxFor(model => model.IDNo, s =>
+            {
+                s.Name = "TextBoxStudentIDNo";
+                s.Width = 100;
+            }).GetHtml();
+            //-----------------------------------------------
+            ViewContext.Writer.Write("</td><td style=\"padding-top:0px; padding-right:25px;\">");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelAdmittedClassLevel", "AdmittedClassLevel")).GetHtml();
+            Html.DevExpress().ComboBox(
+                comboSettings =>
+                {
+                    comboSettings.Name = "ComboBoxAdmittedClassLevel";
+                    comboSettings.Width = 150;
+                    comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                    comboSettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                    comboSettings.Properties.TextField = "Text";
+                    comboSettings.Properties.ValueField = "Value";
+                    comboSettings.Properties.ValueType = typeof(Int64);
+                    comboSettings.PreRender = (sender, e) =>
+                    {
+                        if ((Model != null) && (Model.AdmittedClassLevel != null))
+                        {
+                            MVCxComboBox cmb = sender as MVCxComboBox;
+                            cmb.Value = (Int64)Model.AdmittedClassLevel.ID;
+                        }
+                    };
+                }).BindList(ViewBag.ClassLevel).GetHtml();
+            //-----------------------------------------------
+            ViewContext.Writer.Write("</td><td style=\"padding-top:0px; padding-right:25px;\">");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelAdmittedAcademicYear", "AdmittedAcademicYear")).GetHtml();
+            Html.DevExpress().ComboBox(
+                comboSettings =>
+                {
+                    comboSettings.Name = "ComboBoxAdmittedAcademicYear";
+                    comboSettings.Width = 100;
+                    comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                    comboSettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                    comboSettings.Properties.TextField = "Text";
+                    comboSettings.Properties.ValueField = "Value";
+                    comboSettings.Properties.ValueType = typeof(Int64);
+                    comboSettings.PreRender = (sender, e) =>
+                    {
+                        if ((Model != null) && (Model.AdmittedSemester != null))
+                        {
+                            MVCxComboBox cmb = sender as MVCxComboBox;
+                            cmb.Value = Model.AdmittedSemester.ID;
+                        }
+                    };
+                }).BindList(ViewBag.Semesters).GetHtml();
+            //-----------------------------------------------
+            ViewContext.Writer.Write("</td><td style=\"padding-top:0px; padding-right:25px;\">");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelMajorGroup", "MajorGroup")).GetHtml();
+            @Html.DevExpress().ComboBox(
+                comboSettings =>
+                {
+                    comboSettings.Name = "ComboBoxMajorGroup";
+                    comboSettings.Width = 120;
+                    comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                    comboSettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                    comboSettings.Properties.TextField = "Text";
+                    comboSettings.Properties.ValueField = "Value";
+                    comboSettings.Properties.ValueType = typeof(int);
+                    comboSettings.PreRender = (sender, e) =>
+                    {
+                        if ((Model != null) && (Model.Major != null))
+                        {
+                            MVCxComboBox cmb = sender as MVCxComboBox;
+                            cmb.Value = Model.Major.ID;
+                        }
+                    };
+                }).BindList(ViewBag.MajorGroup).GetHtml();
+            //-----------------------------------------------
+            ViewContext.Writer.Write("</td><td style=\"padding-top:0px; padding-right:25px;\">");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelAdmittedGPA", "AdmittedGPA")).GetHtml();
+            @Html.DevExpress().SpinEdit(s =>
+            {
+                s.Name = "SpinEditAdmittedGPA";
+                s.Width = 100;
+                s.Properties.SpinButtons.ShowLargeIncrementButtons = true;
+                s.Properties.NumberType = SpinEditNumberType.Float;
+                s.Properties.DisplayFormatString = "F2";
+                s.Properties.DecimalPlaces = 2;
+                s.Properties.Increment = 0.01M;
+                s.Properties.LargeIncrement = 0.1M;
+                s.Properties.MinValue = 0;
+                s.Properties.MaxValue = 4;
+
+            }).Bind((Model.AdmittedGPA != null) ? Model.AdmittedGPA : 0.00).GetHtml();
+            //-----------------------------------------------
+            ViewContext.Writer.Write("</td><td style=\"padding-top:0px; padding-right:25px;\">");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelCurrentGPA", "CurrentGPA")).GetHtml();
+            @Html.DevExpress().SpinEdit(s =>
+            {
+                s.Name = "SpinEditCurrentGPA";
+                s.Width = 100;
+                s.Properties.SpinButtons.ShowLargeIncrementButtons = true;
+                s.Properties.NumberType = SpinEditNumberType.Float;
+                s.Properties.DisplayFormatString = "F2";
+                s.Properties.DecimalPlaces = 2;
+                s.Properties.Increment = 0.01M;
+                s.Properties.LargeIncrement = 0.1M;
+                s.Properties.MinValue = 0;
+                s.Properties.MaxValue = 4;
+            }).Bind((Model.CurrentGPA != null) ? Model.CurrentGPA : 0.00).GetHtml();
+            //-----------------------------------------------
+            ViewContext.Writer.Write("</td></tr></table>");
+        });
+    });
+    //==================================
+    var groupStudentInfo = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("StudentInfo");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupStudentInfo.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupStudentInfo.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupStudentInfo.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupStudentInfo.Items.Add(studentInfo =>
+    {
+        studentInfo.Caption = "";
+        studentInfo.ShowCaption = DefaultBoolean.False;
+        studentInfo.SetNestedContent(() =>
+        {
+            @Html.RenderPartial("~/Views/Shared/_PersonAddress.cshtml"
+                                , Model.Person
+                                , new ViewDataDictionary(this.ViewData) { { "PersonInfo", "Student" } });
+        });
+    });
+    //=============================================
+    var groupStudentImages = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("StudentImages");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupStudentImages.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupStudentImages.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupStudentImages.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupStudentImages.Items.Add(StudentImages =>
+    {
+        StudentImages.Caption = "";
+        StudentImages.ShowCaption = DefaultBoolean.False;
+        StudentImages.SetNestedContent(() =>
+        {
+            @Html.RenderPartial("_StudentImages", Model, new ViewDataDictionary { { "UploadMode", true } });
+        });
+    });
+}).GetHtml()

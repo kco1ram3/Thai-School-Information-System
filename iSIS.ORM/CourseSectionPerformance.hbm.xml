@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="iSISModel.CourseSectionPerformance,iSISModel" table="CourseSectionPerformance">
+
+		<!-- Primary key-->
+		<id name="ID" type="Int64" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <property name="AppraisalDate" />
+    <many-to-one name="CourseSectionAppraisal" column="CourseSectionAppraisalID" class="iSISModel.CourseSectionAppraisal,iSISModel"/>
+    <many-to-one name="CourseSectionStudent" column="CourseSectionStudentID" class="iSISModel.CourseSectionStudent,iSISModel"/>
+    <property name="Score" />
+    <property name="Remark" />
+
+  </class>
+</hibernate-mapping>
+
+

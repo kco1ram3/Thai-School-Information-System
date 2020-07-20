@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Edit Classroom";
+}
+
+@model iSISModel.ClassLevelSection
+<div>
+    ชื่อโรงเรียน:
+    @Html.TextBoxFor(Model => Model.School.CurrentName.Title, new { name = "schoolName" })
+</div>
+<div>
+    ระดับชั้น:
+    @Html.TextBoxFor(Model => Model.ClassLevel.Title, new { name = "classLevel" })
+</div>
+@using (Html.BeginForm())
+{
+    @Html.Partial("EditFormClassroomPartial", Model)
+}

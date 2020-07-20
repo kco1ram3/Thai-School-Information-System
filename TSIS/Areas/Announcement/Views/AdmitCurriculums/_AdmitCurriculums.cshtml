@@ -1,0 +1,454 @@
+﻿@using System.Web.UI.WebControls
+@using TSIS.Models;
+@using TSIS.Classes
+@model IList<iSISModel.AdmitCurriculum>
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "detailGridViewAdmitCurriculum_" + ViewData["AdmissionID"];
+        settings.KeyFieldName = "ID";
+        settings.SettingsDetail.MasterGridName = "gridviewAdmissions";
+        settings.ClientSideEvents.BeginCallback = "GetGridDetailInstance";
+        settings.CallbackRouteValues = new { Controller = "AdmitCurriculums", Action = "AdmitCurriculumsDetail", AdmissionID = ViewData["AdmissionID"], EditMode = ViewData["EditMode"] };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "AdmitCurriculums", Action = "AdmitCurriculumPartialAddNew", AdmissionID = ViewData["AdmissionID"], EditMode = ViewData["EditMode"] };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "AdmitCurriculums", Action = "AdmitCurriculumPartialUpdate", AdmissionID = ViewData["AdmissionID"], EditMode = ViewData["EditMode"] };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "AdmitCurriculums", Action = "AdmitCurriculumPartialDelete", AdmissionID = ViewData["AdmissionID"], EditMode = ViewData["EditMode"] };
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.SettingsPopup.EditForm.Width = 600;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.Middle;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowFooter = false;
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.SettingsText.PopupEditFormCaption = ModelsRepository.GetLabel("AdmitCurriculum");
+
+        bool EditMode = (bool)ViewData["EditMode"];
+        settings.CommandColumn.Width = 120;
+        settings.CommandColumn.Visible = EditMode;
+        settings.CommandColumn.ShowEditButton = EditMode;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+
+        if (EditMode)
+        {
+            settings.CommandColumn.SetHeaderTemplateContent(c =>
+            {
+                Html.DevExpress().HyperLink(hyperLinkSettings =>
+                {
+                    hyperLinkSettings.Name = "link_" + settings.Name;
+                    hyperLinkSettings.Properties.Text = ModelsRepository.GetLabel("New");
+                    hyperLinkSettings.NavigateUrl = "javascript:void(0);";
+                    hyperLinkSettings.Properties.ClientSideEvents.Click = string.Format(@"
+                        function(s, e)
+                        {{
+                            {0}.AddNewRow();
+                        }}
+                        ", settings.Name);
+                }).Render();
+            });
+        }
+        //settings.SettingsCommandButton.NewButton.Text = ModelsRepository.GetLabel("New");
+        //settings.SettingsCommandButton.DeleteButton.Text = ModelsRepository.GetLabel("Delete");
+        settings.SettingsCommandButton.EditButton.Text = ModelsRepository.GetLabel("Edit");
+        settings.SettingsCommandButton.UpdateButton.Text = ModelsRepository.GetLabel("Save");
+        settings.SettingsCommandButton.CancelButton.Text = ModelsRepository.GetLabel("Cancel");
+        settings.SettingsText.ConfirmDelete = ModelsRepository.GetLabel("ConfirmDelete");
+        settings.SettingsText.EmptyDataRow = ModelsRepository.GetLabel("NoDataToDisplay");
+
+        //settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+        settings.SettingsPager.FirstPageButton.Visible = true;
+        settings.SettingsPager.LastPageButton.Visible = true;
+        settings.SettingsPager.PageSize = 20;
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "20", "40", "100" };
+
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<div align=\"center\">");
+                var Title = string.Empty;
+                if (DataBinder.Eval(c.DataItem, "AdmittedClassLevel.Title") != null)
+                    ViewContext.Writer.Write(((iSISModel.MultilingualString)DataBinder.Eval(c.DataItem, "AdmittedClassLevel.Title")).GetValue(CookieManager.GetCookie(HttpContext.Current, CookieManager.CookieName.CurrentLanguage)));
+                ViewContext.Writer.Write("</div>");
+            });
+            column.Caption = ModelsRepository.GetLabel("AdmittedClassLevel");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ForLocalPeopleOnly";
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            column.Caption = ModelsRepository.GetLabel("ForLocalPeopleOnly");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<div align=\"center\">");
+                ViewContext.Writer.Write(DataBinder.Eval(c.DataItem, "Capacity"));
+                ViewContext.Writer.Write("</div>");
+            });
+            column.Caption = ModelsRepository.GetLabel("Capacity");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+        settings.Columns.AddBand(masterBand =>
+        {
+            masterBand.Caption = ModelsRepository.GetLabel("DrawingPeriod");
+            masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "DrawingPeriod.From";
+                column.Caption = ModelsRepository.GetLabel("StartDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "DrawingPeriod.To";
+                column.Caption = ModelsRepository.GetLabel("EndDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+        });
+        settings.Columns.AddBand(masterBand =>
+        {
+            masterBand.Caption = ModelsRepository.GetLabel("RegistrationPeriod");
+            masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "RegistrationPeriod.From";
+                column.Caption = ModelsRepository.GetLabel("StartDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "RegistrationPeriod.To";
+                column.Caption = ModelsRepository.GetLabel("EndDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+        });
+        settings.Columns.AddBand(masterBand =>
+        {
+            masterBand.Caption = ModelsRepository.GetLabel("TestPeriod");
+            masterBand.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "TestPeriod.From";
+                column.Caption = ModelsRepository.GetLabel("StartDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+            masterBand.Columns.Add(column =>
+            {
+                column.FieldName = "TestPeriod.To";
+                column.Caption = ModelsRepository.GetLabel("EndDate");
+                column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+                column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+                dateEditProperties.DisplayFormatInEditMode = true;
+                dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+            });
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TestResultPublishedDate";
+            column.Caption = ModelsRepository.GetLabel("TestResultPublishedDate");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+
+            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+            var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+            dateEditProperties.DisplayFormatInEditMode = true;
+            dateEditProperties.DisplayFormatString = "dd/MM/yyyy";
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ApplicationFormURL";
+            column.Caption = ModelsRepository.GetLabel("ApplicationFormURL");
+            column.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        });
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>");
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 5px; width:150px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("lableCurriculum", "Curriculum")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+            @Html.DevExpress().ComboBox(
+                comboSettings =>
+                {
+                    comboSettings.Name = "ComboBoxCurriculum";
+                    comboSettings.Width = 250;
+                    comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                    comboSettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                    comboSettings.Properties.TextField = "Text";
+                    comboSettings.Properties.ValueField = "Value";
+                    comboSettings.Properties.ValueType = typeof(Int64);
+                    comboSettings.PreRender = (sender, e) =>
+                    {
+                        if (DataBinder.Eval(c.DataItem, "Curriculum.ID") != null)
+                        {
+                            MVCxComboBox cmb = sender as MVCxComboBox;
+                            cmb.Value = (Int64)DataBinder.Eval(c.DataItem, "Curriculum.ID");
+                        }
+                    };
+                }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.Curriculum>)ViewData["Curriculum"])).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 5px; width:150;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelForLocalPeopleOnly", "ForLocalPeopleOnly")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 5px;'>");
+            @Html.DevExpress().CheckBox(s =>
+            {
+                s.Name = "ForLocalPeopleOnly";
+                s.Properties.ValueType = typeof(bool);
+                s.Properties.ValueUnchecked = 0;
+                s.Properties.ValueChecked = 1;
+            }).Bind(DataBinder.Eval(c.DataItem, "ForLocalPeopleOnly")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 10px; width:150px;'><br />");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("lableTitle", "Title")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 10px;'>");
+            var ShortTitle = DataBinder.Eval(c.DataItem, "Title");
+            if (ShortTitle == null)
+                @Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguages.cshtml", new ViewDataDictionary(this.ViewData) { { "Name", "TextBoxTitle" }, { "Width", 420 } });
+            else
+                @Html.RenderPartial("~/Views/Shared/_TextBoxMultiLanguagesForModel.cshtml", ShortTitle, new ViewDataDictionary(this.ViewData) { { "Name", "TextBoxTitle" }, { "Width", 420 } });
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("</table>");
+
+            ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>");
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px; width:149px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelAdmittedClassLevel", "AdmittedClassLevel")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            @Html.DevExpress().ComboBox(
+                comboSettings =>
+                {
+                    comboSettings.Name = "ComboBoxAdmittedClassLevel";
+                    comboSettings.Width = 120;
+                    comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                    comboSettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                    comboSettings.Properties.TextField = "Text";
+                    comboSettings.Properties.ValueField = "Value";
+                    comboSettings.Properties.ValueType = typeof(Int64);
+                    comboSettings.PreRender = (sender, e) =>
+                    {
+                        if (DataBinder.Eval(c.DataItem, "AdmittedClassLevel.ID") != null)
+                        {
+                            MVCxComboBox cmb = sender as MVCxComboBox;
+                            cmb.Value = (Int64)DataBinder.Eval(c.DataItem, "AdmittedClassLevel.ID");
+                        }
+                    };
+                }).BindList(ModelsRepository.GetComboBoxItems((IList<iSISModel.ClassLevel>)ViewData["ClassLevel"])).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelCapacity", "Capacity")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().SpinEdit(s =>
+            {
+                s.Name = "SpinEditCapacity";
+                s.Width = 120;
+                s.Properties.MinValue = 0;
+                s.Properties.MaxValue = 10000;
+                s.Properties.NumberType = SpinEditNumberType.Integer;
+            }).Bind(DataBinder.Eval(c.DataItem, "Capacity")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px; width:149px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelDrawingPeriodFrom", "DrawingPeriodFrom")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "DrawingPeriodFrom";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "DrawingPeriod.From")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelDrawingPeriodTo", "DrawingPeriodTo")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "DrawingPeriodTo";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "DrawingPeriod.To")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px; width:149px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelRegistrationPeriodFrom", "RegistrationPeriodFrom")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "RegistrationPeriodFrom";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "RegistrationPeriod.From")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelRegistrationPeriodTo", "RegistrationPeriodTo")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "RegistrationPeriodTo";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "RegistrationPeriod.To")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px; width:149px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelTestPeriodFrom", "TestPeriodFrom")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "TestPeriodFrom";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "TestPeriod.From")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelTestPeriodTo", "TestPeriodTo")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "TestPeriodTo";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "TestPeriod.To")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px; width:149px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("labelTestResultPublishedDate", "TestResultPublishedDate")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 15px;'>");
+            Html.DevExpress().DateEdit(s =>
+            {
+                s.Name = "TestResultPublishedDate";
+                s.Width = 120;
+                s.Properties.DisplayFormatString = "dd/MM/yyyy";
+            }).Bind(DataBinder.Eval(c.DataItem, "TestResultPublishedDate")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+
+            ViewContext.Writer.Write("<table class='dxgvEditFormTable_DevEx' style='width: 100%; margin: 0px 10px;'>");
+            ViewContext.Writer.Write("<tr valign='top'>");
+            ViewContext.Writer.Write("<td style='padding-top: 10px; width:150px;'>");
+            @Html.DevExpress().Label(LabelControl.GetSettingsTopic("lableApplicationFormURL", "ApplicationFormURL")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td style='padding-top: 10px;'>");
+            @Html.DevExpress().TextBox(s =>
+            {
+                s.Name = "TextBoxApplicationFormURL";
+                s.Width = 420;
+                s.ShowModelErrors = true;
+                s.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                s.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                s.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                s.Properties.ValidationSettings.RequiredField.ErrorText = ModelsRepository.GetLabel("ErrorApplicationFormURL");
+                s.Properties.ValidationSettings.Display = Display.Dynamic;
+            }).Bind(DataBinder.Eval(c.DataItem, "ApplicationFormURL")).GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("</table>");
+
+            ViewContext.Writer.Write("<div style='float: right; margin: 5px;'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnUpdateAdmitCurriculum";
+                btnSettings.RenderMode = ButtonRenderMode.Link;
+                btnSettings.Text = ModelsRepository.GetLabel("Save");
+                btnSettings.ClientSideEvents.Click = "function(s, e){ gridDetailInstance.UpdateEdit(); }";
+            }).Render();
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancelAdmitCurriculum";
+                btnSettings.RenderMode = ButtonRenderMode.Link;
+                btnSettings.Text = ModelsRepository.GetLabel("Cancel");
+                btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                btnSettings.ClientSideEvents.Click = "function(s, e){ gridDetailInstance.CancelEdit(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        });
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            ASPxEdit editor = (ASPxEdit)e.Editor;
+            editor.ValidationSettings.Display = Display.Dynamic;
+        };
+
+        settings.PreRender = (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            if (g != null)
+                g.ExpandAll();
+        };
+    }).Bind(Model.Where(ac => ac.EffectivePeriod.To > DateTime.Today).ToList()).GetHtml()

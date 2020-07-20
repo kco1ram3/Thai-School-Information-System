@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.AdmissionTest,iSISModel" table="AdmissionTest">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Admission" column="AdmissionID" class="iSISModel.Admission,iSISModel"/>
+    <property name="SeqNo" />
+    <!--<many-to-one name="Description" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Title" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>-->
+
+    <many-to-one name="Description" cascade="save-update, delete" column="DescriptionMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="Title" cascade="save-update, delete" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <component name="TestPeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="TestFrom"/>
+      <property name="To" column="TestTo"/>
+    </component>
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="iSISModel.DesiredOutcome,iSISModel" table="DesiredOutcome" discriminator-value="0">
+
+    <!-- Primary key-->
+    <id name="ID" type="Int64" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <discriminator column="Discriminator"/>
+    <property name="Code" />
+    <many-to-one name="Title" column="TitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="ShortTitle" column="ShortTitleMLSID" class="iSISModel.MultilingualString,iSISModel"/>
+    <many-to-one name="CurriculumFramework" column="CurriculumFrameworkID" class="iSISModel.CurriculumFramework,iSISModel"/>
+    <many-to-one name="Parent" column="ParentID" class="iSISModel.OutcomeCategory,iSISModel"/>
+    <component name="EffectivePeriod" class="iSISModel.DateTimeRange, iSISModel">
+      <property name="From" column="EffectiveFrom"/>
+      <property name="To" column="EffectiveTo"/>
+    </component>
+
+    <subclass name="iSISModel.OutcomeCategory,iSISModel" discriminator-value="1">
+      
+      <many-to-one name="DefaultGradingSystem" column="DefaultGradingSystemID" class="iSISModel.DiscreteGradingSystem,iSISModel" fetch="join"/>
+      <bag name="Courses" table="Course" >
+        <key column="OutcomeCategoryID"/>
+        <one-to-many class="iSISModel.Course,iSISModel"/>
+      </bag>
+
+      <bag name="DesiredOutcomes" table="DesiredOutcome" >
+        <key column="ParentID"/>
+        <one-to-many class="iSISModel.DesiredOutcome,iSISModel"/>
+      </bag>
+    </subclass>
+
+    <subclass name="iSISModel.ClassLevelOutcome,iSISModel" discriminator-value="2">
+      <many-to-one name="ClassLevel" column="ClassLevelID" class="iSISModel.ClassLevel,iSISModel"/>
+
+      <bag name="PerformanceIndicators" table="PerformanceIndicator" >
+        <key column="ClassLevelOutcomeID"/>
+        <one-to-many class="iSISModel.PerformanceIndicator,iSISModel"/>
+      </bag>
+    </subclass>
+  </class>
+</hibernate-mapping>
+
+

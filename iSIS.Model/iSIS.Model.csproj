@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{332804AF-7ABD-45FD-B5E9-AE879374E3F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>iSISModel</RootNamespace>
+    <AssemblyName>iSISModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Absence.cs" />
+    <Compile Include="AcademicAchievement.cs" />
+    <Compile Include="AcademicEventParticipation.cs" />
+    <Compile Include="Accounting\AccountCategory.cs" />
+    <Compile Include="Accounting\AccountingPeriod.cs" />
+    <Compile Include="Accounting\AccountingTransaction.cs" />
+    <Compile Include="Accounting\ChartOfAccount.cs" />
+    <Compile Include="Accounting\CreditEntry.cs" />
+    <Compile Include="Accounting\DebitEntry.cs" />
+    <Compile Include="Accounting\JournalEntry.cs" />
+    <Compile Include="Accounting\Ledger.cs" />
+    <Compile Include="Accounting\LedgerAccount.cs" />
+    <Compile Include="AdministrativeRole.cs" />
+    <Compile Include="Admission.cs" />
+    <Compile Include="AdmissionTest.cs" />
+    <Compile Include="AdmissionTestRoom.cs" />
+    <Compile Include="AdmitCurriculum.cs" />
+    <Compile Include="AlternateSchool.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="AuthorizeModule.cs" />
+    <Compile Include="AuthorizeScreen.cs" />
+    <Compile Include="AutomaticGrading.cs" />
+    <Compile Include="Basic Classes\ClassExtensions.cs" />
+    <Compile Include="Basic Classes\Country.cs" />
+    <Compile Include="Basic Classes\Custom Collections\CategorizedTemporalList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\ICategorizedTemporalList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\ITemporal.cs" />
+    <Compile Include="Basic Classes\Custom Collections\ITemporalList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\ITemporallyNonoverlappingList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\PersistentCategorizedTemporalList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\PersistentTemporalList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\PersistentTemporallyNonoverlappingList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\TemporalList.cs" />
+    <Compile Include="Basic Classes\Custom Collections\TemporallyNonoverlappingList.cs" />
+    <Compile Include="Basic Classes\DateTimeRange.cs" />
+    <Compile Include="Basic Classes\GeographicAddress.cs" />
+    <Compile Include="Basic Classes\GeographicRegion.cs" />
+    <Compile Include="Basic Classes\HierarchicalCategory.cs" />
+    <Compile Include="Basic Classes\InterPersonRelation.cs" />
+    <Compile Include="Basic Classes\Lanaguage.cs" />
+    <Compile Include="Basic Classes\Messages.cs" />
+    <Compile Include="Basic Classes\MLSValue.cs" />
+    <Compile Include="Basic Classes\MultilingualString.cs" />
+    <Compile Include="Basic Classes\MultilingualStringBuilder.cs" />
+    <Compile Include="Basic Classes\Organization.cs" />
+    <Compile Include="Basic Classes\OrgName.cs" />
+    <Compile Include="Basic Classes\Party.cs" />
+    <Compile Include="Basic Classes\PartyAddress.cs" />
+    <Compile Include="Basic Classes\PartyIdentity.cs" />
+    <Compile Include="Basic Classes\PartyRelation.cs" />
+    <Compile Include="Basic Classes\PersistentEntity32.cs" />
+    <Compile Include="Basic Classes\PersistentEntity64.cs" />
+    <Compile Include="Basic Classes\PersistentTemporalEntity32.cs" />
+    <Compile Include="Basic Classes\PersistentTemporalEntity64.cs" />
+    <Compile Include="Basic Classes\PersistentTemporalTitledEntity32.cs" />
+    <Compile Include="Basic Classes\PersistentTemporalTitledEntity64.cs" />
+    <Compile Include="Basic Classes\Person.cs" />
+    <Compile Include="Basic Classes\PersonName.cs" />
+    <Compile Include="Basic Classes\PersonOrgRelationship.cs" />
+    <Compile Include="Basic Classes\PersonPersonRelationship.cs" />
+    <Compile Include="Basic Classes\UserAction.cs" />
+    <Compile Include="Building.cs" />
+    <Compile Include="ClassLevel.cs" />
+    <Compile Include="ClassLevelOutcome.cs" />
+    <Compile Include="ClassLevelSection.cs" />
+    <Compile Include="ClassMember.cs" />
+    <Compile Include="Classroom.cs" />
+    <Compile Include="ClassroomStudent.cs" />
+    <Compile Include="ClassroomTeacher.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ContinuousGradingSystem.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="CourseSection.cs" />
+    <Compile Include="CourseSectionAppraisal.cs" />
+    <Compile Include="CourseSectionPerformance.cs" />
+    <Compile Include="CourseSectionStudent.cs" />
+    <Compile Include="CourseSectionTeacher.cs" />
+    <Compile Include="Curriculum.cs" />
+    <Compile Include="CurriculumCourse.cs" />
+    <Compile Include="CurriculumFramework.cs" />
+    <Compile Include="DesiredOutcome.cs" />
+    <Compile Include="DiscreteGrade.cs" />
+    <Compile Include="DiscreteGradingSystem.cs" />
+    <Compile Include="Education.cs" />
+    <Compile Include="ExamSchedule.cs" />
+    <Compile Include="Experience.cs" />
+    <Compile Include="Floor.cs" />
+    <Compile Include="GradingSystem.cs" />
+    <Compile Include="Hash.cs" />
+    <Compile Include="Log\UserSession.cs" />
+    <Compile Include="Log\UserSessionLog.cs" />
+    <Compile Include="MemberRole.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="OutcomeCategory.cs" />
+    <Compile Include="Password.cs" />
+    <Compile Include="PerformanceIndicator.cs" />
+    <Compile Include="PerformanceMeasurement.cs" />
+    <Compile Include="Personalization\PagePersonalization.cs" />
+    <Compile Include="Personalization\UserPersonalization.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="PhysicalRoom.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Punishment.cs" />
+    <Compile Include="Receipt.cs" />
+    <Compile Include="ReceiptItem.cs" />
+    <Compile Include="ReceiptTemplate.cs" />
+    <Compile Include="ReceiptTemplateItem.cs" />
+    <Compile Include="ReceivableItem.cs" />
+    <Compile Include="Register.cs" />
+    <Compile Include="RegisterDetail.cs" />
+    <Compile Include="RegisterPayment.cs" />
+    <Compile Include="RequestPermission.cs" />
+    <Compile Include="Reward.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="RoyalDecoration.cs" />
+    <Compile Include="School.cs" />
+    <Compile Include="SchoolAdministrator.cs" />
+    <Compile Include="SchoolOutcomeCategoryGrading.cs" />
+    <Compile Include="Screen.cs" />
+    <Compile Include="Semester.cs" />
+    <Compile Include="SessionContext.cs" />
+    <Compile Include="Student.cs" />
+    <Compile Include="StudentAcademicYear.cs" />
+    <Compile Include="StudentApplication.cs" />
+    <Compile Include="StudentSemester.cs" />
+    <Compile Include="Teacher.cs" />
+    <Compile Include="TestScore.cs" />
+    <Compile Include="StudentTimeAttendance.cs" />
+    <Compile Include="TimeDuration.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserRole.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Designs\Building.cd" />
+    <None Include="Designs\Accounting.cd" />
+    <None Include="Designs\Admission.cd" />
+    <None Include="Designs\Basic Classes.cd" />
+    <None Include="Designs\Categories.cd" />
+    <None Include="Designs\Curriculum.cd" />
+    <None Include="Designs\CurriculumFramework.cd" />
+    <None Include="Designs\Grading.cd" />
+    <None Include="Designs\MultilingualString.cd" />
+    <None Include="Designs\Party.cd" />
+    <None Include="Designs\Person.cd" />
+    <None Include="Designs\Receipt.cd" />
+    <None Include="Designs\School.cd" />
+    <None Include="Designs\SchoolEmployee.cd" />
+    <None Include="Designs\SchoolOperation.cd" />
+    <None Include="Designs\Security.cd" />
+    <None Include="Designs\Student.cd" />
+    <None Include="Designs\Teaching.cd" />
+    <None Include="Designs\User.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

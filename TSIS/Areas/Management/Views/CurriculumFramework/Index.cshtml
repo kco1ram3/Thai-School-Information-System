@@ -1,0 +1,10 @@
+﻿@using TSIS.Models;
+@model IList<iSISModel.CurriculumFramework>
+
+@{
+    ViewBag.Title = ModelsRepository.GetLabel("CurriculumFramework");
+}
+
+<h2>@ModelsRepository.GetLabel("CurriculumFramework")</h2>
+
+@Html.Partial("_GridViewCurriculumFramework", Model)

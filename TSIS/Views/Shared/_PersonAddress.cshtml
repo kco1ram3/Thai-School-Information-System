@@ -1,0 +1,102 @@
+﻿@using System.Web.UI;
+@using DevExpress.Utils;
+@using DevExpress.Web;
+@using TSIS;
+@using TSIS.Models;
+@using TSIS.Classes
+@model iSISModel.Person
+
+@{
+    IList<iSISModel.HierarchicalCategory> addresses = (IList<iSISModel.HierarchicalCategory>)CacheManager.GetCache(CacheManager.CacheName.AddressCategory); ;
+}
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = ViewBag.PersonInfo + "PersonAddress";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = Unit.Percentage(100);
+
+    var groupPersonInfo = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel(ViewBag.PersonInfo);
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupPersonInfo.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupPersonInfo.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupPersonInfo.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupPersonInfo.Items.Add(studentInfo =>
+    {
+        studentInfo.Caption = "";
+        studentInfo.ShowCaption = DefaultBoolean.False;
+        studentInfo.SetNestedContent(() =>
+        {
+            @Html.RenderPartial("~/Views/Shared/_Person.cshtml",
+                Model,
+                new ViewDataDictionary {
+                    { "TabInfo"         , ViewBag.PersonInfo },
+                    { "BloodGroup"      , ViewData["BloodGroup"] },
+                    { "GenderCategory"  , ViewData["GenderCategory"] },
+                    { "Nationality"     , ViewData["Nationality"] },
+                    { "ReligionCategory", ViewData["ReligionCategory"] },
+                    { "RaceCategory"    , ViewData["RaceCategory"] }
+                }
+            );
+        });
+    });
+
+    var groupPersonAddress = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = @ModelsRepository.GetLabel("Address");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+    });
+    groupPersonAddress.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupPersonAddress.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Left;
+    groupPersonAddress.SettingsItemHelpTexts.Position = HelpTextPosition.Auto;
+
+    groupPersonAddress.Items.Add(personAddress =>
+    {
+        personAddress.Caption = "";
+        personAddress.ShowCaption = DefaultBoolean.False;
+        personAddress.SetNestedContent(() =>
+        {
+
+            if (addresses.Count > 0)
+            {
+                for (var idxCategory = 0; idxCategory < addresses.Count; idxCategory++)
+                {
+                    string AddressCategoryCode = ViewBag.PersonInfo + addresses[idxCategory].Code;
+
+                    iSISModel.PartyAddress PartyAddress = null;
+                    if (Model != null)
+                    {
+                        PartyAddress = Model.Addresses.FirstOrDefault(a => a.Category == addresses[idxCategory] && a.EffectivePeriod.To > DateTime.Today);
+                    }
+
+                    @Html.DevExpress().Label(LabelControl.GetSettingsTopic("label" + AddressCategoryCode, addresses[idxCategory].Code, null, true)).GetHtml();
+
+                    //+++++ Registration Address Form and Current Address Form
+                    @Html.RenderPartial("~/Views/Shared/_Address.cshtml", (PartyAddress != null) ? PartyAddress : new iSISModel.PartyAddress(),
+                                        new ViewDataDictionary(this.ViewData) {
+                                            { "AddressCategoryCode", AddressCategoryCode }
+                                        });
+
+                    //+++++ Registration Address Gridview and Current Address Gridview
+                    //@Html.RenderPartial("~/Views/Shared/_AddressList.cshtml", (PartyAddress != null) ? Model.Addresses : new List<iSISModel.PartyAddress>(),
+                    //                    new ViewDataDictionary(this.ViewData) {
+                    //                        { "EditMode", true },
+                    //                        { "PersonID", (Model != null) ? Model.ID : 0 },
+                    //                        { "AddressCategoryCode", AddressCategoryCode },
+                    //                        { "ReturnToAction", "../Student/NewStudent/Update/" + Model.ID.ToString() }
+                    //                    });
+
+                    ViewContext.Writer.Write("<br /><br />");
+                }
+            }
+        });
+    });
+}).GetHtml()

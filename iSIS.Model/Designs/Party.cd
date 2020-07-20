@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Student&#xD;&#xA;Employment (ราชการ)&#xD;&#xA;	ครูบรรจุ&#xD;&#xA;	ครูพิเศษ&#xD;&#xA;	ครูอัตราจ้าง&#xD;&#xA;	ลูกจ้างประจำ&#xD;&#xA;	ลูกจ้างชั่วคราว&#xD;&#xA;	พนักงาน&#xD;&#xA;Position&#xD;&#xA;	ผู้อำนวยการโรงเรียน&#xD;&#xA;	รองผู้อำนวยการฝ่ายบริหาร วิชาการ กิจการนักเรียน&#xD;&#xA;	หัวหน้ากลุ่มสาระ&#xD;&#xA;Certified&#xD;&#xA;	ใบอนุญาตขับขี่รถยนต์สาธารณะ&#xD;&#xA;	ใบอนุญาตประกอบวิชาชีพครู&#xD;&#xA;	ใบอนุญาตประกอบวิชาชีพผู้บริหารสถานศึกษา&#xD;&#xA;	ใบอนุญาตประกอบโรคศิลปะ">
+    <Position X="2.131" Y="5.536" Height="4.213" Width="3.95" />
+  </Comment>
+  <Class Name="iSISModel.Organization" Collapsed="true">
+    <Position X="4.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAgCAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIgAACIA=</HashCode>
+      <FileName>Organzation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentName" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.Person" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>REAEgAAAIAAEACCAAEAAAARQAEIAAAAAAQABMgAAAJA=</HashCode>
+      <FileName>Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Party" Collapsed="true">
+    <Position X="7" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIBAAACAQAEAAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Basic Classes\Party.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Identities" />
+      <Property Name="Addresses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="iSISModel.OrgName" Collapsed="true">
+    <Position X="0.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>OrgName.cs</FileName>
+      <NewMemberFileName>PersonName.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.PersonPersonRelationship" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="2" />
+    <AssociationLine Name="FirstPerson" Type="iSISModel.Person" FixedToPoint="true">
+      <Path>
+        <Point X="10.562" Y="4.75" />
+        <Point X="10.562" Y="4.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAABAAAAAAAQAAAAAAAAACAA=</HashCode>
+      <FileName>PersonPersonRelationship.cs</FileName>
+      <NewMemberFileName>PersonOrgRelationship.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+      <Property Name="FirstPerson" />
+      <Property Name="SecondPerson" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.PersonOrgRelationship" Collapsed="true">
+    <Position X="7" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAAKAA=</HashCode>
+      <FileName>PersonOrgRelationship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organization" />
+      <Property Name="Person" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="iSISModel.GeographicAddress" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAgAAAAAAIAAAAAAAAA4BAAAAAACAAgAAAAA=</HashCode>
+      <FileName>Basic Classes\GeographicAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.PartyIdentity" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Basic Classes\PartyIdentity.cs</FileName>
+      <NewMemberFileName>Basic Classes\PartyAddress.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="iSISModel.HierarchicalCategory" Collapsed="true">
+    <Position X="10.25" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgACgAgAAEQAIABAACAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>HierarchicalCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Student" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAEEEBAAABEQBgACQAIAAAAAAAAQAAgAAAQQAA=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.Teacher" Collapsed="true">
+    <Position X="8.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAEAAAAABABAAAABAAAAAAABAAAQAQAAAAAABA=</HashCode>
+      <FileName>Teacher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.School" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEAQAAAYAJAAGACgAAAAMAAEADACDAAAAA=</HashCode>
+      <FileName>School.cs</FileName>
+      <NewMemberFileName>Basic Classes\Organzation.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.AdministrativeRole" Collapsed="true">
+    <Position X="7" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AdministrativeRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iSISModel.PartyAddress" Collapsed="true">
+    <Position X="4.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAACAA=</HashCode>
+      <FileName>Basic Classes\PartyAddress.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

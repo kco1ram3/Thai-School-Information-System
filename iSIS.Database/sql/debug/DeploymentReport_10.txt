@@ -1,0 +1,82 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Admission]
+       [dbo].[Configuration]
+       [dbo].[Country]
+       [dbo].[Curriculum]
+       [dbo].[CurriculumFramework]
+       [dbo].[DesiredOutcome]
+       [dbo].[GradingSystem]
+       [dbo].[MLSValue]
+       [dbo].[StudentApplication]
+       [dbo].[Teacher]
+       [dbo].[Language]
+       [dbo].[PerformanceIndicator]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The column [dbo].[Admission].[RegistrationDate] is being dropped, data loss could occur.
+       The column [dbo].[Configuration].[ParentCategoryID] is being dropped, data loss could occur.
+       The column [dbo].[Configuration].[PersonRelationshipCategoryRootID] is being dropped, data loss could occur.
+       The column [dbo].[Configuration].[EffectiveFrom] on table [dbo].[Configuration] must be added, but the column has no
+         default value and does not allow NULL values. If the table contains data, the ALTER script will not work. To avoid this
+         issue you must either: add a default value to the column, mark it as allowing NULL values, or enable the generation of
+         smart-defaults as a deployment option.
+       The type for column DefaultLanguageCode in table [dbo].[Configuration] is currently  NVARCHAR (30) NULL but is being
+         changed to  NCHAR (5) NULL. Data loss could occur.
+       The column [dbo].[Curriculum].[SchoolID] is being dropped, data loss could occur.
+       The type for column ID in table [dbo].[DesiredOutcome] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being
+         changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+       The type for column ParentID in table [dbo].[DesiredOutcome] is currently  BIGINT NULL but is being changed to  INT
+         NULL. Data loss could occur.
+       The type for column ID in table [dbo].[GradingSystem] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed
+         to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+       The column [dbo].[Teacher].[Date] is being dropped, data loss could occur.
+       The column [dbo].[Teacher].[ReceiptNo] is being dropped, data loss could occur.
+
+** User actions
+     Rename
+       [dbo].[Teacher].[Date] (Column)
+       [dbo].[Teacher].[ReceiptNo] (Column)
+     Table rebuild
+       [dbo].[Admission] (Table)
+       [dbo].[Configuration] (Table)
+       [dbo].[Country] (Table)
+       [dbo].[Curriculum] (Table)
+       [dbo].[CurriculumFramework] (Table)
+       [dbo].[DesiredOutcome] (Table)
+       [dbo].[GradingSystem] (Table)
+       [dbo].[MLSValue] (Table)
+       [dbo].[StudentApplication] (Table)
+       [dbo].[Teacher] (Table)
+       [dbo].[Language] (Table)
+       [dbo].[PerformanceIndicator] (Table)
+     Create
+       [dbo].[Country].[Country_UIX_Alpha2] (Index)
+       [dbo].[AdmissionTestRoom] (Table)
+       [dbo].[Receipt] (Table)
+       [dbo].[ReceiptItem] (Table)
+       [dbo].[ReceiptTemplate] (Table)
+       [dbo].[ReceiptTemplateItem] (Table)
+       [dbo].[ReceivableItem] (Table)
+       [dbo].[Register] (Table)
+       [dbo].[RegisterDetail] (Table)
+       [dbo].[RegisterPayment] (Table)
+       [dbo].[SchoolAdministrator] (Table)
+
+** Supporting actions
+
+The column [dbo].[Admission].[RegistrationDate] is being dropped, data loss could occur.
+The column [dbo].[Configuration].[ParentCategoryID] is being dropped, data loss could occur.
+The column [dbo].[Configuration].[PersonRelationshipCategoryRootID] is being dropped, data loss could occur.
+The column [dbo].[Configuration].[EffectiveFrom] on table [dbo].[Configuration] must be added, but the column has no default value and does not allow NULL values. If the table contains data, the ALTER script will not work. To avoid this issue you must either: add a default value to the column, mark it as allowing NULL values, or enable the generation of smart-defaults as a deployment option.
+The type for column DefaultLanguageCode in table [dbo].[Configuration] is currently  NVARCHAR (30) NULL but is being changed to  NCHAR (5) NULL. Data loss could occur.
+The column [dbo].[Curriculum].[SchoolID] is being dropped, data loss could occur.
+The type for column ID in table [dbo].[DesiredOutcome] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+The type for column ParentID in table [dbo].[DesiredOutcome] is currently  BIGINT NULL but is being changed to  INT NULL. Data loss could occur.
+The type for column ID in table [dbo].[GradingSystem] is currently  BIGINT IDENTITY (1, 1) NOT NULL but is being changed to  INT IDENTITY (1, 1) NOT NULL. Data loss could occur.
+The column [dbo].[Teacher].[Date] is being dropped, data loss could occur.
+The column [dbo].[Teacher].[ReceiptNo] is being dropped, data loss could occur.
+
